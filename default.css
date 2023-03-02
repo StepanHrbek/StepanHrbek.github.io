@@ -1,0 +1,11 @@
+
+  BODY {BACKGROUND-COLOR: #ffffff; BACKGROUND-POSITION: left top;
+	BACKGROUND-REPEAT: repeat-y; COLOR: #000000; FONT-FAMILY: "Arial";
+	FONT-SIZE: 12pt; FONT-WEIGHT: normal; MARGIN-BOTTOM: 1em; 
+	MARGIN-RIGHT: 2em; MARGIN-TOP: 1em}
+  A:link { color: blue }
+  A:visited { color: maroon }
+  A:active { color: red }
+  H1 { color: red }
+  SPAN { color: blue }
+  DIV.kino { color: blue }

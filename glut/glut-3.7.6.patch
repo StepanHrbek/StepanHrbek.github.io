@@ -1,0 +1,182 @@
+diff -urN glut-3.7.6_orig\include\GL\glut.h glut-3.7.6\include\GL\glut.h
+--- glut-3.7.6_orig\include\GL\glut.h	Wed Dec 13 00:22:52 2000
++++ glut-3.7.6\include\GL\glut.h	Sat Oct 23 11:28:08 2004
+@@ -245,6 +245,10 @@
+ #define GLUT_LEFT_BUTTON		0
+ #define GLUT_MIDDLE_BUTTON		1
+ #define GLUT_RIGHT_BUTTON		2
++#define GLUT_WHEEL_UP			3
++#define GLUT_WHEEL_DOWN			4
++#define GLUT_XBUTTON1			5
++#define GLUT_XBUTTON2			6
+ 
+ /* Mouse button  state. */
+ #define GLUT_DOWN			0
+@@ -494,6 +498,7 @@
+ GLUTAPI void APIENTRY glutInitWindowPosition(int x, int y);
+ GLUTAPI void APIENTRY glutInitWindowSize(int width, int height);
+ GLUTAPI void APIENTRY glutMainLoop(void);
++GLUTAPI void APIENTRY glutMainLoopUpdate(void);
+ 
+ /* GLUT window sub-API. */
+ GLUTAPI int APIENTRY glutCreateWindow(const char *title);
+diff -urN glut-3.7.6_orig\lib\glut\glut_event.c glut-3.7.6/lib/glut/glut_event.c
+--- glut-3.7.6_orig\lib\glut\glut_event.c	Thu Nov 08 01:57:50 2001
++++ glut-3.7.6\lib\glut\glut_event.c	Sat Oct 23 11:28:08 2004
+@@ -1343,7 +1343,7 @@
+ 
+ /* CENTRY */
+ void APIENTRY
+-glutMainLoop(void)
++glutMainLoopUpdate(void)
+ {
+ #if !defined(_WIN32)
+   if (!__glutDisplay)
+@@ -1352,7 +1352,7 @@
+   if (!__glutWindowListSize)
+     __glutFatalUsage(
+       "main loop entered with no windows created.");
+-  for (;;) {
++  {
+     if (__glutWindowWorkList) {
+       GLUTwindow *remainder, *work;
+ 
+@@ -1384,3 +1384,12 @@
+  }
+ }
+ /* ENDCENTRY */
++
++/* CENTRY */
++void APIENTRY
++glutMainLoop(void)
++{
++  for(;;)
++    glutMainLoopUpdate () ;
++}
++/* ENDCENTRY */
+diff -urN glut-3.7.6_orig\lib\glut\glut_init.c glut-3.7.6\lib\glut\glut_init.c
+--- glut-3.7.6_orig\lib\glut\glut_init.c	Thu Nov 08 00:47:14 2001
++++ glut-3.7.6\lib\glut\glut_init.c	Sat Oct 23 11:28:08 2004
+@@ -114,6 +114,15 @@
+   __glutScreenWidth     = GetSystemMetrics(SM_CXSCREEN);
+   __glutScreenHeight    = GetSystemMetrics(SM_CYSCREEN);
+ 
++#ifdef SM_CXVIRTUALSCREEN
++  if (GetSystemMetrics(SM_CXVIRTUALSCREEN) > 0)
++	  __glutScreenWidth  = GetSystemMetrics(SM_CXVIRTUALSCREEN);
++#endif
++#ifdef SM_CYVIRTUALSCREEN
++  if (GetSystemMetrics(SM_CYVIRTUALSCREEN) > 0)
++	  __glutScreenHeight = GetSystemMetrics(SM_CYVIRTUALSCREEN);
++#endif
++
+   /* Set the root window to NULL because windows creates a top-level
+      window when the parent is NULL.  X creates a top-level window
+      when the parent is the root window. */
+diff -urN glut-3.7.6_orig\lib\glut\win32_winproc.c glut-3.7.6\lib\glut\win32_winproc.c
+--- glut-3.7.6_orig\lib\glut\win32_winproc.c	Thu Nov 08 02:02:22 2001
++++ glut-3.7.6\lib\glut\win32_winproc.c	Sat Oct 23 11:28:08 2004
+@@ -1,6 +1,10 @@
+ 
+ /* Copyright (c) Nate Robins, 1997, 2001. */
+-/* portions Copyright (c) Mark Kilgard, 1997, 1998. */
++/* portions Copyright (c) Mark Kilgard, 1997, 1998.    */
++
++/* Modified by Peter Dey to add Mouse Wheel support    *
++ * Modified by Ville Herva to add MultiMonitor support *
++ *   and 5-button Mouse support                        */
+ 
+ /* 
+ This program is freely distributable without licensing fees 
+@@ -23,6 +27,24 @@
+ #include <mmsystem.h>  /* Win32 Multimedia API header. */
+ #endif
+ 
++#ifndef WM_MOUSEWHEEL
++/* Old versions of MSC don't define the message number.
++   Apart from this, there is no need to check if a mouse
++   wheel is implemented either at build or run time. */
++#define WM_MOUSEWHEEL 0x020A
++#endif
++
++#ifndef WM_XBUTTONDOWN
++#define WM_XBUTTONDOWN                  0x020B
++#define WM_XBUTTONUP                    0x020C
++#define WM_XBUTTONDBLCLK                0x020D
++#endif
++
++#ifndef MK_XBUTTON1
++#define MK_XBUTTON1         0x0020
++#define MK_XBUTTON2         0x0040
++#endif
++
+ extern unsigned __glutMenuButton;
+ extern GLUTidleCB __glutIdleFunc;
+ extern GLUTtimer *__glutTimerList;
+@@ -700,6 +722,8 @@
+ 
+ LONG WINAPI __glutWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam )
+ {
++	static short lastXButton = 0;
++
+ 	switch ( msg ) 
+ 	{
+ 	case WM_CREATE:			return HANDLE_WM_CREATE 		( hwnd, wparam, lparam, __glutOnCreate			);
+@@ -755,6 +779,57 @@
+ 	case MM_JOY1BUTTONUP:
+ 		return __glutOnJoystick( hwnd );
+ 		
++	case WM_MOUSEWHEEL:
++		{
++		POINT point;
++		int   scroll;
++
++		/* Treat the scroll wheel as a short vertical drag with
++		   the middle button down. (From current mouse location,
++		   in case the app is tracking GUI widgets.) Good for
++		   3D zooming in/out as seen in the game Homeworld. */
++		scroll = (signed short)HIWORD(wparam);
++		GetCursorPos(&point);
++		ScreenToClient(hwnd, &point);
++		/* Wheel value is a signed int between (usually) -3 to +3,
++		   multiplied by 120 for reasons known only to Microsoft.
++		   Positive value is "up". */
++		scroll = - (scroll / 120);
++		/* Now we've got the raw value, translate it into a mouse
++		   distance that the application won't ignore as jitter.
++		   10 pixels per step works well for me. Smarter code would
++		   factor in the system preference and/or do some kind of
++		   speedup on consecutive wheel rotates. */
++		if (scroll < 0)
++		  __glutOnButtonUp(hwnd, point.x, point.y, GLUT_WHEEL_UP);
++		else
++		  __glutOnButtonUp(hwnd, point.x, point.y, GLUT_WHEEL_DOWN);
++
++		return TRUE;
++		}
++		break;
++
++	case WM_XBUTTONDOWN: 	
++		{
++		POINT point;
++		lastXButton = LOWORD(wparam);
++		GetCursorPos(&point);
++		ScreenToClient(hwnd, &point);
++		__glutOnButtonDn(hwnd, point.x, point.y, 
++			lastXButton & MK_XBUTTON1 ? GLUT_XBUTTON1 : GLUT_XBUTTON2);
++		return TRUE;
++		}
++	case WM_XBUTTONUP: 	
++		{
++		// We get MK_XBUTTON1/MK_XBUTTON2 in wparam only on WM_XBUTTONDOWN
++		POINT point;
++		GetCursorPos(&point);
++		ScreenToClient(hwnd, &point);
++		__glutOnButtonUp(hwnd, point.x, point.y, 
++			lastXButton & MK_XBUTTON1 ? GLUT_XBUTTON1 : GLUT_XBUTTON2);
++		return TRUE;
++		}
++
+ 	default:
+ 		break;
+ 	}

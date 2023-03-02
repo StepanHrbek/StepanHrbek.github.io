@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=iso-8859-2">
+ <TITLE>Umělá inteligence srovnatelná s mozkem a další otázky</TITLE>
+ <LINK rel="stylesheet" type="text/css" href="../default.css">
+</HEAD>
+<BODY background="../teal.jpg" style="margin-left:140px">
+
+<h3>Jde na Von Neumannovském počítači napsat umělá inteligence plně
+ srovnatelná s lidským mozkem nebo mezi nimi vždy zůstane jistý rozdíl?
+ a další otázky.</h3>
+<p>
+ Mozek je v nějakém stavu, který se v čase spojitě mění.
+ (Mění se dokonce Lipschitzovsky = ne příliš rychle, rychlost změn
+  je omezena konstantou L. To se týká i změn na vstupech, třeba při
+  náhlém rozsvícení budeme předpokládat, že naše analogové smysly
+  náraz zmírní do "plynulého" rozsvícení.)
+ Chceme napsat program, který by vyjadřoval stav mozku měnící se v čase,
+ ale musíme přitom dvakrát kvantizovat (něco spojité s nekonečně
+ mnoha stavy zredukovat na diskrétní s konečně mnoha stavy).
+ Za prvé jde o stavy mozku, kterých je nekonečně mnoho, ale
+ paměť počítače jich umí vyjádřit jen konečné množství.
+ Za druhé jde o čas, počítač nemění svůj stav plynule, ale
+ skokově, po taktech procesoru.
+<p>
+ Naším cílem zřejmě bude aspoň dostatečné přiblížení.
+ Jinak řečeno, abychom pro danou maximální "odchylku" dokázali
+ napsat konečný program, který se do ní vejde.
+ Snažíme se jednodušším systémem přiblížit systému na kvalitativně
+ vyšší úrovni.
+<p>
+ Program s konečným počtem diskrétních stavů vyjadřuje stav mozku
+ s malými odchylkami danými právě tím konečným počtem.
+ Bez újmy na obecnosti budeme předpokládat, že se program
+ po 1 taktu dostane do nejbližšího diskrétního stavu k tomu stavu,
+ do kterého by se dostal mozek.
+ Tímto zaokrouhlováním vzniká chyba, která se časem kumuluje,
+ program se vyvíjí jiným směrem než mozek.
+<p>
+ Jsme schopni konstantou K shora omezit odchylku po jednom taktu?
+ Díky Lipschitzovskosti změn stavu mozku ano, K=L.
+ Navíc zjemňováním dělení kontinua stavů mozku
+ na diskrétní stavy programu můžeme konstantu K libovolne snížit.
+<p>
+ Jsme schopni nějakou funkcí F(n) shora omezit odchylku po n taktech?
+ Ano, F(n)=(2*L+K)*n&lt=3*L*n, mozek a program se mohou rozjet úplně
+ jiným směrem, ale v každém taktu ujedou díky Lipschitzovskosti
+ maximálne 2*L + zaokrouhlovací chyba K.
+ To není moc hezký výsledek. Konstantu K můžeme libovolně snížit
+ přidáním nových stavů, ale L je dána přírodou.
+ Pouze pro malá n - dokud se program výrazně neodchýlí od mozku -
+ by mělo být F(n) zhruba K*n, tedy pro dané n libovolně nízké.
+<p>
+ Můžeme být s takovým výsledkem spokojeni, zaručuje dostatečně věrnou
+ simulaci mozku? To je věc interpretace. Že se počítač po daném čase
+ neodchýlí od mozku o více než danou mez víme jen s určitou pravděpodobností.
+ Jsme tedy vzdáleni od dokonalosti ve třech směrech (omezená délka simulace,
+ povolená odchylka na konci simulace, pravděpodobnost překročení odchylky),
+ ale všechny vzdálenosti můžeme libovolně zmenšovat upgradováním počítače.
+<p>
+ Nějaký závěr? Na VN počítači jde napsat program projevující se jako
+ myslící člověk nebo i mnohem dokonaleji.
+ Jediný kvalitativní rozdíl je v použitém hardwaru, počítačový
+ je primitivnější.
+ Kdyby k tomu byl důvod, byl by tento rozdíl setřen
+ - na analogových počítačích.
+ Ale k tomu asi nedojde, protože pro naši společnost jsou rozhodující
+ jiné aspekty, např. inteligence programu,
+ a tady lze snáze dosáhnout výsledků s VN počítačem.
+<p>
+ A co etika? Mnozí z nás dělají tlustou čáru mezi lidmi
+ a vším ostatním. Správně bychom si měli uvědomit, že tu vedle
+ sebe stojí dvě spojité linie, analogová (od nejjednodušších organismů
+ až po člověka) a digitální (od nejjednodušších kalkulaček až po
+ budoucí hyperinteligentní počítače). Určitě nelze hledat ostrou
+ hranici uvnitř linie, v čem je člověk lepší než opice?
+ Jaký je ale vzájemný vztah obou linií? Jediné co si k tomu troufám
+ říct je, že analogová je obecnější a přirozeným vývojem dosáhla
+ slušných výsledků, zatímco digitální je vlastně speciálním případem
+ analogové, její vývoj začal teprve nedávno a je strmější.
+ Jako tvůrci digitální linie ji budeme zpočátku otročit, bez zábran
+ zabíjet programy evidentně nám intelektuálně nadřazené apod.
+ Ale věřím, že lidé budou tak rozumní, že jednou práva programů dobrovolně
+ uznají.
+<p>
+ Může si program uvědomit nespojitost svého běhu v kontrastu se spojitostí
+ běhu světa? Spojitost běhu světa vůbec nemůže zachytit, protože vstupy
+ zpracovává pouze v dikrétních časových okamžicích. Ale může ji teoreticky
+ odvodit. Případné pokusy o nespojitou teorii spojitého světa by nutně
+ selhávaly ze stejného důvodu, z jakého nejde na VN počítači věrně simulovat
+ lidský mozek (pouze přiblížit, viz. předchozí analýza). Zdá se tedy, že
+ program by měl být schopen uvědomit si na základě svých vstupů z vnějšího
+ světa své postavení v něm a jakými zákony se ten svět řídí. (Pomocí
+ Occamovy břitvy vybere nejjednodušší teorii přesně vysvětlující
+ všechny vstupy, které zvenčí dostává. Pokud nebude mít tolik vstupů co my,
+ možná vytvoří z našeho pohledu nesprávnou teorii.)
+ A teď se vás zeptám vás, kteří se zajímáte o fyziku hlouběji než já:
+ Nepodobá se snaha fyziků o popis naší reality marnému nikdy nekončícímu
+ přibližování? Funguje náš svět opravdu spojitě? (Co o tom říká kvantová
+ fyzika?)
+</blockquote>
+</a>
+
+<p>
+<a href="../dee">Dee</a>
+</BODY>
+</HTML>

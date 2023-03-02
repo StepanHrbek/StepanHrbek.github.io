@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"
+ "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML>
+<HEAD>
+ <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=iso-8859-2">
+ <TITLE>Realtime radiosity</TITLE>
+</HEAD>
+<BODY>
+
+ <h2>Novinky, plány</h2>
+
+  <h3>10.6.2003</h3>
+   <li>Vydána zrekonstruovaná CD (originály byly pokozeny nevhodným uchycením
+       k deskám displomky).
+   <li>Obsahují navíc demo Realtime Radiosity 3: Monte Carlo.
+   <li>Aktualizovaný RR engine pracuje odděleně s r/g/b komponentami.
+
+  <h3>13.12.2000</h3>
+   <li>Publikováno
+       <a href="rr.pdf">Interaktivní
+       globální osvětlení v komplexních scénách</a> (PDF, 3.5MB)
+       shrnující dosavadní výsledky. Práci doprovázejí kompletní
+       zdrojáky.
+   <li>V lednu budu o radiositě v dynamických scénách referovat 
+       na speciálním semináři o počítačové grafice 
+       (úterý 9.1, 15.40, Malostranské náměstí, Matfyz, třetí patro, S4).
+   <li>29.1. nebo 30.1. budu práci (diplomku) obhajovat.
+
+  <h3>24.10.2000</h3>
+   <li>Pořídil jsem si 3D akcelerátor... stálo hodně času vyřešit všechny
+       problémy spojené s jeho rozchozením, ale konečně to jakžtakž
+       funguje a můžu se vrátit ke skutečné radiozitě.
+   <li>Trochu mě zaskočilo, že diplomku musím odevzdat už 15.prosince
+       a ne nějaký čas před obhajobou v únoru. Počítám tedy, že k ní místo 
+       úplné implementace toho o čem bude řeč přiložím jen nějaké prográmky 
+       demonstrující, že to jde a zbytek dodělám později.
+   <li>Jinak zatím mám ostré stíny z bodového zdroje světla
+       a začínám z nich skládáním vyrábět měkké stíny.
+       Skládání obrazů pomocí potenciálně přesnějšího accumulation 
+       bufferu moje karta neumí 
+       hardwarově, takže jako alternativu používám blending.
+       Úkoly jsou: 
+       spočítat osvětlení od primárních zářičů (hned jak bude přinesu ukázku),
+       eliminovat řadu artefaktů a chyb v obraze, 
+       prosté primární osvětlení rozšírit na globální, 
+       optimalizovat, optimalizovat, optimalizovat...       
+
+  <h3>16.9.2000</h3>
+   <li>Implementoval jsem inkrementální výpočet v dynamických scénách 
+       zhruba v podobě
+       jak jsem ho popsal na začátku práce před 10 měsíci
+       (střílím vhodné množství paprsků z nejvýznamnějších
+       statických zářičů na pro ně nejvýznamnější dynamické objekty). 
+       Při zastavení dynamického objektu se kvalita zvyšuje.
+       Výsledky jsou podle očekávání dobré jen ve speciálních scénách
+       (jednoduché scény s nesvítivými dynamickými objekty),
+       v nich by ale byly stejně dobré nebo lepší analytické metody.
+       Od teď se zaměřuji zejména na zrychlení výpočtu nad statickou
+       scénou, kde vidím ještě velkou rezervu (viz níže),
+       inkrementální updaty přitom jako menší přínos můžu teoreticky
+       rozebrat, ale implementovat je už pravděpodobně nebudu.
+   <li>Zásadní zvýšení kvality a minimalizaci
+       vlivu velikosti scény na rychlost by mělo přinést vhodné využití
+       3D akcelerátorů, momentálně zkoumám metodu
+       založenou na alpha testu a accumulation bufferu v OpenGL.
+       Je možné, že podobnou techniku už někdo použil,
+       zatím jsem ale viděl jen o třídu pomalejší řešení.
+   <li>Scény načítá ReDox z 3DS včetně drah objektů,
+       materiály z MGF, pracuje na načítání celých
+       MGF scén. Struktura použitá při výpočtu průsečíku paprsku
+       se scénou zůstává BSP strom. Výpočet osvětlení
+       probíhá nad trojúhelníky původní scény, trojúhelníky
+       nasekané BSP stromem už nikde nefigurují. 
+   <li>ReDoxův zobrazovací subsystém nyní podporuje barevné difuzní
+       plochy a 1 zrcadlo ve scéně, DOS/Windows/Linux, 
+       vše bez 3D akcelerátoru. Plánované akcelerované 
+       řešení bude vyžadovat OpenGL a zobrazovat i primární odlesky.
+   <li>Můj současný plán na posledních několik měsíců před obhajobou 
+       je implementovat akcelerovaný výpočet a
+       pokud to stihnu, vhodně ho zkombinovat se současným střílením
+       paprsků (pokud ne, pouze spojení popsat).
+       Dynamika bude pravděpodobně realizována pouze jako sled 
+       statických scén.
+       Částečné zrychlení implementací inkrementálních updatů 
+       akcelerovaného řešení už je mimo mé časové možnosti.    
+
+  <h3>7.6.2000</h3>
+   <li>Za zmínku stojí nasazení vyvíjeného enginu v praxi
+       - poprvé byl použit k předpočítání statického osvětlení v ReDoxově
+       demu Pinokijo, na demoparty <a href="http://avalcon.scene.cz">
+       Avalcon 2000</a>.
+       Pinokijo ve verzích pro DOS/Windows/Linux je ke stažení na
+       <a href="http://movsd.scene.cz/">movsd.scene.cz</a>.
+       Realtime zobrazení dynamické scény bude poprvé vidět
+       v demu na demoparty <a href="http://www.fiasko.cz">Fiasko 2000</a>
+       v srpnu.
+   <li>Ukázalo se, že nepravidelné rozsekání některých polygonů
+       při generování BSP stromu je přes všechnu snahu při interpolaci
+       příliš vidět (výpočty radiozity probíhají nad nasekanými polygony).
+       Bude nutné počítat nad původní scénou,
+       k tomu je třeba značných změn... a pravděpodobně rovnou
+       volba a implementace jiné datové struktury pro výpočet průsečíku
+       se scénou
+       (podle <a href="http://www.cgg.cvut.cz/GOLEM/bes.html">BES Projectu</a>
+       na mě nejlépe působí KD tree).
+       BSP strom ovšem není použit jen k počítání průsečíku,
+       ale i k efektivnímu softwarovému renderingu.
+       Načítání scén z jiných formátů je pak bohužel nutné odložit
+       až za vyřešení všech těchto problémů.
+   <li>S ReDoxem prioritně pracujeme na dynamických objektech, viz slíbená
+       prezentace na Fiasku 2000.
+
+  <h3>12.4.2000</h3>
+   <li>cpoc udělal podporu OpenGL (cpoc - viz. <a href="#autori">Autoři</a>).
+   <li>Přepsal jsem hledání průsečíku se scénou (průchod BSP stromem,
+       průsečík s trojúhelníkem), program je teď ve scéně s 66 trojúhelníky
+       2x rychlejší, na větších scénách ještě víc.
+   <li>Snížil jsem spotřebu paměti postupně až na pětinu a přepsal některé
+       rutiny z O(n^2) na O(n), všechno připravuji na velké scény (pro začátek
+       sto tisíc trojúhelníků).
+   <li>Do popředí todo listu se dostalo rozšířit/změnit vstupní formát,
+       aby šlo načítat známé scény a porovnat na nich
+       kvality našeho a konkurenčních programů.
+
+  <h3>22.3.2000</h3>
+   <li>INTERPOLACE:
+       Uvědomil jsem si, že interpolace není jen trik na zlepšení výsledků,
+       ale neoddělitelná součást problému; nelze ji nechat na
+       libovůli zobrazovacího subsystému.
+       Takže pro zobrazovací subsystém počítám vhodné hodnoty ve vrcholech
+       subtrianglů, ReDox je zobrazuje.
+       Interpolace několikanásobně snižuje náhodný šum ve výsledcích.
+   <li>CLUSTERY:
+       Rozšířil jsem hierarchii plošek o clustery - množiny blízkých,
+       podobně orientovaných trojúhelníků, které mohou přijímat
+       a vysílat energii společně jako jediná ploška (je to efektivnější).
+       Clustery zatím tvoří jen jednu vrstvu, později počítám s hierarchií
+       menších a větších clusterů.
+       Zatím se taky uplatňují jen při střílení energie
+       do scény, později přidám i zachytávání energie ze scény.
+       Použití clusterů typicky dvakrát zrychluje výpočet
+       a dvakrát zvyšuje šum ve výsledcích.
+       Vyšší šum se ovšem eliminuje interpolací, zůstává vyšší rychlost.
+   <li>LIGHTMAPY:
+       Dosud se při překreslování scény na obrazovce zobrazoval každý
+       subtriangl zvlášť. Jejich počet ovšem neustále roste a
+       zobrazování se neúnosně zpomaluje.
+       ReDox proto zavedl pro každý trojúhelník lightmapu - texturu
+       vyjadřující světlost. Lightmapy stačí aktualizovat jen při změně
+       osvětlení ve scéně (typicky po zpřesnění konfiguračních faktorů),
+       což nebývá moc často. Při procházení scénou se pak zobrazují už
+       připravené lightmapy.
+   <li>Zdrojáky měly minule asi 70KB, teď 140KB
+       (ReDoxův generátor BSP stromů jako samostatný program nepočítám).
+   <li>Nahoru jsem přidal galerii a dolů na stránku pro srovnání
+       <a href="#vysledky">nové obrázky staré scény</a>,
+       jinak se opět nic nezměnilo.
+   <li>Aktuální todo list (od nejbližších úkolů až po ty, na které
+       možná nikdy nedojde):<ul>
+       <li>rozsireni scen o dynamicke objekty
+       <li>zobrazeni dynamickych objektu
+       <li>vypocet dynamickych stinu
+       <li>aby moh triangl efektivne odpovedet jestli (a pokud mozno jak moc)
+           je videt, nebo aspon jak to bylo v minulem snimku
+           (aby se negenerovaly dynamicke stiny na plochach ktere nejsou videt)
+       <li>prozkoumat moznost analytickeho vypocet faktoru
+       <li>sireni zasahu nahoru do clusteru
+       <li>hierarchie clusteru
+       <li>prozkoumat faktory plocha-ivertex nebo ivertex-ivertex
+       <li>materialy
+       <li>podpora akceleratoru
+       <li>dvojity texturemapping (lightmapa+textura materialu)
+       <li>zobrazeni lesklych ploch
+       </ul>
+   <li>První dynamické objekty budou nejdřív za měsíc, ale možná
+       taky za dva... a pokud dřív zjistím jak analyticky počítat faktory,
+       dostanou ty přednost.
+
+  <h3>24.1.2000</h3>
+   <li>ReDox udělal procházení scénou a její reprezentaci BSP stromem,
+       průsečík paprsku se scénou je teď tedy v čase O(log(n)).
+   <li>Obraz průběžně zpřesňuji během procházení scénou, není už žádná
+       konstanta určující kvalitu.
+   <li>Podle potřeby dělím i zářiče, dříve svítil vždy celý triangl rovnoměrně.
+   <li>Paměti stačí několikrát méně, dál už to ale zlepšit nepůjde
+       a s dynamickými objekty nároky zase mírně porostou.
+       Mých 32MB se vyčerpá po řádově stovkách sekund
+       neustálého zpřesňování statické scény, kvalita v tu chvíli už je ovšem
+       dobrá.
+   <li>Dolů na stránku jsem přidal pár nových obrázků,
+       jinak se nic nezměnilo.
+   <li>Můj plán pro následující měsíc je implementovat dynamické objekty.
+  <h3>20.12.1999</h3>
+   <li>Přibylo několik kapitol (Výpočet konfiguračních údajů, Zobrazení scény, Výsledky),
+       k dispozici jsou první obrázky ze statické scény.
+   <li>ReDox udělal zobrazování scény, já první funkční výpočet
+       globálního osvětlení v pevně zadané kvalitě.
+   <li>Na nejbližší týdny plánuji průběžné zkvalitňování statické scény,
+       divák se bude moci během počítání procházet scénou.
+       Dosud nešlo během výpočtu nic dělat, nebyly ani vidět mezivýsledky.
+       Dalším krokem bude implementace dynamických objektů tak, jak
+       jsem je popsal v kapitole dynamika scény.
+  <h3>2.12.1999</h3>
+   Vznik této stránky.
+
+</BODY>
+</HTML>

@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>LIGHTSMARK - next generation lighting benchmark</title>
+</head>
+<body style="max-width: 1050px; margin-left: auto; margin-right: auto;">
+
+<table width=100%><tr style="background-color:#cccccc">
+ <th><a href="../index.html">Home</a></th>
+ <th><a href="../sw/index.html">Software</a></th>
+ <th><a href="../texty/index.html">Articles</a></th>
+ <th><a href="http://fotnicek.dee.cz">Photos</a></th>
+</tr></table>
+<p>
+
+<h2>LIGHTSMARK</h2>
+
+ multiplatform benchmark/demo with REALTIME GLOBAL ILLUMINATION and PENUMBRA SHADOWS<br>
+ <br>
+ <a href="1920/Lightsmark1.jpg"><img alt="Lightsmark Realtime Global Illumination" src="336/Lightsmark1.jpg" style="border: 0px solid ; width: 336px; height: 210px;" hspace="2" vspace="2"></a>
+ <a href="1920/Lightsmark2.jpg"><img alt="Lightsmark Realtime Global Illumination" src="336/Lightsmark2.jpg" style="border: 0px solid ; width: 336px; height: 210px;" hspace="2" vspace="2"></a>
+ <a href="1920/Lightsmark3.jpg"><img alt="Lightsmark Penumbra Shadow"              src="336/Lightsmark3.jpg" style="border: 0px solid ; width: 336px; height: 210px;" hspace="2" vspace="2"></a>
+ <br>
+ <i>Realtime global illumination, color bleeding, penumbra shadows, captured at 400fps. Click images for 1920x1200 versions.</i>
+
+
+<br><br><table style="width: 100%;" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>
+
+  <table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
+  Download
+  </td></tr></tbody></table><br>
+
+   Lightsmark 2008 (August 2008, v2.0)
+   <ul>
+   <li>Windows installer (natively 32bit) (28MB): <a href="http://www.gameupdates.org/details.php?id=2786">torrent</a>, <a href="http://lightsmark.com/Lightsmark2008.2.0.msi">standard download</a>
+   <li>Windows+Linux+32bit+64bit archive (33MB): <a href="http://www.gameupdates.org/details.php?id=2787">torrent</a>, <a href="Lightsmark2008.2.0.tar.bz2">standard download</a>
+   <li>in Linux, Lightsmark 2008 may be <a href="http://www.phoronix.com/scan.php?page=article&item=linux_opengl_prime&num=1">run also via Phoronix Test Suite</a>
+   <li><a href="ubershader.fs">fixed shader</a> (save it over your data/shaders/ubershader.fs, solves "Illegal escape sequence.")
+   </ul>
+
+   Lightsmark 2007 (October 2007, v1.3)
+   <ul>
+   <li>Windows installer (29MB):
+   <a href="http://www.gameupdates.org/details.php?id=1864">torrent</a>,
+   <a href="http://lightsmark.com/Lightsmark2007.1.3.msi">standard download</a>
+   </ul>
+
+
+ </td><td>&nbsp;</td><td valign=top>
+
+  <table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
+  Video
+  </td></tr></tbody></table><br>
+
+   Lightsmark <a href="http://youtube.com/watch?v=M0ylvjrbwEc"><b>video</b></a> on YouTube.
+
+ </td></tr></tbody></table>
+
+
+<table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
+Realtime global illumination
+</td></tr></tbody></table><br>
+
+ Natural lighting makes artificial graphics life-like.
+ Computers get faster, but rendering more polygons doesn't add value if
+ lighting looks faked, so insiders know that the next big thing is 
+ proper lighting aka Realtime Global Illumination.
+ Typical workloads in realtime rendering will shift. Lightsmark simulates it.
+ Global Illumination renders often take hours.
+ Is your computer fast enough for realtime?
+ <p>
+ Before Lightsmark, realtime global illumination was limited to small scenes, small resolutions,
+ small speeds, specially crafted scenes with handmade optimizations.
+ Lightsmark breaks all limits at once, running in reasonably sized scene (220000 triangles)
+ in high resolution (1920x1200) at excellent speed (300+fps).
+ Lighting is computed fully automatically
+ in original unmodified scene from 2007 game World of Padman.
+
+
+<br><br><table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
+What's new in 2008
+</td></tr></tbody></table>
+
+<table border="0" cellpadding="2" cellspacing="0"><tr><td>
+<img src="whatsnew2008.jpg">
+</td><td>&nbsp;</td><td>
+<li>faster engine (up to 3x higher fps, so scores are different)
+<li>increased realism (per-pixel indirect shadows and color bleeding)
+<li>Linux support (was Windows only)
+<li>native 64bit support (was 32bit only)
+<li>all GPUs use the same render path (in 2007 they didn't due to driver bug)
+<li>minor rendering fixes (sun's shadow, robot's back faces)
+</td><td>&nbsp;</td><td>
+<img src="whatsnew2008fix.jpg">
+</td></tr></table>
+
+<br><table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
+Frequently asked questions
+</td></tr></tbody></table>
+
+ <br><b>Q:</b> How do I change resolution / run in window in Linux?
+ <br><b>A:</b> Run <code>backend ?</code> to list all options. Example: <code>backend 1024x768 window</code>
+ <br>
+ <br><b>Q:</b> Lightsmark score depends also on CPU, right?
+ <br><b>A:</b> Yes, part of lighting equation is solved by CPU, because it is faster this way. It simulates the best use in real game.
+ <br>
+ <br><b>Q:</b> My CPU/GPU is not 100% busy, why?
+ <br><b>A:</b> It is available for physics, AI. Score stays reliable and represents what real game can achieve.
+ <br>
+ <br><b>Q:</b> Can I run it without music?
+ <br><b>A:</b> Yes, it can be disabled (click image in small window and uncheck music, but for standard score, it's better to turn off speakers.
+ <br>
+ <br><b>Q:</b> XY says that lighting is fake. Is it?
+ <br><b>A:</b> No, it is proper simulation of real light bounces (but with precision lower than in offline renders). Custom scenes may be loaded, there's no space for cheating.
+ <br>
+ <br><b>Q:</b> Is there a way to automate Lightsmark, run it from commandline?
+ <br><b>A:</b> Yes, run <code>backend ?</code> to list all options. For c++ example, see frontend source code <code>src/Lightsmark2008/Lightsmark2008.cpp</code>.
+
+
+<br><br><table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
+Troubleshooting
+</td></tr></tbody></table>
+
+ <br><b>Q:</b> "The application has failed to start because the application configuration is incorrect."
+ <br><b>A:</b> Try to run <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=9b2da534-3e03-4391-8a4d-074b9f2bc1bf&displaylang=en">Microsoft Visual C++ 2008 Redistributable Package (x86)</a> for 32bit version or <a href="http://www.microsoft.com/downloads/details.aspx?familyid=BD2A6171-E2D6-4230-B809-9A8D7548C1B6">x64</a> for 64bit.
+               Please, email me whether it helped, it's not confirmed yet.
+ <br>
+ <br><b>Q:</b> Installation doesn't start.
+ <br><b>A:</b> Opera users report that Opera downloader changes file extension from .msi to .exe. You can fix it by manually changing file extension back from .exe to .msi.
+ <br>
+ <br><b>Q:</b> It renders garbage or it quits immediately. Log shows some error message.
+ <br><b>A:</b> First of all, make sure you have the latest graphics card driver installed, June 2008 or newer, see links below.
+               If it doesn't help, send me description of problem, together with log.txt created in your Lightsmark directory.
+               When installed under Vista, Lightsmark directory is not writeable,
+               so log is in <code>\Users\name\AppData\Lightsmark 2008</code>.
+ <br>
+ <br><b>Q:</b> It says "OpenGL 2.0 capable graphics card is required. Please update your graphics card drivers".
+ <br><b>A:</b> Use any <a href="http://www.realtech-vr.com/glview/">external tool</a> to see what OpenGL version your driver really supports.
+
+
+<br><br><table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
+Requirements (quite small)
+</td></tr></tbody></table>
+
+ <li>Windows XP/Vista (32bit, 64bit) or Linux (32bit, 64bit) <small>[not included but working: Playstation 3/Linux]</small></li>
+ <li><a href="http://opengl.org">OpenGL</a> 2.0 compliant GPU with at least 32 MB RAM
+   <small>
+   <ul>
+   <li><b>NVIDIA GeForce 5200-9800, 260-280</b> (partially GeForce Go, Quadro) with July 2008 or newer <a href="http://www.nvidia.com/Download/index.aspx">drivers!</a></li>
+   <li><b>AMD Radeon 9500-9800, Xnumber, HDnumber</b> (partially Mobility Radeon, FireGL) with July 2008 or newer <a href="http://ati.amd.com/support/driver.html">drivers!</a></li>
+   </ul>
+   </small></li>
+ <li>512 MB RAM</li>
+ <li>100 MB free disk space</li>
+ <li>x86/x64 CPU with SSE</li>
+ <li>installer requires .NET framework, multiplatform archive doesn't</li>
+
+<br><table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
+License
+</td></tr></tbody></table><br>
+
+ <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-Noncommercial</a>
+ <br>Exception: Files from World of Padman under original game's license.
+ <p>
+ Shortly what does it mean: you can use it in product reviews/comparisons,
+ modify source code e.g. to send results to your web,
+ release new versions etc.
+
+
+<br><br><table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
+Author
+</td></tr></tbody></table><br>
+
+<table width=100%><tr><td valign=top>
+ Stepan Hrbek (
+ <a href="mailto:dee%20atsign%20dee.cz">email</a>,
+ <a href="http://dee.cz">web</a> )
+</td><td>
+ <ul>
+ <li>scene is from <a href="http://worldofpadman.com">World of Padman</a> game</li>
+ <li>music is Hey you by <a href="http://www.in-sist.com">IN-SIST</a> band</li>
+ <li>engine is <a href="http://lightsprint.com">Lightsprint SDK</a></li>
+ </ul>
+</td></tr></table>
+
+</body>
+</html>

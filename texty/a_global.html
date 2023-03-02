@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=iso-8859-2">
+ <title>Globalni osvetleni do kazde rodiny</title>
+ <LINK rel="stylesheet" type="text/css" href="../default.css">
+</HEAD>
+<BODY background="../teal.jpg" style="margin-left:140px">
+
+<h1>Globalni osvetleni do kazde rodiny</h1>
+<ul>
+ <li><a href="#formaty">Formaty popisu 3d scen</a> (
+      <a href="#mgf">MGF</a> /
+      <a href="#3ds">3DS</a> /
+      <a href="#rib">RIB</a> /
+      <a href="#pov">POV</a> /
+      <a href="#rad">RAD</a> /
+      <a href="#msdl">MSDL</a> /
+      <a href="#oogl">OOGL</a> /
+      <a href="#blend">Blend</a> /
+      <a href="#dalsi">dalsi</a>)
+ <li><a href="#programy">Renderovaci programy</a> (
+      <a href="#radvis">Radvis</a> /
+      <a href="#bmrt">BMRT</a> /
+      <a href="#radiance">Radiance</a> /
+      <a href="#renderpark">Renderpark</a> /
+      <a href="#blender">Blender</a>)
+ <li><a href="#knihovny">Knihovny</a> (
+      <a href="#opengl">OpenGL</a> /
+      <a href="#maverik">Maverik</a>)
+ <li><a href="#zaver">Zaver</a>
+</ul>
+
+Jednim z nejdulezitejsich problemu pri generovani 3d obrazu na pocitaci
+je vypocet osvetleni a stinu... spatny vypocet obvykle konci nerealne vypadajicim obrazem.
+Vypoctu, ktery bere v potaz plosne zdroje svetla a to nejen primarni (lampa),
+ale i vsechny odrazy svetla od dalsich ploch, rikame vypocet globalniho osvetleni... 
+a tudy vede cesta k normalne (ne umele) vypadajici 3d grafice.
+Mym cilem bude probrat co maji pod Linuxem k dispozici ti kdo chteji vytvaret sceny
+s globalnim osvetlenim a renderovat je i ti kdo chteji globalni osvetleni sami programovat.
+Zaber je to hodne siroky, takze nebudu vrtat moc do hloubky, vic informaci
+je ale vzdy za odkazy na dokumentaci a programy.
+
+<p><hr><a name=formaty><h2>Formaty popisu 3d scen</h2></a>
+
+Pred zacatkem modelovani je dulezite zvolit format... mohlo by se stat ze po roce modelovani
+s jednim programem ten beznadejne zastara a sceny nepujdou zkonvertovat do jineho a
+pak babo rad.
+
+<a name=mgf><h3>MGF</h3></a>
+Textovy format s <a href="http://radsite.lbl.gov/mgf/HOME.html">dokumentaci</a> a <a href="http://radsite.lbl.gov/mgf/HOME.html">parsovaci knihovnou</a>.<br>
+Nacita ho: Rad, Renderpark, <a href="http://dee.cz/rr">RR</a><br>
+Uklada ho: <br>
+Existuje konvertor z: 3DS, Radiance<br>
+Existuje konvertor do: Inventor, VRML, Radiance<br>
+<br>
+MGF na rozdil od temer vsech ostatnich nevznikl jako interni format nejakeho programu
+a neni tak zatizen zadnym balastem,
+byl vytvoren jen pro popis statickych scen a snadnou pouzitelnost... 
+je fyzikalne dostatecne verny (skoro nejvic ze vsech
+zde zminovanych formatu), ale pritom elegantni, jednoduchy, rozsiritelny.
+Obsahuje vsechno co byva potreba pri vypoctu globalniho osvetleni a nic zbytecneho navic...
+nerika nic o texturach (zadne nema), jen o tvarech a charakteru odrazu svetla od povrchu.
+Celkove vzhledem k hromade konvertoru a genialni parsovaci knihovne naprosto cool.
+
+<a name=3ds><h3>3DS</h3></a>
+Binarni format pokud vim bez dokumentace a bez knihovny, ale dost lidi ho tak nejak nacist umi.<br>
+Nacita ho: 3D Studio...<br>
+Uklada ho: 3D Studio...<br>
+Existuje konvertor z: ...<br>
+Existuje konvertor do: MGF, Povray, Vivid, Polyray, raw...<br>
+<br>
+3DS pokud vim (videl jsem jen prehistorickou verzi 3D Studia pro DOS) nema dostatecne 
+dobry popis materialu a jediny program ktery ho vytvari o kterem vim (ono 3D Studio)
+je komercni a ne pro Linux... uvadim ho tedy jen pro uplnost.
+Jako jeden z mala ovsem zahrnuje i trajektorie pohybu, ne jen staticke sceny.
+
+<a name=rib><h3>RIB</h3></a>
+Textovy format s <a href="http://www.pixar.com/products/renderman/toolkit/RISpec/">dokumentaci</a>.<br>
+Nacita ho: BMRT, komercni programy...<br>
+Uklada ho: <br>
+Existuje konvertor z: <br>
+Existuje konvertor do: <br>
+<br>
+RIB je soucast precizni specifikace jakehosi "3d studia" od Pixaru... jednotlive implementace,
+at uz komercni nebo free,
+dostavaji certifikat ze splnuji vsechny pozadavky.
+Jednim z nich je bezvyhradna podpora RIBu.
+Format je to zajimavy jednou velice silnou vlastnosti - chovani paprsku po dopadu
+na povrch je programovatelne v jazyce vypadajicim uplne jako C. Skripty se kompiluji,
+vysledkem je prekvapive rychly kod na to, ze si uzivatel muze naprogramovat uplne
+cokoliv, jakkoliv slozity material, 3d texturu, vsechno.
+Nepekne na me pusobi spousta pomocnych informacich urcujicich jak scenu renderovat,
+jakym algoritmem a s jakymi parametry...
+Podporuje animace, ale implementuje je jako sekvenci nezavislych snimku=scen.
+
+<a name=pov><h3>POV</h3></a>
+Textovy format s <a href="http://www.cica.indiana.edu/graphics/object_specs/POV.format.txt">dokumentaci</a>.<br>
+Nacita ho: Povray<br>
+Uklada ho: <br>
+Existuje konvertor z: <br>
+Existuje konvertor do: <br>
+<br>
+POV opet uvadim jen pro uplnost, protoze je hodne znamy,
+dival jsem se jen zbezne, ze je takovy "programovaci", silny... ale velmi svazany
+s vlastnim programem Povray, opet nerika jen jak vypada scena ale i jakym algoritmem
+ji renderovat.
+
+<a name=rad><h3>RAD</h3></a>
+Textovy format s <a href="http://www.cica.indiana.edu/graphics/object_specs/radiance/radiance.format.html">dokumentaci</a>.<br>
+Nacita ho: Radiance<br>
+Uklada ho: <br>
+Existuje konvertor z: <br>
+Existuje konvertor do: MGF<br>
+<br>
+Format s moznostmi zhruba jako MGF, nekdy mene elegantni, nekdy snad vice,
+navic ma textury, bump mapping, programovatelne funkce. Oproti MGF ale nema parsovaci knihovnu.
+Zaver si netroufam napsat, ja dal prednost formatu MGF a RAD uz jsem tak nezkoumal.
+
+<a name=msdl><h3>MSDL</h3></a>
+Textovy format (Manchester scene description language) s <a href="http://www.cica.indiana.edu/graphics/object_specs/msdl/MSDL.format.html">dokumentaci</a>.<br>
+Nacita ho: <br>
+Uklada ho: <br>
+Existuje konvertor z: <br>
+Existuje konvertor do: <br>
+<br>
+Opet jeden z velmi mala formatu, ktere nevznikly jako interni format nejakeho programu, ale
+byly navrzeny pro popis 3d sceny... MSDL vypada na papire mimoradne schopne,
+povrchy maji vsechny udaje a index lomu dokonce jako 3 floaty, takze vlastne podporuje
+ruzny lom svetla pro ruzne vlnove delky. Stinna stranka je mala podpora,
+nevim o zadnem programu, ba nevim o jedine radce kodu, ktera by s MSDL pocitala.
+
+<a name=oogl><h3>OOGL</h3></a>
+Format s <a href="http://www.cica.indiana.edu/graphics/object_specs/OOGL.format.txt">dokumentaci</a>.<br>
+Nacita ho: <br>
+Uklada ho: <br>
+Existuje konvertor z: <br>
+Existuje konvertor do: <br>
+<br>
+Popis povrchu nezahrnuje index lomu. Obsahuje informace o tom jak zobrazovat (wire/gouraud etc)
+coz je pro nas uplne nevhodne...
+
+<a name=blend><h3>Blend</h3></a>
+Binarni format pokud vim bez dokumentace.<br>
+Nacita ho: Blender<br>
+Uklada ho: Blender<br>
+Existuje konvertor z: <br>
+Existuje konvertor do: <br>
+<br>
+Nevim o zadne moznosti prevodu z a do jinych formatu... Jinak
+je ale Blender kompletni prostredi (3d modelar, renderer...)
+a kdo nepotrebuje nejake specialni featury,
+nebude muset ani nikdy konvertovat. Pro grafika ok, pro programatora dost nesikovne.
+
+<a name=dalsi><h3>Dalsi</h3></a>
+Formaty o kterych jsem slysel v souvislosti s radiositou:<br>
+ .sl  - gcl's scene language<br>
+ .obj - Wavefront .obj file<br>
+ .smf - Garland's .smf<br>
+ .sc  - Heckbert's .sc<br>
+<br>
+Jinak existuje 
+<a href="http://www.cica.indiana.edu/graphics/3D.objects.html">prehled formatu pro 3d sceny</a>,
+ovsem vetsina formatu z nej je nepouzitelna, pouzitelne uz jsem zminil.
+
+
+<p><hr><a name=programy><h2>Renderovaci programy</h2></a>
+
+<a name=radvis><h3>Radvis</h3></a>
+Prostredi s vypoctem a prochazenim cele sceny, zdrojaky, <a href="http://www.cs.cmu.edu/~radiosity/radvis.html">www site</a>.<br>
+Nacita formaty: mgf, sl, obj, smf, sc<br>
+Bugfixy: Potrebuje preportovat ze SGI na Linux...<br>
+Komentar: Kvalita od maximum radiosity guru... balik obsahuje mimo hafo radiosity algoritmu
+ jeste kvalitni vector a graphics library. Preportujte to nekdo...
+
+<a name=radiance><h3>Radiance 3.1.patch12</h3></a>
+Renderer statickych snimku, zdrojaky, <a href="http://radsite.lbl.gov/radiance/HOME.html">www site</a>.<br>
+Nacita format: rad<br>
+Bugfixy: Do makeall pridat neco jako -L/usr/X11R6/lib, smazat -Dqsort=_quicksort,
+ V error.c const sys_errlist, velka hromada dalsich erroru... balik je uz par let stary
+ a knihovny u gcc se mezitim mirne pozmenily, proto je s rozchozenim tolik prace...<br>
+Komentar: Nepouziva zadnou poradnou radiositu, prakticky jen raytracuje.
+
+<a name=renderpark><h3>Renderpark</h3></a>
+Renderer statickych snimku, zdrojaky, <a href="http://www.cs.kuleuven.ac.be/~graphics/RENDERPARK/">www site</a>.<br>
+Nacita format: mgf<br>
+Bugfixy: Zmenit _FLOAT_H_ ve Float.h, koliduje s jinym definem.<br>
+Komentar: Obsahuje vylepsenou mgflibu - 2.0a.
+ Algoritmy vypadaji nadejne, opravdu je to radiosita a na mnoho zpusobu.
+ Vyzaduje motif, pri prvnim volani lesstifu ovsem zcoredumpuje.
+
+<a name=bmrt><h3>BMRT - Blue Moon Rendering Tols</h3></a>
+Renderer statickych snimku, jen binara, <a href="http://www.bmrt.org">www site</a>.<br>
+Nacita format: rib<br>
+Bugfixy: <br>
+Komentar: Vsechno maka, cool featury (viz popis formatu rib).
+
+<a name=blender><h3>Blender</h3></a>
+Kompletni prostredi (modelar, renderer statickych snimku i animaci), jen binara, <a href="http://www.blender.nl">www site</a>.<br>
+Nacita format: blend<br>
+Bugfixy: <br>
+Komentar: Bez dokumentace je clovek ztracen, vestaveno neni
+ snad ani pismenko napovedy, ale s tutorem z webu je to velka pohoda.
+ Ac jsem cetl o radiosite v blenderu, zatim se mi nepoved ani obycejny stin, svetlo sviti
+ skrz objekty i kdyz vsude naklikam 'shadows'.
+ Tolik chvaleny vestaveny ultrafast renderer se mi tedy zatim jevi jen jako extremne pomaly
+ 3d engine s gouraud shadingem.
+
+
+<p><hr><a name=knihovny><h2>Knihovny</h2></a>
+
+Kdo si chce globalni osvetleni pocitat sam, oceni knihovnu, ktera mu pomuze s
+rozhranim jeho programu.
+
+<a name=opengl><h3>OpenGL</h3></a>
+Skoda slov, OpenGL zobrazuje trojuhelniky, coz je obvykle jedine primitivum, ktere je potreba.
+Pri vyvoji enginu tedy staci...ovsem je pak nutne venovat par dni prace podpurnym
+funkcim jako ovladani z klavesnice/mysi - pohyb scenou, pripadne interakce...
+
+<a name=maverik><h3>Maverik</h3></a>
+Moc dobre a britsky vypadajici knihovna,
+zdrojaky, <a href="http://aig.cs.man.ac.uk/systems/Maverik">www site</a>, 
+podpora hroamdy platforem,
+3d primitiva, draw, intersect, windows, navigace, hierarchical bounding boxes,
+avatar a detekce kolizi, timer, input devices (3d mice apod), callbacky na vsechno, teapot...
+Nebyt toho, ze uz mi vsechno beha bez Maverika, zkusil bych zacit s nim.
+
+
+<p><hr><a name=zaver><h2>Zaver</h2></a>
+
+A je to.
+Ani jsme nepotrebovali 3d akcelerator.
+Pri vlastnim vyvoji doporucuji rozhodne pocitat s formatem MGF, 
+zvazit pouziti Maverika (muze se hodit a nemusi)... pokud jde o tvorbu grafiky,
+nebyl referat zdaleka vycerpavajici a doporucuji jeste hledat po webu
+a vyzkouset dalsi programy,
+jinak ale z veci ktere jsem zminoval se muze hodit kompletni prostredi Blenderu...
+skvele featury ma treba BMRT,
+i kdyz tam je zas nutno naeditovat si scenu rucne...
+
+<p><hr>
+Stepan Hrbek, kontakt: dee at dee.cz, <a href="http://dee.cz">homepage</a><br>
+referat byl vypracovan pro seminar Linux
+
+</body>
+</html>

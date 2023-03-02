@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>REALTIME RADIOSITY INTEGRATION</title>
+</head>
+<body>
+
+<table width=100%><tr style="background-color:#cccccc">
+ <th><a href="../index.html">Home</a></th>
+ <th><a href="../sw/index.html">Software</a></th>
+ <th><a href="../texty/index.html">Articles</a></th>
+ <th><a href="http://fotnicek.dee.cz">Photos</a></th>
+</tr></table>
+<p>
+
+<h2>REALTIME RADIOSITY INTEGRATION</h2>
+(February 2006)<br>
+<br>
+<a href="800/shot5.jpg"><img alt="shot 5" src="200/shot5.jpg" style="border: 0px solid ; width: 200px; height: 160px;" hspace="2" vspace="2"></a>
+<a href="800/shot1.jpg"><img alt="shot 1" src="200/shot1.jpg" style="border: 0px solid ; width: 200px; height: 160px;" hspace="2" vspace="2"></a>
+<a href="800/shot2.jpg"><img alt="shot 2" src="200/shot2.jpg" style="border: 0px solid ; width: 200px; height: 160px;" hspace="2" vspace="2"></a>
+<a href="800/shot3.jpg"><img alt="shot 3" src="200/shot3.jpg" style="border: 0px solid ; width: 200px; height: 160px;" hspace="2" vspace="2"></a>
+<a href="800/shot4.jpg"><img alt="shot 4" src="200/shot4.jpg" style="border: 0px solid ; width: 200px; height: 160px;" hspace="2" vspace="2"></a>
+<br>
+Images from realtime radiosity viewer.<br>
+<br>
+<br>
+<table style="width: 100%; font-weight: bold;" border="0"
+ cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);">Introduction</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+  Incorporating global illumination is important step towards realism 
+  in computer graphics.
+  There are many areas where graphics realism is high priority.
+  Yet global illumination is still not as widespread in renderers around us
+  as we could expect.
+  <p>
+  Closer look reveals possible cause,
+  there remain serious usability problems related to typical global illumination
+  software, mainly:<ul>
+  <li>noninteractive nature (set parameters, wait considerable amount of 
+    time, see the result)
+  <li>need to set up many parameters (light and material properties).
+    Global illumination solver inputs are typically incompatible with data available
+    to local illumination renderer, so user is required to enter missing data.
+    Even when automatic conversion of data is possible, it must be updated each time
+    local illumination model changes.
+  </ul>
+  <p>
+  Problem of full interactivity has been studied with interesting results from Keller
+  [1], he offers fully dynamic and realtime solution, rendering is slower, speed depends 
+    on requested quality.
+    Keller's results from 1997 are hard to compare with todays renderers, so we 
+    reimplemented it on nVidia GeForce 6600: 30000 triangle scene with 1000
+    light samples was rendered at 3fps, including generation of 1000 shadowmaps.
+    Speed may be increased by caching intermediate results.
+  New approach with very high quality realtime outputs is presented by Kristensen et al
+  [2], but it is suitable only for relighting of static geometry, expensive precomputations 
+    are required.
+  <p>
+  Problem of incompatibilities between global illumination solver
+  and arbitrary local illumination renderer and ways to smooth integration
+  probably haven't been studied.
+  <p>
+  We present novel approach to integration of global illumination solver
+  into arbitrary realtime local illumination rendering systems.
+  Our approach makes no assumptions about local illumination model
+  and extends it to global illumination while not slowing it down.
+  So when applied to arbitrary realtime local illumination renderer,
+  it contributes also to domain of interactive radiosity.
+  <p>
+  Our process uses local illumination renderer to output specific images,
+  those are analyzed and complete input information for global illumination
+  renderer is automatically extracted.
+  <p>
+  An example is presented in form of realtime radiosity viewer.
+
+<br>
+<br>
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">Integration</span><br
+ style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+  3 steps are necessary to fully integrate global illumination solver into
+  arbitrary local illumination renderer.
+  <p>
+
+  <b>First</b>, material properties of scene surfaces must be acquired.
+  This is handled by rendering all scene surfaces into several texture(s):
+  <ol>
+  <li>Emission: Clear texture to black and render faces without any lights in scene.
+  <li>Transmission: Clear texture to white and render faces without any lights in scene.
+  <li>Reflection: Clear texture to black and render faces with one light of unit intensity. Subtract emission.
+  </ol>
+  Now we have basic material properties for every pixel in scene, with 
+  precision controlled by our texture resolution.
+  In fact, we found sufficient to detect material properties only
+  per local illumination renderer material, but this depends on uniformity of
+  materials defined by local illumination renderer.
+  <p>
+  This way we detect basic properties, which is often enough for adequate global
+  illumination. It is possible and option for future experiments to acquire
+  complete BRDF function for every pixel in scene. This could be done by
+  repeatedly placing light and camera to different positions
+  relative to face being rendered.
+  <p>
+  Although acquiring BRDF would take seconds to minutes for medium size scene,
+  material properties detected 
+  in this step don't change during light or object manipulation in scene, so
+  eventual slowness of detection doesn't affect later realtime rendering and 
+  relighting during scene manipulation.
+  <p>
+
+  <b>Second</b>, local illumination present in scene must be acquired.
+  This is done by clearing texture to black and rendering scene surfaces into it
+  using all local lights present in scene. RGB colors in texture
+  correspond to material's response to local illumination + material's
+  own emittance.
+  For conversion between RGB colors and radiometry units,
+  we use standard 0.45 power approximation.
+  <p>
+  Rendering all faces into texture without affecting local illumination
+  may require changes in renderer. We use optional position overwrite
+  at the end of affected vertex shaders. Whole vertex shader, possibly including
+  lighting/shadowing computations, works with its usual 3D positions 
+  as if rendering to screen, our face position in texture is loaded 
+  before shader end from additional vertex stream.
+  <p>
+  For realistic response to primary illumination, it is important 
+  to render into float texture, so oversaturated regions 
+  are processed without clamping to max displayable color.
+  <p>
+  This step is repeated after each light or object manipulation in scene,
+  so it should be as fast as possible.
+  <p>
+  We found that 3D scenes typically contain only small number of large faces,
+  so after adding small number of vertices and splitting large faces, 
+  we may detect local illumination per face instead of per pixel,
+  without visible loss of quality.
+
+  <p>
+  <b>Third</b>, illumination calculated by global illumination solver 
+  (using material properties and local illumination detected in first two steps) 
+  is added to local illumination renderer as ambient term. 
+  In case of our example viewer, it is added per vertex.
+  <p>
+  Scene Sponza atrium is example of not adjusted scene with large faces
+  on the floor. Local illumination in our example viewer is detected per face
+  and indirect illumination rendered per face,
+  which causes visible errors in illumination.
+
+<br>
+<br>
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">Viewer</span><br
+ style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+  Our building stones were:
+  <ul>
+  <li>
+    Local illumination renderer with soft shadows from [3]. We modified it to support
+    any OpenGL 2.0 compliant graphics card and to load .3ds files with diffuse surfaces.
+    Local illumination model can be arbitrarily changed via GLSL shaders.
+  <li>
+    Radiosity calculator with progressive refinement from [4].
+    We improved it using new acceleration structure (to be published later)
+    and made available as library [5].
+  </ul>
+  Complete integration of our radiosity calculator library into renderer took less than 
+  two days.
+  For comparison, the same integration process with very complex and feature-rich
+  realtime renderer for next generation games took approx. two weeks.
+  <p>
+  Viewer may freely manipulate camera and light positions in scene.
+  Global illumination quality is temporarily decreased after each light manipulation.
+  Currently there is no possibility to manipulate scene, but it may be added in
+  future version, since it would make only small performance loss.
+  <p>
+  Light in viewer has no distance attenuation, but anyone can add
+  it by modifying GLSL shaders. Changes of local illumination model are 
+  completely transparent and don't require recompilation.
+  <p>
+  OpenGL 2.0 capable graphics card is required, tested on NVIDIA GeForce 6600, ATI Radeon X800.
+  May work with other .3ds scenes, but it wasn't tested.
+  <p>
+  Thanks to 
+  <ul>
+  <li><a href="http://raist.cz">Petr Stastny</a> for Koupelna scenes
+  <li>Marko Dabrovic for Sponza atrium scene
+  <li>Matthew Fairfax for .3ds loader
+  <li>Mark J. Kilgard for GLUT and bits of other OpenGL code
+  </ul>
+
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">Download</span><br
+ style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+  Advances and regressions in grahics card drivers
+  made this pioneering demo incompatible with some systems.
+  <br>Fortunately there's new carefully tested demo: <a href="http://dee.cz/lightsmark">Lightsmark</a>.
+  <p>
+  Realtime radiosity libraries are available at <a href="http://lightsprint.com">Lightsprint</a>.
+
+<br>
+<br>
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">Conclusion</span><br
+ style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+  We have presented novel approach to integration of global illumination calculator
+  into arbitrary local illumination renderer without common usability problems.
+  In our sample, which is provided, global illumination was transparently added into 
+  realtime renderer with diffuse surfaces and soft shadows in less than two days.
+  Global illumination is correctly calculated without need to recompile even when 
+  local illumination model is arbitrarily changed via GLSL shaders.
+  Key factor is that all input data for global illumination calculator are extracted
+  from images generated by local illumination renderer.
+
+<br>
+<br>
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">References</span><br
+ style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <ul>
+  <li> [1] Keller,A.: Instant radiosity, 1997
+  <li> [2] Kristensen,A.W.: Precomputed Local Radiance Transfer for Real-Time Lighting Design, 2005
+  <li> [3] Hrbek,S.: <a href="http://dee.cz/fcss">Fast correct soft shadows</a>, 2004
+  <li> [4] Hrbek,S.: <a href="http://dee.cz/rr/rr.pdf">Radiosity in dynamic scenes</a>, 2000, (Czech only)
+  <li> [5] Lightsprint: <a href="http://lightsprint.com">Lightsprint Vision</a> library, 2006
+  </ul>
+
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">Author</span><br style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<a href="mailto:dee%20at%20dee.cz">Stepan Hrbek</a>
+<br>
+</body>
+</html>

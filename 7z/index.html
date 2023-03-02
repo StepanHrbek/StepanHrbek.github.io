@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+ <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+ <LINK rel="stylesheet" type="text/css" href="../default.css">
+ <title>Dee's 7-zip</title>
+</head>
+<body style="background-image: url(../bricks.jpg); margin-left: 120px; max-width: 1050px;">
+
+<table width=100%><tr style="background-color:#cccccc">
+ <th><a href="../index.html">Home</a></th>
+ <th><a href="../sw/index.html">Software</a></th>
+ <th><a href="../texty/index.html">Articles</a></th>
+ <th><a href="http://fotnicek.dee.cz">Photos</a></th>
+</tr></table>
+<p>
+
+<h2>7-dee</h2>
+
+7-zip modified to be even better.
+
+<p>
+<table width=100%><tbody><tr style="background-color:#cccccc">
+ <th align=left>Physical vs logical path</th>
+</tr></tbody></table>
+
+<table><tbody><tr><td>
+
+<p>
+ Rar, 7-zip and 7-dee translate physical paths (on disk) to logical paths (in archive) differently.
+<p>
+ <b>7-zip</b> creates logical path either by copying physical path, or by using only filename, if physical path contains c:, \(root), ..\ or .\.
+ <br>This is not very flexible, 7-zip can't add files with logical paths not starting in current directory.
+<p>
+ <b>Rar</b> creates logical path by cropping physical one as little as possible, to get rid of all c:, \(root) and ..\. It silently removes .\.
+ <br>So you can insert subdir\..\ anywhere in physical path to control how logical path is formed. However, this fails if there is no known subdirectory.
+ <br>This makes rar flexible, it can add multiple files with logical paths starting in nearly any physical locations in one command.
+<p>
+ <b>7-dee</b> creates logical path by cropping physical one as little as possible, to get rid of all c:, \(root), ..\ and .\.
+ <br>So you can insert .\ anywhere in physical path to control how logical path is formed.
+ <br>This makes 7-dee the most flexible, it can add multiple files with logical paths starting in any physical locations in one command. It can emulate both 7-zip and rar.
+<p>
+
+</td><td>
+
+<table border=1 cellspacing=1 cellpadding=6><tbody>
+ <tr><th rowspan=2>physical path</th><th colspan=3>logical path</th></tr>
+ <tr><th>7-zip</th><th>rar</th><th>7-dee</th></tr>
+ <tr><td>a\b.txt</td><td>a\b.txt</td><td>a\b.txt</td><td>a\b.txt</td></tr>
+ <tr><td>\a\b.txt</td><td>b.txt</td><td>a\b.txt</td><td>a\b.txt</td></tr>
+ <tr><td>c:a\b.txt</td><td>b.txt</td><td>a\b.txt</td><td>a\b.txt</td></tr>
+ <tr><td>c:\a\b.txt</td><td>b.txt</td><td>a\b.txt</td><td>a\b.txt</td></tr>
+ <tr><td>..\a\b.txt</td><td>b.txt</td><td>a\b.txt</td><td>a\b.txt</td></tr>
+ <tr><td>a\b\..\c\d.txt</td><td>d.txt</td><td>c\d.txt</td><td>c\d.txt</td></tr>
+ <tr><td>a\.\b\c.txt</td><td>c.txt</td><td>a\b\c.txt</td><td>b\c.txt</td></tr>
+</tbody></table>
+
+</td></tr></tbody></table>
+
+<p>
+<table width=100%><tbody><tr style="background-color:#cccccc">
+ <th align=left>Patch 7-zip to become 7-dee</th>
+</tr></tbody></table>
+
+This is version 2, with fixed handling of paths like "//192.168.1.10/foo".
+
+<pre>
+//UString CDirItems::GetLogPath(int index) const
+//{
+//  const CDirItem &di = Items[index];
+//  return GetPrefixesPath(LogParents, di.LogParent, di.Name);
+//}
+UString CDirItems::GetLogPath(int index) const
+{
+  int pos;
+  UString path = GetPhyPath(index);
+  if (path.Length()>=2 && path[1]==':') path.Delete(0,2);
+  if (path.Length()>=2 && path[0]=='\\' && path[1]=='\\' && (pos=path.Find('\\',2))>0) path.Delete(0,pos);
+  if (path.Length()==0 || path[0]!='\\') path.Insert(0,'\\');
+  while ((pos=path.Find(L"\\..\\"))>=0) path.Delete(0,pos+3);
+  while ((pos=path.Find(L"\\.\\"))>=0) path.Delete(0,pos+2);
+  while (path.Length()>0 && path[0]=='\\') path.Delete(0,1);
+  return path;
+}</pre>
+
+<p>
+<table width=100%><tbody><tr style="background-color:#cccccc">
+ <th align=left>No warranty</th>
+</tr></tbody></table>
+<p>
+
+I tested it a bit (in complex project where it replaces rar) and it works fine. But stil, I provide it "as is" without any warranty, I did not test everything.
+
+<p>
+<table width=100%><tbody><tr style="background-color:#cccccc">
+ <th align=left>Downloads</th>
+</tr></tbody></table>
+
+<li> <a href="7z920_dee_src.rar">7-dee source code</a> (7-zip 9.20 with this patch)
+<li> <a href="7z920_dee_exe.rar">7-dee 7z.exe</a> (7z.exe compiled with VS 2010, original 7z.dll is included)
+
+<p>
+<table width=100%><tbody><tr style="background-color:#cccccc">
+ <th align=left>References</th>
+</tr></tbody></table>
+
+<li> <a href="http://7-zip.org/">original 7-zip</a>
+<li> <a href="http://sourceforge.net/tracker/?func=detail&aid=3150676&group_id=14481&atid=364481">failed attempt to get to mainline</a>
+
+</body>
+</html>
+	

@@ -1,0 +1,273 @@
+
+                       Dee's VBE buglist  (version 1.7)
+
+When you want to make your demo working in higher resolutions, you'll probably
+cope with VBE  (Vesa Bios Extension). There is  an official VBE documentation,
+it's cool.  The code should  work the same  way with all  cards, cool. But  it
+doesn't, cool...ugh.  If you don't  want to require  particular VBE (hope  you
+don't), you must adapt your  code to minor incompatibilities between different
+VBEs. He, what incompatibilities?, bugs!
+
+I have included also  many important things which are  not documented or could
+be overlooked in VBE documentation and therefore cause troubles.
+
+#DEFINE SCOV  Some Cards Or VBEs
+#DEFINE BUG   It is a bug (acceptable bug which couldn't cause real trouble).
+#DEFINE FATAL It is a fatal bug.
+#DEFINE IMP   It is an important thing 2 know.
+#DEFINE GMI   Get more info about this problem.
+
+TYPE  * Description of a problem.
+?     . How to detect it.
+!     . How to solve it.
+???   . Something I dont know, help.
+
+                             4F00 - get VBE info
+
+FATAL * SCOV write beyond the end of a given buffer.
+!     . 512 bytes is enough for everybody.
+
+IMP   * SCOV have duplicate modes (for example, modes 258, 369, 456 and twenty
+        others are identical).
+!     . Skip duplicate modes.
+
+IMP   * SCOV have "secret" modes - they are  not in a modelist but you can get
+        info (4f01) about them and set them.
+!     . All  secret modes are listed  beyond a modelist. See  next IMP.
+
+IMP   * SCOV have its  OEM modes beyond the end of  a modelist (std.modes, -1,
+        OEM modes, -1). It's very frequent, but it's not documented.
+!     . You can  look there safely  in real mode.  In protected mode  you must
+        query segment limit to avoid GPF.
+
+IMP   * SCOV  support  old  VGA  modes  with  numbers<80h,  they are listed in
+        a modelist.
+!     . Enjoy.
+
+IMP   * "Stub" VBEs  have empty modelist  (starting with -1)  and support only
+        4F00h function.
+!     . Enhance your Detect_VBE function to check also modelist.
+
+IMP   * SCOV have #7-like chars inside vesa_oem_string.
+!     . Filter out chars under #32, #7 sux :).
+
+FATAL * SCOV return bad total_memory.
+!     . This  is luckily  very rare  bug. There  is no  way to  detect if card
+        returns  less memory  than available  (note, setting  unavailable bank
+        could  cause crash).  Luckily, it's  not a  fatal bug.  But let's have
+        a closer look at SCOV returning more memory, which is fatal bug. Write
+        0 to [0] and 1 to [total_memory*32K]. Now read these two bytes. If you
+        have incorrect  total_memory, you will probably  read incorrect values
+        - 1 at [0] or non1 at [total_memory*32K].
+
+IMP   * 4f00h  func returns  pointer to   a modelist.  Majority of  cards will
+        return pointer to ROM, but SCOV put mode numbers into 4f00h func reply
+        buffer. It means, you'll find modelist  in your RAM, usually at offset
+        80h. If  you use the same  buffer for 4f00h func  return and for 4f01h
+        func  return  (while  searching  in  modelist),  you will rewrite mode
+        numbers by  zeros and you'll never  reach 0ffffh value (end  of a mode
+        list).
+
+FATAL * VBE 2.0 supports direct access  into VRAM, without bank switching. You
+        can  obtain physical  address (in  CPU's address  region) where card's
+        VRAM is mapped. However, SCOV (having VBE 2.0 and saying YES, there IS
+        linear  framebuffer available)  does not  work (no  transfer is  done,
+        screen is blank).
+?     . Check if your address points to read/write memory (modify one byte and
+        read it). It's not 100% detection, but still much better than nothing.
+
+FATAL * SCOV say  "I'm VGA compatible" but  they are not. {They  kick out CRTC
+        and some other  VGA registers after setting VESA  mode. SCOV's 3DAh in
+        VESA modes return values different from VGA's 3DAh. Bit 0 (vertical or
+        horizontal  retrace flag)  is clear,  bit 3  (vertical retrace)  shows
+        vertical OR HORIZONTAL retrace.}
+!     . You  can  say  that  you  don't  support  such  a  buggy  VBE  and  an
+        incompatible  card. But  there is  another solution.  Don't use  CRTC.
+        Enhance  your wait_for_vertical_retrace  routine to  ignore too  short
+        retraces (which could be only horizontal).
+
+                            4F01 - get mode info
+
+FATAL * Another "VGA compatible" flag, the same lie as previous bug in 4F00.
+
+BUG   * SCOV say "I support that mode"  but they don't.
+!     . The  truth  will  appear  when  you  compare screensize with available
+        memory or when you try to set that mode.
+
+FATAL * SCOV in textmode return bad BytesPerLine.
+?     . Compare BytesPerLine with 2*PixelsPerLine. Difference could mean bug.
+
+IMP   * SCOV use unusual combinations of  two windows, one for reading, second
+        for writing etc.
+!     . Don't ignore  what VBE tell's  you in flags,  be happy that  you don't
+        have to autodetect  it :). Work with two pointers,  first one for read
+        window, second one for write window.
+
+???   * Textmodes have BitsPerPixel=4. What does it mean?
+
+FATAL * SCOV  return bad  window segment  and size.  Example: you set textmode
+        132x25 and VBE returns segment $A000, size 64KB. But real window is at
+        $B800, size 32KB.
+?     . Check if your segment points to read/write memory (modify one byte and
+        read it). It's not 100% detection, but still much better than nothing.
+
+IMP   * SCOV do  not support Hi-Color modes  with 64K colors per  pixel. While
+        32K and  64K color modes take  the same amount of  memory, SCOV do not
+        support either 32K or 64K modes.
+      ? It's not as easy as it might seem. See below.
+      ! You should write your routines twice  (for each color mode) and detect
+        which one is  supported. On many VBE's there are  both so then you can
+        choose one (please 64K :-)).
+
+BUG   * SCOV  do not  provide "consistent"  information about  Hi-Color modes.
+        Mode information function  (4f01h) returns 16 bits per  pixel (byte at
+        offset 19h),  BUT RGB scheme  (bytes 1fh..26h) says:  5 bits per  R, 5
+        bits per G , 5 bits per B and 1 bit unused.
+      ? Compare byte  at 19h and  sum bytes at  1fh, 21h and  23h. If there is
+        a diference, card driver lies.
+      ! Never count  on information at  offset 19h, you  should always examine
+        color scheme. If you omit it, you'll get ugly green-gray pictures.
+
+BUG   * SCOV  include both  32K and  64K  modes  in a  modelist, but  actually
+        support  only  one  of  them.  For  example,  you  can find modes 110h
+        (640*480*32K) and  mode 111h (640*480*64K). If  you call 4f01h, you'll
+        get correct answer  (mode 110h will have byte 19h  == 15 and mode 111h
+        will have byte  19 == 10h). BUT color scheme  will be 5:5:5:1 for BOTH
+        the modes.
+      ? The same way as previous.
+      ! Do not  belive byte 19h, never  count on mode number  assignment. Test
+        every number  in a mode  list, you should  always test a  color scheme
+        (bytes 1fh..26h).
+
+                               4F02 - set mode
+
+IMP   * Numbers of OEM modes are not defined.
+!     . Don't use  UniVBE mode numbers!  If you are  so lame you  can't search
+        through  a modelist  for desired  resolution, I'll  send you code that
+        does it.
+
+                           4F06 - scanline length
+
+IMP   * SCOV don't support scanline lengths below defaulth length.
+!     . Dont even think about such scanline lengths in vesa modes.
+
+FATAL * When you set  scanline length, some cards say "ok,  I set it" but they
+        don't.  Simple  check  via  get  scanline  length  doesn't work, "get"
+        returns bad value.
+?     . Scan CRTC register  for scanline length BEFORE and  AFTER calling VBE.
+        Changed? -> VBE  is ok. Not changed? -> Could  be bug, ask user (HINT:
+        set new scanline length and write two messages, first one readable for
+        default scanline length, second for new scanline length).
+!     . It's a sad life with default scanline length. Nothing cool to say.
+
+IMP   * SCOV don't support this function. It's the same thing as previous bug,
+        but nice VBE tells us about it.
+
+FATAL * When you set  new scanline length, SCOV sets  it physically, but their
+        other  functions ignore  new value,  still working  with old  scanline
+        length.  They are:  set display  start, set  cursor position.
+?     . ---set display start---
+        Set new scanline length. Set new display start, but scan CRTC register
+        for display  start BEFORE and  AFTER calling VBE.  Changed as expected
+        for good VBE ((dx+dy*NEW_scanline_length)/2^something)?  -> VBE is ok.
+        Changed  as  expected  for  bad  VBE ((dx+dy*DEFAULT_scanline_length)/
+        /2^something)? -> Bug detected. Else, ask user (HINT: when you set new
+        scanline length and new display start, you can write something and ask
+        user if it's to the left or to the right on screen).
+        ---set cursor position (via old BIOS)---
+        The same way with cursor position instead of display start.
+!     . To     make     BIOS's     X+Y*DEFAULT_scanline_length     work     as
+        X+Y*NEW_scanline_length, you must  recalculate coordinates before each
+        call.
+
+FATAL * SCOV measure scanline length in bytes instead of pixels. (I think that
+        it's only about BL=0) GMI
+
+                            4F07 - display start
+
+BUG   * SCOV ignore lower bits of X or  Y. It's not documented, so it's a bug.
+        It often happens to X and Y in textmode, to X in graphics.
+?     . Ask user (be creative :)).
+!     . Sometimes it's possible to set lower bits with CRTC panning register.
+
+FATAL * SCOV in textmode don't use correct units  for X and Y. Correct unit is
+        pixel. I have met VBEs using char for  X or chars for both or char for
+        Y and 1/2 of char for X, VBE maker's fantasy has no limits.
+?     . Detect BugFactorX, BugFactorY in multiple steps. Write two things that
+        only one will be visible after setting display start wisely.
+!     . Use BugFactor  to modify X  and Y before  each "set disp.start"  call.
+        Never use "get disp.start" when it's not necessary.
+
+FATAL * When you  set display start,  some cards say  "ok, I set  it" but they
+        don't. Simple check via get  display start doesn't work, "get" returns
+        bad value.
+???   . Has anybody else experienced this bug? It's a long time I met this one
+        and I'm not sure if it was VBE error or my error.
+
+FATAL * SCOV crash when you set display address start out of range.
+
+IMP   * Some VBEs 1.x wait for retrace (AX=4F07, BX=0), some don't. Waiting is
+        not mentioned  in VBE 1.x  specification. VBEs 2.0  has two functions,
+        BX=0 is not allowed to wait, BX=80h must wait.
+?     . To  support also  VBE 1.x,  we have  to know  if it  waits or doesn't.
+        Faster than  "t=gettime; 15x set.disp.start;  if(gettime-t>toolong) it
+        waits;"  is  to  use  Event  Wait  (see  INT  15h,  AH=83h). Try "x=0;
+        SetEventWait(0.1sec);    repeat     set.disp.start;    inc(x)    until
+        EventWaitDone or x>toomuch; if(x>toomuch) it doesn't wait;".
+
+BUG   * SCOV set  display start although  they should fail.  {Should fail when
+        full page  of video memory isn't  available (position near the  end of
+        vram and card don't wrap).}
+?     . Easy to detect, but there is no reason, no danger.
+
+                                  Wrapping
+
+IMP   * SCOV don't wrap, SCOV wrap at the  end of a vram, SCOV wrap before the
+        end of a vram, SCOV wrap beyond the end of a vram.
+?     . ---detecting wrapping before end of memory---
+        Repeat test for wrapping for  each 2^something bound. Write two things
+        that  only one  will be   visible after  setting display  start wisely
+        (wrapping will hide or reveal one of them).
+        ---detecting no wrapping or wrapping beyond end---
+        One possible way is to write "prez 1" to end of video memory and "prez
+        2, diz  haz higher priority" to  start of video memory.  Only first or
+        both will be visible when you set display start wisely.
+
+IMP   * SCOV wrap, but with some change in displaying. Top lines (from the end
+        of vram) are ok, but bottom lines (from the beginning of vram) display
+        pixels in some ugly order.
+
+IMP   * SCOV wrap at the end of vram,  but don't wrap at some multiple of vram
+        size.  Example:  card  with  1MB,  mode  1024x768/256. SetStart(0,900)
+        wraps, SetStart(0,1024+900) doesn't wrap.
+
+                                    Other
+
+IMP   * Some cards  in some random vesa  modes split screen at  scanline 0 (it
+        looks like that  somebody locked display address start  at 0) when you
+        set line compare register exactly  to number of scanlines. Other cards
+        unsplit screen.
+!     . Never  set line  compare register   to number  of scanlines,  set only
+        values from 0 to scanlines-1. Top window has line compare+1 scanlines.
+
+IMP   * Scome  cards  insert  one  black  line  between  two parts of splitted
+        screen. GMI
+
+IMP   * Reading from vram could be much slower than writing to.
+
+IMP   * Some guys  think that access  to vram via  LinearFrameBuffer is faster
+        than via banking. They could be right, but SCOV have it vice versa. If
+        you want to be ultra cool, detect what is faster and use it.
+
+IMP   * Some VBE functions don't work in protected mode? :)
+!     . It's not a bug, use DPMI SimulateRealModeInt to access that functions.
+
+
+Thanks goes to:
+        Ladislav Wagner
+        John Patera
+        Elemental
+
+Comments, questions, cool new bugs? Write to
+                                                 Dee
+                                                 dee at dee.cz

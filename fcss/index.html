@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>FAST CORRECT SOFT SHADOWS for NVIDIA GPUs</title>
+</head>
+<body>
+
+<table width=100%><tr style="background-color:#cccccc">
+ <th><a href="../index.html">Home</a></th>
+ <th><a href="../sw/index.html">Software</a></th>
+ <th><a href="../texty/index.html">Articles</a></th>
+ <th><a href="http://fotnicek.dee.cz">Photos</a></th>
+</tr></table>
+<p>
+
+<h2>FAST CORRECT SOFT SHADOWS for NVIDIA GPUs</h2>
+technique of generating <b>PENUMBRA SHADOWS</b><br>
+(September 2004)<br>
+<br>
+<a href="shot1.png"><span style="text-decoration: underline;"></span><img
+ alt="shot1" src="shot1s.jpg"
+ style="border: 0px solid ; width: 300px; height: 230px;" hspace="2"
+ vspace="2"></a><a href="shot2.png"><img alt="shot 2" src="shot2s.jpg"
+ style="border: 0px solid ; width: 200px; height: 230px;" hspace="2"
+ vspace="2"></a><a href="shot3.png"><img alt="shot 3" src="shot3s.jpg"
+ style="border: 0px solid ; width: 330px; height: 230px;" hspace="2"
+ vspace="2"></a><br>
+Images from scene10.mgf (using accumulation buffer).<br>
+<br>
+<br>
+<table style="width: 100%; font-weight: bold;" border="0"
+ cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);">Soft shadows vs Penumbra shadows</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+Penumbra shadows are physically correct shadows from area lights.
+They have <a href="http://en.wikipedia.org/wiki/Penumbra">penumbra</a>.
+<br>
+Soft shadows are hard shadows with blurred edges.
+They don't simulate penumbra.
+<br>
+At the time of writing this article, I called penumbra shadows "correct soft shadows", but it's confusing.
+<br>
+<br>
+<table style="width: 100%; font-weight: bold;" border="0"
+ cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);">Technique overview</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+Penumbra shadows are created by overlapping multiple soft shadows. Soft
+shadows are created by shadow mapping with bilinear filtering.<br>
+-&gt; This is not new technique, just demonstration, that it works and
+that it's faster than more complex approaches.<br>
+<br>
+Although not fully visible, scene contains 100 rooms, 83k triangles and
+167k vertices. There are no optimizations, whole scene is processed in
+each frame. On GF4 Ti 4200, 1152x864x32, scene with arbitrarily moving
+linear light (6 spot lights) is rendered at 16fps (up to 80fps when
+parts of scene get outside viewport).<br>
+<br>
+Current implementation is based on nVidia proprietary OpenGL extensions
+(requires GF3 or higher). Future versions may work on any OpenGL 2.0
+card.<br>
+<br>
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">Advantages</span><br
+ style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ol style="list-style-type: decimal;">
+  <li>Speed (fastest technique for lower quality shadows, probably not
+fastest for high quality solutions).</li>
+  <li>Simplicity.</li>
+  <li>Converges to correct solution.</li>
+  <li>Easy control over speed/quality (from extremely fast/blurred hard
+shadows to very slow/nearly correct penumbra shadows).</li>
+</ol>
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">Disadvantages</span><br
+ style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ol style="list-style-type: decimal;">
+  <li>Banding artifacts appear without accumulation buffer - low bits
+of color are lost. Images on this page were captured with accumulation
+buffer, which is much slower on GF4Ti 4200, but probably equally fast
+on new hardware. In case that accum has high penalty even on new
+hardware,
+blending could be improved to reduce artifacts.</li>
+  <li>Edges are often visible inside penumbras. It's easy to add more
+pointlights, but then speed is lost.</li>
+  <li>Sometimes jagged shadow edges appear (caused by shadow mapping,
+reduced by bilinear filtering and overlapping).<br>
+  </li>
+  <li>Sometimes light or shadow appears near polygon edge (caused by
+shadow mapping).</li>
+  <li>Sometimes thin shadow pattern appears on lit faces (caused by
+bilinear filtering of shadow map).</li>
+  <li>This mostly fixed-pipeline implementation may cause errors in
+light attenuation which can be demonstrated on special scene. Problem
+is not visible in common situations and will be fixed in next version
+using programmable pipeline.</li>
+</ol>
+Btw, there is trade between 2. which can be solved by decreasing shadow
+map resolution and 3., 4., 5. which can be solved by increasing shadow
+map resolution. Everything can be traded for speed (increased shadow
+map resolution, increased number of pointlights, accumulation buffer).<br>
+<br>
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">Conclusion</span><br
+ style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+Most realtime algorithms aim not to provide absolutely exact solutions,
+but to fool human brain to believe it's exact.<br>
+Existing artifacts make this technique unsuitable for artificial
+environments with large geometrically simple blockers and planar
+receivers where human brain easily predicts shape of shadows and
+perceives even tiny intensity fluctuations as errors. On the other
+hand, natural environments with complex non planar geometry make tiny
+errors much harder to spot and make this technique optimal.<br>
+<br>
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">Download</span><br
+ style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<a href="fcss.rar">Download FAST CORRECT SOFT SHADOWS + source
+code</a> (1MB, binary is compiled for Windows)<br>
+<br>
+<a href="http://radsite.lbl.gov/mgf/HOME.html">MGFlib</a> (library
+necessary to recompile)<br>
+<br>
+<br>
+<table style="width: 100%;" border="0" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(204, 204, 204);"><span
+ style="font-weight: bold;">Author</span><br style="font-weight: bold;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<a href="mailto:dee%20at%20dee.cz">Stepan Hrbek</a>,
+<a href="http://dee.cz">homepage</a><br>
+</body>
+</html>

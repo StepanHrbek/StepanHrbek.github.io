@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+ <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=iso-8859-2">
+ <TITLE>Objektově Orientované Programování</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+                  Objektově Orientované Programování
+
+   Tenhle  článek je  reakcí na  dotazy, které  jsem dostal  ohledně CiA.
+Pokusím se  objasnit co to  je OOP  a co si  o něm myslím.  Zároveň musím
+předem  upozornit ty,  kteří tomu  trochu  rozumí, že  jsem nikdy  žádnou
+knihu o  OOP nečetl,  v článku  vycházím pouze  z vlastních  zkušeností a
+dalších nedůvěryhodných zdrojů.
+
+Moje (a předpokládám i mnohého z vás) první zkušenost:
+   Pár článků  o OOP jsem  přeci jen viděl a  vy asi také.  Dozvěděl jsem
+se  z nich  co  je  to zapouzdření,  dědičnost  a  polymorfismus. Ale  to
+hlavní, k  čemu mi  to bude,  to mi vždycky  nějak unikalo.  Na přiložené
+příklady  jsem okamžitě  viděl  efektivnější  neobjektovou alternativu  a
+to  mi stačilo  jako důkaz  nepoužitelnosti OOP.  Kromě toho  jsem věděl,
+jak   gigantické   bývají   OO  (objektově   orientované)   programy   ve
+srovnání se  stejně velkými  neobjektovými a  myslel jsem  si, že  jsou i
+pomalejší.
+
+   Po  pár letech  praxe  je to  docela  jasné. S  OOP  lze napsat  velmi
+pěkné  "kusy  kódu",   které  jdou  později  snadno   upotřebit  v  mnoha
+dalších  programech. Předpokladem  opakovaného  používání  je ale  jejich
+univerzálnost. Když se  pak použijí  na jednodušší problémy,  které tolik
+univerzálnosti  a  dalších  schopností nevyžadují,  výsledný  program  je
+větší a  někdy i pomalejší. Zápory  ale vyvažuje  snadnost s jakou  se OO
+programy píší.
+
+   Pozorný  čtenář může  namítnout,  že  OO programy  se  píší snadno  až
+tehdy,   když   má   programátor  připravenou   zásobu   takových   "kusů
+kódu",  ze  kterých  se  dá výsledný  program  sestavit.  Ano,  nezbytným
+předpokladem  snadného   a  rychlého   programování  je  mít   za  základ
+nějakou knihovnu, ať už vlastní nebo cizí, a dobře se v ní vyznat.
+
+Co to vlastně to OOP je?
+   Je   to  rozšíření   jazyka,   které  umožňuje   psát  přesně   takové
+snadno upotřebitelné  univerzální "kusy  kódu" o jakých  tu byla  řeč. Ty
+jsou  ale,  když  to  přeženu,  napsány normálním  jazykem,  OOP  je  jen
+"obaluje"  a vnáší  do programu  strukturu a  pořádek. Takže  OOP je  jen
+pomůcka, to hlavní se musí napsat postaru.
+   OOP  ale není  žádná kouzelná  hůlka, která  za nás  v programu  udělá
+pořádek.  Syntaxe sice  nutí  k  určitým krokům  správným  směrem, ale  i
+tak  nezabrání  řadě  "ošklivých"  věcí,   které  se  stále  dají  dělat.
+Důležité  je myslet  dopředu a  psát tak,  aby se  dal jednou  hotový kód
+použít i později a jinde.
+   Ale teď  stop. O  OOP píšu  jako o nadstavbě  nad nějakým  jazykem. Ve
+skutečnosti asi nejprve  vznikly čistě OOP jazyky (třeba  SmallTalk) a až
+po  jejich   úspěchu  nadstavby  nad  zavedené   neobjektové  jazyky  (C,
+Pascal).
+
+                                PRINCIPY
+
+   To  byly  rysy OOP,  které  považuji  za  nezbytně nutné  k  pochopení
+významu  a k  úspěšnému využití  OOP.  Tady jsem  chtěl skončit,  protože
+zde  začínají  všechny ostatní  články  o  OOP a  já  bych  to tak  dobře
+stejně  napsat   nedokázal.  Ale  pak   mi  přišlo  nefér   teď  skončit,
+následuje  tedy  popis  konkrétních   vlastností,  které  OOP  používá  k
+dosažení výše popsaných cílů.
+
+   Třída  je  typ.  Je  to  datová struktura  plus  funkce  pro  práci  s
+těmito daty. Instance je konkétní proměnná typu třída.
+
+Zapouzdření je  vlastnost tříd  a jejich instancí.  To jsou  jakési black
+boxy, do  kterých zvenku není  vidět. Řekneš  instanci aby provedla  to a
+to a  ona to udělá.  Nezajímá tě jak to  dokázala. Sice tam  někde uvnitř
+je kód,  který jsi kdysi  musel ty, nebo někdo  jiný, napsat, ale  teď se
+na věc  díváš zvenčí a vidíš  jen povrch black boxu  s několika knoflíky,
+kterými  vydáváš povely.  Praktický význam  je ten,  že až  ti schopnosti
+třídy nebudou  stačit, můžes  její vnitřek  totálně přepsat,  navenek ale
+zůstane stejná, takže ve zbytku programu se nebude muset nic měnit.
+
+Dědičnost  je vlastnost  tříd.  Třída  může být  potomkem  jedné či  více
+jiných  tříd  (v pascalu  jen  jedné).  V  takovém případě  zdědí  datové
+struktury a funkce svých předků. To se samozřejmě náramně hodí.
+
+Polymorfismus  je   vlastnost  instancí.  Instance  různých   tříd  mohou
+zvenčí  vypadat  úplně  stejně,   uvnitř  ale  pracovat  jinak.  Typickým
+příkladem  je funkce  "zruš se".  Tu mají  skoro všechny  třídy a  tedy i
+jejich  instance. Instance  různých tříd  ale vypadují  jinak a  proto se
+musí  i rušit  jinak.  Polymorfismus  zajistí, že  se  při vydání  povelu
+provede správná akce v závislosti na tom o jakou instanci jde.
+
+                              IMPLEMENTACE
+
+   A už  jsem chtěl  zase skončit, ale  přišlo mi nefér  vůči těm,  co se
+prokousali  až   sem,  neříct   něco  konkrétního  o   implementaci  výše
+uvedených  principů. Kdo  chce programovat  OO, musí  znát principy,  ale
+taky musí  vědět "co  se tam  děje", tedy  jak jsou  implementovány. Budu
+se držet v obecnosti, žádná konkrétní syntaxe.
+
+   Jak už  bylo řečeno  výše, třída se  skládá z dat  a funkcí  pro práci
+s  nimi. Datům  se říká  atributy,  funkcím metody.  Když zavoláš  metodu
+nějaké  instance,  je   to  jako  kdybys  zavolal   obyčejnou  funkci  se
+skrytým parametrem "pointer na instanci".
+
+   Jak   funguje  zapouzdření?   V  deklaraci   třídy   se  uvádí   které
+atributy  a metody  jsou veřejné  a které  jsou privátní,  případně další
+stupně  veřejnosti/neveřejnosti.  Pouze  s veřejnými  složkami  třídy  se
+pak dá  zvenčí manipulovat. To  ostatní je soukromou záležitostí  třídy a
+nikomu  venku  do  toho  nic  není. V  některých  jazycích  jsou  všechny
+atributy privátní.
+
+   Jak  funguje  dědičnost?  Instance  je  složená z  atributů  a  metod.
+Dvě  instance stejné  třídy  mají  v atributech  různá  data, ale  jejich
+metody  jsou  stejné,  takže  když  vytvoříš  instanci,  pouze  se  někde
+naalokuje  kus  paměti  pro  atributy.  Třída,  která  je  potomkem  jiné
+třídy, zdědí  její atributy  a metody.  V praxi to  znamená pouze  to, že
+se  každá  instance zvětší  o  zděděné  atributy.  Děděné metody  jsou  v
+paměti jen jednou, společné pro předka i potomka.
+
+   Jak   funguje   polymorfismus?   Nejprve   je  třeba   vyřídit   jednu
+technickou  záležitost.  Každá proměnná  má  svůj  typ. Proměnná  P  může
+být  třeba pointer  na instanci  třídy T1.  Ale přitom  může ukazovat  na
+instanci  třídy T2,  která  je potomkem  T1. Taková  situace  je běžná  a
+naprosto  legální, všechno  co  lze provést  s  T1 lze  provést  i s  T2,
+takže  můžeme  být  bez  obav.   Přijdeme  pouze  o  možnost  pracovat  s
+atributy  a  metodami,   které  má  T2  navíc  oproti   T1.  Ale  vlastně
+nepřijdeme!  Skoro   každá  instance  totiž  má   skrytý  atribut,  který
+udává její  SKUTEČNÝ typ, její  třídu. Metody se  pak dělí na  statické a
+virtuální,  přičemž  o  tom  co  se zavolá  při  volání  statické  metody
+rozhoduje  typ  proměnné, u  virtuálních  metod  rozhoduje typ  instance.
+Až  budeme   chtít  zrušit  instanci,   na  kterou  ukazuje   pointer  P,
+zavoláme  její metodu  "zruš se".  Pokud  by byla  statická, zavolala  by
+"zruš se"  třídy T1 a zrušila  pouze část instance. Jelikož  je to metoda
+virtuální,  podívá  se  na  skutečný  typ instance  a  zavolá  "zruš  se"
+třídy T2.  Pomocí virtuálních  metod tak můžeme  využít i  vlastnosti T2,
+kterými se liší od T1.
+
+Slovníček s dalšími pojmy:
+   Constructor   a   destructor   jsou   speciální  metody   volané   při
+vytváření  a rušení  instance.  V  C++ se  volají  automaticky, v  Object
+Pascalu ručně.
+   Late  binding  je  rozhodování se  jakou  metodu  zavolat až  za  běhu
+programu. Tedy zjištění typu instance a zavolání metody toho typu.
+   VMT  aneb Tabulka  virtuálních metod  obsahuje  pointery na  virtuální
+metody  dané třídy.  Pointery  se tedy  neskladují  uvnitř instance,  tam
+je  pouze  odkaz  na  tabulku   virtuálních  metod  společnou  pro  celou
+třídu.  Tento odkaz  je  zároveň oním  skrytým  atributem typu  instance.
+Samozřejmě  to  může být  implementováno  i  jinak,  ale nevím  o  žádném
+jazyce, který by tak činil.
+
+                                 SYNTAXE
+
+   Na  konec by  to  chtělo  vysvětlit syntaxi.  Ale  to  by bylo  trochu
+delší povídání.  Já vím, je to  nefér takhle skončit, ale  popisů syntaxe
+najdete spoustu v příslušných knihách a manuálech.
+
+                                ZÁVĚREM
+
+   Před  pár  lety  bylo  všechno   ještě  v  plenkách,  člověk  se  mohl
+podívat na  jakýkoliv program a  říct si,  udělám lepší. To  byla panečku
+motivace.  Za  tu  dobu  se  ale  úroveň  dost  zvedla,  už  není  snadné
+trumfnout   profesionální   programy   nebo   finská   dema.   Začínající
+programátoři  tak přišli  o jeden  důvod proč  programovat, dostat  se na
+špičku trvá roky  a dá to spoustu práce.  Ale zas to stojí za  to... :) A
+beztak je to skvělá zábava, ať už nahoře nebo dole. No nic.
+   Kdo teď  chce začít, asi pošilhává  po OOP (pokud dočetl  až sem). Ok,
+ale OOP je jen pomůcka. Co vlastně musí dobrý programátor umět?
+
+ - schopnost nacházet efektivní řešení problemů
+ - přístup k technickým informacím
+ - základní syntaxe jazyka
+
+ - přidaná OOP syntaxe (pokud nejde o čistě OOP jazyk)
+ - principy OOP (které jsem se snažil dostat do tohoto článku)
+
+
+Poznámka k terminologii:
+   Třídám  se někdy  říká objekty.  Instancím  se někdy  říká objekty.  A
+tak dál, záleží na okolnostech.
+
+</PRE>
+<p>
+<a href="../dee">Dee</a>
+</BODY>
+</HTML>

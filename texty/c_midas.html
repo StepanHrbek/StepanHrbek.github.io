@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="cz">
+<HEAD>
+ <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=iso-8859-2">
+ <TITLE>Midas buglist</TITLE>
+</HEAD>
+<BODY>
+
+<H1>MIDAS 1.1.2 buglist</H1>
+
+<H4>winwave.c: winwTryMode</H4>
+ On 8bit soundcards only 16bit modes are tested, no one found working and error
+ thrown, because of one "outputMode" where only "mode" should be.
+
+<H4>midasdll.c: MIDASplayModuleSection</H4>
+ When user doesn't allocate enough channels and tries to play module,
+ Midas locks up. Search for cycle with u = 0 and replace i++ with u++ :).
+ Now it doesn't lock up but MIDASclose() returns error or crashes.
+ Add mPlayHandles[handleNum] = 0;.
+
+<H4>doscnf.c: MIDASsaveConfig</H4>
+ If you think everything should be perfect, return TRUE instead of FALSE.
+
+<H4>win32cnf.c: MIDASsaveConfig</H4>
+ Return TRUE instead of FALSE.
+
+<H4>how to compile with watcom 11.0</H4>
+ This is really not a bug, but somebody could appreciate these hints.
+ Btw, I'm not sure with some things, I don't want to make dirty hacks,
+ but following steps helped me to compile:
+<li>
+ Structures must be packed with cmdline switch -zp1 (otherwise you get runtime
+ errors like bad wave file, unexpected end of file).
+<li>
+ Function LibMain must be removed or renamed before compiling to lib
+ (linker error). (especially here I don't remember if it is bugfix
+ or dirty hack, but everything I tested works now)
+<li>
+ NULL parameter from _beginthread must be removed (compiler error,
+ Watcom removed this parameter to be MS compatible in version 11).
+<li>
+ When arguments passed to compiler are too long for good old DOS,
+ something must be cut off.. for instance long paths to OBJ directories
+ could be reduced to o: by "subst o: OBJ_directory".... which could be done
+ automaticly in makefile (of course some drive letter like o: must be free 
+ for this purpose).
+
+
+<H1>MIDAS 0.40 buglist</H1>
+
+Because some strange people (like me) still code in 16bit
+and version 0.40 is last 16bit Midas version,
+it has sense to write also Midas 0.40 buglist.
+(Ok, it had sense before <a href="rain">RAIN</a>)
+<P>
+Please, mail me if you are interested in this buglist and don't understand
+Czech. I'm too lazy to translate without reason.
+<P>
+Verze 0.40 je poslední, kterou lze použít pod DOSem v Turbo/Borland Pascalu.
+Jelikož se autoři už nehodlají zabývat verzí 0.40, rozhodl jsem se pro
+programátory podobně postižené Pascalem shromáždit seznam chyb verze 0.40.
+
+<H4>mutils.asm: mMemEqual</H4>
+ Po intrukci repe cmpsb je výsledek porovnání v ZF. Takže bezprostředně
+ následující instrukce test cx,cx tam nemá být. Nevím o tom, že by se
+ tato chyba nějak projevovala v MIDASu, i vadná verze mMemEqual jakž takž
+ funguje, pouze porovnává o bajt méně.
+
+<H4>dpmi.asm: dpmiSegmentDescriptor</H4>
+ Před @err: chybí dvě instrukce, xor ax,ax a jmp @@done. To je triviální věc,
+ bez nich funkce nefunguje. V MIDASu taky nikde není použitá :).
+
+<H4>dpmi.asm: dpmiRealModeInt</H4>
+ Před int 31h chybí xor cx,cx. Tím se DPMI serveru říká, že má vytvořit
+ vlastní stack. Pravděpodobným projevem této chyby je autory zdokumentované
+ a nevysvětlené hroucení MIDASu při opakovaném setupu v protektu a s kartou
+ PAS. Záludnost je v tom, že to, jestli se program zhroutí, záleží na stavu
+ registru CX před voláním funkce. V MIDASu to náhodou většinou vychází.
+
+<H4>gus.asm: gusMalloc</H4>
+ Za @justalloc: chybí dvě intrukce, mov si,[bestfitofs] a mov es,[bestfitseg].
+ Projevem této chyby jsou neopodstatněné hlášky Out of soundcard memory a
+ Invalid conventional memory block při hraní přes Gravise. Problém vzniká
+ řídce, pouze při fragmentované paměti Gravise, je-li při požadavku na
+ naalokování X bajtů nalezena díra velikosti přesně X. Tuto chybu si můžou
+ opravit i uživatelé verze 0.60, protože jsem ji odhalil a ohlásil Alfredovi
+ až po releasu 0.60.
+
+<H4>gus.asm: ?</H4>
+ Dosud nenalezená chyba v gus.asm. Jejím projevem je porušení délek
+ instrumentů, takže z přehrávaného efektu je slyšet jen část nebo naopak
+ skončí později a je slyšet i kus dat za ním.
+
+<H4>Nefatální drobnosti:</H4>
+ Inicializace timeru vytuhne pod Windows a na některých grafických kartách
+ v některých módech. Jediným řešením je v takových situacích timer nepoužívat.
+ <BR>
+ Některé problémy se hlásí špatnou hláškou. Unexpected end of file často
+ znamená třeba nepovolený typ samplu v modulu. Out of conventional memory
+ někdy znamená nedostatek paměti na Gravisovi.
+
+<H4>s3mload.c: ?</H4>
+ Prislo postou:
+<pre>
+ Pri loadovani nekterych S3Mek haze "unexpected end of file", tyto soubory
+ maji velikost order_tabulky liche cislo (word na offsetu 20h v s3m).
+ V "originalni" dokumentaci se pise, ze tato tabulka musi mit sudou
+ velikost.
+ ST3 vytvoreni takoveho modulu nejak zabrani, ale v jinych trackerech
+ tomu tak asi neni. Takze kdyz se tam najde ono liche cislo, midas to
+ upravi na cislo+1, a dale nacitane offsety na patterny, samply .. jsou
+ kapanek nezpravne.
+
+ Reseni - v souboru s3mload.c radek 317 "ordersize=2*(.." zmenit na
+ "ordersize=ms3m->songLength"
+
+ Nevim zda midas nevyhodi stejnou chybu i pri jinych problemech. Takoveto
+ nekorektni moduly jsem nasel doma dva, po oprave uz chodi.
+
+ Oznaceni bug asi nevystihuje to prave... spis ocharana pred nekorektnimi
+ moduly.
+
+                                                       Navel/Jiri Hemzal
+</pre>
+
+
+<p><h3>Contact</h3>
+If you have any comments, suggestions, want to help or anything, write to
+
+<p>Dee
+
+<p>dee at dee.cz,
+<a href="http://dee.cz">homepage</a>
+
+
+</BODY>
+</HTML>
