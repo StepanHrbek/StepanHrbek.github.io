@@ -1,50 +1,50 @@
 <!DOCTYPE HTML>
 <HTML lang="cs">
 <HEAD>
- <META charset="iso-8859-2">
- <TITLE>Objektově Orientované Programování - V BORLAND PASCALU</TITLE>
+ <META charset="utf-8">
+ <TITLE>ObjektovÄ OrientovanĂŠ ProgramovĂĄnĂ­ - V BORLAND PASCALU</TITLE>
 </HEAD>
 <BODY>
 <PRE>
-       Objektově Orientované Programování - V BORLAND PASCALU
+       ObjektovÄ OrientovanĂŠ ProgramovĂĄnĂ­ - V BORLAND PASCALU
 
-   V minulém  čísle vyšel  článek o  OOP. Jako  dodatek k  němu připojuji
-toto stručné zasvěcení do syntaxe OOP v Borland Pascalu.
+   V minulĂŠm  ÄĂ­sle vyĹĄel  ÄlĂĄnek o  OOP. Jako  dodatek k  nÄmu pĹipojuji
+toto struÄnĂŠ zasvÄcenĂ­ do syntaxe OOP v Borland Pascalu.
 
-   Sám  jsem začínal  hezky pomaloučku.  Krůček po  krůčku. První  krůček
-už  máš  určitě za  sebou,  takže  se  při  čtění příštího  odstavce  nic
-nového nedozvíš.  Ale postupně  bys měl  v článku dojít  až k  místu, kde
-narazíš  na  nějaké  nové  informace (kdybys  syntaxi  ovládal,  asi  bys
-tohle nečet... leda že bys hledal bugy :-).. zdravím cpoce, hi dood!).
+   SĂĄm  jsem zaÄĂ­nal  hezky pomalouÄku.  KrĹŻÄek po  krĹŻÄku. PrvnĂ­  krĹŻÄek
+uĹž  mĂĄĹĄ  urÄitÄ za  sebou,  takĹže  se  pĹi  ÄtÄnĂ­ pĹĂ­ĹĄtĂ­ho  odstavce  nic
+novĂŠho nedozvĂ­ĹĄ.  Ale postupnÄ  bys mÄl  v ÄlĂĄnku dojĂ­t  aĹž k  mĂ­stu, kde
+narazĂ­ĹĄ  na  nÄjakĂŠ  novĂŠ  informace (kdybys  syntaxi  ovlĂĄdal,  asi  bys
+tohle neÄet... leda Ĺže bys hledal bugy :-).. zdravĂ­m cpoce, hi dood!).
 
                           _____ Object _____
 
-   Věděl jsem,  že existují  nějaké objekty, vypadá  to jeko  record, ale
-místo record  se píše  object. Tak  jsem to zkusil  a všechno  se chovalo
+   VÄdÄl jsem,  Ĺže existujĂ­  nÄjakĂŠ objekty, vypadĂĄ  to jeko  record, ale
+mĂ­sto record  se pĂ­ĹĄe  object. Tak  jsem to zkusil  a vĹĄechno  se chovalo
 jako record. Fajn.
 
-                          _____ Dědění _____
+                          _____ DÄdÄnĂ­ _____
 
-   Pak  bylo  potřeba,   aby  jeden  record  zdědil   položky  jiného.  V
-nějakém  zdrojáku jsem  viděl vazbu  object(předek), tak  jsem ji  zkusil
-použít...
+   Pak  bylo  potĹeba,   aby  jeden  record  zdÄdil   poloĹžky  jinĂŠho.  V
+nÄjakĂŠm  zdrojĂĄku jsem  vidÄl vazbu  object(pĹedek), tak  jsem ji  zkusil
+pouĹžĂ­t...
 
   Type
     typ1=object
-           nějaká_proměnná : byte;
-           jiná_proměnná : word;
+           nÄjakĂĄ_promÄnnĂĄ : byte;
+           jinĂĄ_promÄnnĂĄ : word;
           end;
     typ2=object(typ1)
-           další_proměnná : string;
+           dalĹĄĂ­_promÄnnĂĄ : string;
           end;
 
-   A  ono  to  funguje,  v  typu2  jsou  obsaženy  i  všechny  položky  z
-typu1. To je teda ta dědičnost, príma.
+   A  ono  to  funguje,  v  typu2  jsou  obsaĹženy  i  vĹĄechny  poloĹžky  z
+typu1. To je teda ta dÄdiÄnost, prĂ­ma.
 
                           _____ Metody _____
 
-   Další,  co asi  tak uhodí  do oka  při prohlížení  OOP zdrojáků,  jsou
-hlavičky procedur a funkcí v definici typu. To jsou metody.
+   DalĹĄĂ­,  co asi  tak uhodĂ­  do oka  pĹi prohlĂ­ĹženĂ­  OOP zdrojĂĄkĹŻ,  jsou
+hlaviÄky procedur a funkcĂ­ v definici typu. To jsou metody.
 
   Type
     typ1=object
@@ -57,43 +57,43 @@ hlavičky procedur a funkcí v definici typu. To jsou metody.
    write(abc);
   end.
 
-   Třída  typ1 má  atribut abc  a metodu  xyz. Všimni  si, čím  se metoda
-xyz  liší od  obyčejné procedury.  Za prvé,  před názvem  má "typ1.".  Za
-druhé, uvnitř metody se dá normálně pracovat s atributy, zde abc.
+   TĹĂ­da  typ1 mĂĄ  atribut abc  a metodu  xyz. VĹĄimni  si, ÄĂ­m  se metoda
+xyz  liĹĄĂ­ od  obyÄejnĂŠ procedury.  Za prvĂŠ,  pĹed nĂĄzvem  mĂĄ "typ1.".  Za
+druhĂŠ, uvnitĹ metody se dĂĄ normĂĄlnÄ pracovat s atributy, zde abc.
 
                _____ Constructor a destructor? _____
 
-   Konstruktor  a  destruktor  jsou  skoro  úplně  obyčejné  metody.  Jen
-místo  procedure se  u  nich píše  constructor,  resp. destructor.  Třída
-může  mít víc  konstruktorů i  destruktorů. Většinou  ale mívá  po jednom
-a obvykle  se pojmenovávají Init a  Done. Jejich náplní by  mělo být něco
-jako inicializace  a zrušení jedné  instance. Obvykle to jsou  také první
-a  poslední věc,  které ta  instance  zažije. Všechno  píšu tak  neurčitě
-proto,   že   máme  v   použití   konstruktorů   a  destruktorů   spoustu
-volnosti (na  rozdíl od C++,  kde se  samy zavolají automaticky  IHNED po
-vzniku  instance  a AŽ  při  destrukci  instance).  V pascalu  je  můžeme
-volat podle  libosti třeba osmkrát za  sebou nebo ani jednou,  ale jak už
-jsem psal,  obvykle se  volají jen  jednou a  to na  začátku a  na konci.
-Navíc platí,  že pokud má  třída virtuální  metody, nelze je  volat dříve
-než konstruktor.
+   Konstruktor  a  destruktor  jsou  skoro  ĂşplnÄ  obyÄejnĂŠ  metody.  Jen
+mĂ­sto  procedure se  u  nich pĂ­ĹĄe  constructor,  resp. destructor.  TĹĂ­da
+mĹŻĹže  mĂ­t vĂ­c  konstruktorĹŻ i  destruktorĹŻ. VÄtĹĄinou  ale mĂ­vĂĄ  po jednom
+a obvykle  se pojmenovĂĄvajĂ­ Init a  Done. Jejich nĂĄplnĂ­ by  mÄlo bĂ˝t nÄco
+jako inicializace  a zruĹĄenĂ­ jednĂŠ  instance. Obvykle to jsou  takĂŠ prvnĂ­
+a  poslednĂ­ vÄc,  kterĂŠ ta  instance  zaĹžije. VĹĄechno  pĂ­ĹĄu tak  neurÄitÄ
+proto,   Ĺže   mĂĄme  v   pouĹžitĂ­   konstruktorĹŻ   a  destruktorĹŻ   spoustu
+volnosti (na  rozdĂ­l od C++,  kde se  samy zavolajĂ­ automaticky  IHNED po
+vzniku  instance  a AĹ˝  pĹi  destrukci  instance).  V pascalu  je  mĹŻĹžeme
+volat podle  libosti tĹeba osmkrĂĄt za  sebou nebo ani jednou,  ale jak uĹž
+jsem psal,  obvykle se  volajĂ­ jen  jednou a  to na  zaÄĂĄtku a  na konci.
+NavĂ­c platĂ­,  Ĺže pokud mĂĄ  tĹĂ­da virtuĂĄlnĂ­  metody, nelze je  volat dĹĂ­ve
+neĹž konstruktor.
 
                            _____ Fail _____
 
-   Další  zvláštností  je příkaz  Fail,  který  lze použít  pouze  uvnitř
-konstruktoru.  Tenhle odstaveček  by  měl  být až  někde  u dna  stránky,
-protože Fail  není tak důležitý,  ale kvůli New a  Dispose bys o  něm měl
-vědět.
-   Konstruktor  se zvenčí  tváří  jako funkce,  vrací  true pokud  uspěl,
-false   pokud  neuspěl.   Ale  zevnitř   vypadá  jako   procedura,  nelze
-nastavit result.  Jediným způsobem jak  ohlásit neúspěch je  příkaz Fail,
-který   konstruktor   zároveň    ukončí   (exitne).   Pokud   konstruktor
-proběhne bez failu, skončí úspěchem.
+   DalĹĄĂ­  zvlĂĄĹĄtnostĂ­  je pĹĂ­kaz  Fail,  kterĂ˝  lze pouĹžĂ­t  pouze  uvnitĹ
+konstruktoru.  Tenhle odstaveÄek  by  mÄl  bĂ˝t aĹž  nÄkde  u dna  strĂĄnky,
+protoĹže Fail  nenĂ­ tak dĹŻleĹžitĂ˝,  ale kvĹŻli New a  Dispose bys o  nÄm mÄl
+vÄdÄt.
+   Konstruktor  se zvenÄĂ­  tvĂĄĹĂ­  jako funkce,  vracĂ­  true pokud  uspÄl,
+false   pokud  neuspÄl.   Ale  zevnitĹ   vypadĂĄ  jako   procedura,  nelze
+nastavit result.  JedinĂ˝m zpĹŻsobem jak  ohlĂĄsit neĂşspÄch je  pĹĂ­kaz Fail,
+kterĂ˝   konstruktor   zĂĄroveĹ    ukonÄĂ­   (exitne).   Pokud   konstruktor
+probÄhne bez failu, skonÄĂ­ ĂşspÄchem.
 
                       _____ New a Dispose _____
 
-   Dosud  to  vypadalo  tak,  že  konstruktor  a  destruktor  jsou  úplně
-obyčejné  metody.  Jedna z  jejich  odlišností  se  ale může  projevit  u
-příkazů New a Dispose. Mějme třídu a její instance
+   Dosud  to  vypadalo  tak,  Ĺže  konstruktor  a  destruktor  jsou  ĂşplnÄ
+obyÄejnĂŠ  metody.  Jedna z  jejich  odliĹĄnostĂ­  se  ale mĹŻĹže  projevit  u
+pĹĂ­kazĹŻ New a Dispose. MÄjme tĹĂ­du a jejĂ­ instance
 
   Type
     typ1=object
@@ -106,52 +106,52 @@ příkazů New a Dispose. Mějme třídu a její instance
      a:typ1;
      p:^typ1;
 
-   Po   spuštění   programu   je   a   neinicializovaná   instance  a   p
-neinicializovaný pointer  na instanci.  a můžeme  jednoduše inicializovat
-příkazem  a.init;.  Pro inicializaci  p  existuje několik  ekvivalentních
+   Po   spuĹĄtÄnĂ­   programu   je   a   neinicializovanĂĄ   instance  a   p
+neinicializovanĂ˝ pointer  na instanci.  a mĹŻĹžeme  jednoduĹĄe inicializovat
+pĹĂ­kazem  a.init;.  Pro inicializaci  p  existuje nÄkolik  ekvivalentnĂ­ch
 variant:
 
     1) new(p); if p<>nil then if not p.init then dispose(p);
-    2) new(p,init);                - new se chová jako procedura
-    3) p:=new(^typ1,init);         - new se chová jako funkce : ^typ1
+    2) new(p,init);                - new se chovĂĄ jako procedura
+    3) p:=new(^typ1,init);         - new se chovĂĄ jako funkce : ^typ1
 
-   Máme  tedy  rozšířený příkaz  new.  Jeho  druhým parametrem  ale  musí
-být  konstruktor,  žádná  jiná   metoda.  Analogicky  existuje  rozšířený
-dispose, ve kterém lze zadat pouze destruktor.
+   MĂĄme  tedy  rozĹĄĂ­ĹenĂ˝ pĹĂ­kaz  new.  Jeho  druhĂ˝m parametrem  ale  musĂ­
+bĂ˝t  konstruktor,  ĹžĂĄdnĂĄ  jinĂĄ   metoda.  Analogicky  existuje  rozĹĄĂ­ĹenĂ˝
+dispose, ve kterĂŠm lze zadat pouze destruktor.
 
     1) p.done; dispose(p);
     2) dispose(p,done);
 
                       _____ Inherited, Self _____
 
-   Občas  se někde  objeví slůvka  jako self  nebo inherited.  Vyskytovat
-se  mohou   pouze  v  metodách.   Self  je  instance  se   kterou  metoda
+   ObÄas  se nÄkde  objevĂ­ slĹŻvka  jako self  nebo inherited.  Vyskytovat
+se  mohou   pouze  v  metodĂĄch.   Self  je  instance  se   kterou  metoda
 pracuje.
-   Předek   a  potomek   mohou  mít   stejně  nazvanou   metodu,  to   je
-korektní. Když  potomek provede  příkaz xyz;, volá  se jeho  xyz. Zavolat
-xyz předka lze příkazem inherited xyz;.
+   PĹedek   a  potomek   mohou  mĂ­t   stejnÄ  nazvanou   metodu,  to   je
+korektnĂ­. KdyĹž  potomek provede  pĹĂ­kaz xyz;, volĂĄ  se jeho  xyz. Zavolat
+xyz pĹedka lze pĹĂ­kazem inherited xyz;.
 
                           _____ Virtual _____
 
-   Pro  jistotu lehce  zopáknu něco  z  minulého článku.  Máme p  pointer
+   Pro  jistotu lehce  zopĂĄknu nÄco  z  minulĂŠho ÄlĂĄnku.  MĂĄme p  pointer
 na  instanci typu  xxx, ale  ten ukazuje  na instanci  typu yyy  (kde yyy
-je  potomek  xxx).  Když  zavoláme  nějakou  metodu,  provede  se  metoda
-třídy xxx  nebo yyy? U  statických metod  xxx, u virtuálních  yyy. Neboli
-u statických rozhoduje typ pointeru, u virtuálních typ instance.
-   A  teď  už  syntaxe:  pokud  za  deklarací  metody  uvedeme  virtual;,
-bude  virtuální, v  opačném případě  zůstane statická.  Pokud má  potomek
-stejně  nazvanou  metodu  jako  předek, musí  zachovat  její  statičnost,
-resp. virtuálnost.
+je  potomek  xxx).  KdyĹž  zavolĂĄme  nÄjakou  metodu,  provede  se  metoda
+tĹĂ­dy xxx  nebo yyy? U  statickĂ˝ch metod  xxx, u virtuĂĄlnĂ­ch  yyy. Neboli
+u statickĂ˝ch rozhoduje typ pointeru, u virtuĂĄlnĂ­ch typ instance.
+   A  teÄ  uĹž  syntaxe:  pokud  za  deklaracĂ­  metody  uvedeme  virtual;,
+bude  virtuĂĄlnĂ­, v  opaÄnĂŠm pĹĂ­padÄ  zĹŻstane statickĂĄ.  Pokud mĂĄ  potomek
+stejnÄ  nazvanou  metodu  jako  pĹedek, musĂ­  zachovat  jejĂ­  statiÄnost,
+resp. virtuĂĄlnost.
 
                       _____ Private, public _____
 
-   Zapouzdření  znamená,  že  všechno   potřebné  pro  práci  třídy  bude
-zahrnuto v  ní. Na  povrchu bude  vidět jen  to co  nás zajímá  z pohledu
-uživatele  objektu   (metody  udělej_tohle,  udělej_tamto).   Uvnitř  asi
-budou další  důležité metody a  atributy, ale ty už  uživatele nezajímají
-a  ani  by  o nich  neměl  vědět.  Proto  lze  každému atributu  a  každé
-metodě  říct jestli  je privátní  nebo veřejná.  Nejjednodušší vysvětlení
-bude příklad:
+   ZapouzdĹenĂ­  znamenĂĄ,  Ĺže  vĹĄechno   potĹebnĂŠ  pro  prĂĄci  tĹĂ­dy  bude
+zahrnuto v  nĂ­. Na  povrchu bude  vidÄt jen  to co  nĂĄs zajĂ­mĂĄ  z pohledu
+uĹživatele  objektu   (metody  udÄlej_tohle,  udÄlej_tamto).   UvnitĹ  asi
+budou dalĹĄĂ­  dĹŻleĹžitĂŠ metody a  atributy, ale ty uĹž  uĹživatele nezajĂ­majĂ­
+a  ani  by  o nich  nemÄl  vÄdÄt.  Proto  lze  kaĹždĂŠmu atributu  a  kaĹždĂŠ
+metodÄ  ĹĂ­ct jestli  je privĂĄtnĂ­  nebo veĹejnĂĄ.  NejjednoduĹĄĹĄĂ­ vysvÄtlenĂ­
+bude pĹĂ­klad:
 
   Type
     typ1=object
@@ -166,54 +166,54 @@ bude příklad:
            destructor done;
           end;
 
-   To co  je za private: je  privátní, to za public: je  veřejné. Položky
-před prvním private nebo public jsou public.
-   Co  přesně  ta  veřejnost  znamená?  Že  k  položce  může  přistupovat
-kdokoliv  a kdekoliv.  Naproti  tomu k  private  položce lze  přistupovat
-pouze  uvnitř metod  dané třídy  a uvnitř  metod jejích  potomků v  témže
-modulu  (unitě). Na  jiných místech  "není vidět",  její použití  znamená
-syntax error (neznámý identifikátor).
+   To co  je za private: je  privĂĄtnĂ­, to za public: je  veĹejnĂŠ. PoloĹžky
+pĹed prvnĂ­m private nebo public jsou public.
+   Co  pĹesnÄ  ta  veĹejnost  znamenĂĄ?  Ĺ˝e  k  poloĹžce  mĹŻĹže  pĹistupovat
+kdokoliv  a kdekoliv.  Naproti  tomu k  private  poloĹžce lze  pĹistupovat
+pouze  uvnitĹ metod  danĂŠ tĹĂ­dy  a uvnitĹ  metod jejĂ­ch  potomkĹŻ v  tĂŠmĹže
+modulu  (unitÄ). Na  jinĂ˝ch mĂ­stech  "nenĂ­ vidÄt",  jejĂ­ pouĹžitĂ­  znamenĂĄ
+syntax error (neznĂĄmĂ˝ identifikĂĄtor).
 
-   Pozor    na    private.    Inherited   xyz    nevrací    metodu    xyz
-bezprostředního  předka,  ale  nejbližší   public  xyz.  Když  má  předek
-private xyz a prapředek public xyz, inherited vrací prapředka.
+   Pozor    na    private.    Inherited   xyz    nevracĂ­    metodu    xyz
+bezprostĹednĂ­ho  pĹedka,  ale  nejbliĹžĹĄĂ­   public  xyz.  KdyĹž  mĂĄ  pĹedek
+private xyz a prapĹedek public xyz, inherited vracĂ­ prapĹedka.
 
                           _____ Chyby _____
 
-   Našel  jsem jednu.  Pokud má  třída dva  konstruktory a  z jednoho  se
-volá  druhý, a  pokud má  potomka, ten  se nesprávně  inicializuje. Uvedu
-příklad.
+   NaĹĄel  jsem jednu.  Pokud mĂĄ  tĹĂ­da dva  konstruktory a  z jednoho  se
+volĂĄ  druhĂ˝, a  pokud mĂĄ  potomka, ten  se nesprĂĄvnÄ  inicializuje. Uvedu
+pĹĂ­klad.
 
   Type
     typ1=object
            constructor init1;   {inicializace...}
-           constructor init2;   {obsahuje volání init1}
+           constructor init2;   {obsahuje volĂĄnĂ­ init1}
           end;
 
   Type
     typ2=object(typ1)
-           constructor init1;   {obsahuje volání inherited init1}
-           constructor init2;   {obsahuje volání inherited init2}
+           constructor init1;   {obsahuje volĂĄnĂ­ inherited init1}
+           constructor init2;   {obsahuje volĂĄnĂ­ inherited init2}
           end;
 
-   New(typ2,init1) vrací  správně objekt  typu typ2,  ale new(typ2,init2)
-vrací  hybrid tvaru  a velikosti  typ2 ale  s tabulkou  virtuálních metod
-třídy typ1.
+   New(typ2,init1) vracĂ­  sprĂĄvnÄ objekt  typu typ2,  ale new(typ2,init2)
+vracĂ­  hybrid tvaru  a velikosti  typ2 ale  s tabulkou  virtuĂĄlnĂ­ch metod
+tĹĂ­dy typ1.
 
                    _____ TCollection, TStream _____
 
-   K  čemu  všechna  ta  teorie..  hrr  do  praxe.  Ohromně  (giganticky,
-kolosálně)  užitečnými se  ukazují třídy  TCollection a  TStream dodávané
-s  Borland  Pascalem  (jsou  v unitě  objects).  TCollection  představuje
-kolekci  "objektů"  stejného  typu  (třeba bajtů,  třeba  stringů,  třeba
-buttonů..).  Do kolekce  lze  přidávat,  odmazávat, vyhledávat,  provádět
-libovolné akce  na všechny prvky... K  prvkům je přímý přístup  přes pole
-pointerů.  TStream  představuje proud  dat,  ze  kterého lze  číst,  psát
-do něj, seekovat v něm.
+   K  Äemu  vĹĄechna  ta  teorie..  hrr  do  praxe.  OhromnÄ  (giganticky,
+kolosĂĄlnÄ)  uĹžiteÄnĂ˝mi se  ukazujĂ­ tĹĂ­dy  TCollection a  TStream dodĂĄvanĂŠ
+s  Borland  Pascalem  (jsou  v unitÄ  objects).  TCollection  pĹedstavuje
+kolekci  "objektĹŻ"  stejnĂŠho  typu  (tĹeba bajtĹŻ,  tĹeba  stringĹŻ,  tĹeba
+buttonĹŻ..).  Do kolekce  lze  pĹidĂĄvat,  odmazĂĄvat, vyhledĂĄvat,  provĂĄdÄt
+libovolnĂŠ akce  na vĹĄechny prvky... K  prvkĹŻm je pĹĂ­mĂ˝ pĹĂ­stup  pĹes pole
+pointerĹŻ.  TStream  pĹedstavuje proud  dat,  ze  kterĂŠho lze  ÄĂ­st,  psĂĄt
+do nÄj, seekovat v nÄm.
 
                            _____ C++ _____
 
-   Vážně se nechceš naučit radši C++? :)
+   VĂĄĹžnÄ se nechceĹĄ nauÄit radĹĄi C++? :)
 
 </PRE>
 <p>

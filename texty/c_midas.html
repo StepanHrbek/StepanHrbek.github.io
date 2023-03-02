@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<HTML lang="cs">
+<HTML>
 <HEAD>
- <META charset="iso-8859-2">
+ <META charset="utf-8">
  <TITLE>Midas buglist</TITLE>
 </HEAD>
 <BODY>
@@ -56,48 +56,48 @@ it has sense to write also Midas 0.40 buglist.
 Please, mail me if you are interested in this buglist and don't understand
 Czech. I'm too lazy to translate without reason.
 <P>
-Verze 0.40 je poslední, kterou lze použít pod DOSem v Turbo/Borland Pascalu.
-Jelikož se autoři už nehodlají zabývat verzí 0.40, rozhodl jsem se pro
-programátory podobně postižené Pascalem shromáždit seznam chyb verze 0.40.
+Verze 0.40 je poslednĂ­, kterou lze pouĹžĂ­t pod DOSem v Turbo/Borland Pascalu.
+JelikoĹž se autoĹi uĹž nehodlajĂ­ zabĂ˝vat verzĂ­ 0.40, rozhodl jsem se pro
+programĂĄtory podobnÄ postiĹženĂŠ Pascalem shromĂĄĹždit seznam chyb verze 0.40.
 
 <H4>mutils.asm: mMemEqual</H4>
- Po intrukci repe cmpsb je výsledek porovnání v ZF. Takže bezprostředně
- následující instrukce test cx,cx tam nemá být. Nevím o tom, že by se
- tato chyba nějak projevovala v MIDASu, i vadná verze mMemEqual jakž takž
- funguje, pouze porovnává o bajt méně.
+ Po intrukci repe cmpsb je vĂ˝sledek porovnĂĄnĂ­ v ZF. TakĹže bezprostĹednÄ
+ nĂĄsledujĂ­cĂ­ instrukce test cx,cx tam nemĂĄ bĂ˝t. NevĂ­m o tom, Ĺže by se
+ tato chyba nÄjak projevovala v MIDASu, i vadnĂĄ verze mMemEqual jakĹž takĹž
+ funguje, pouze porovnĂĄvĂĄ o bajt mĂŠnÄ.
 
 <H4>dpmi.asm: dpmiSegmentDescriptor</H4>
- Před @err: chybí dvě instrukce, xor ax,ax a jmp @@done. To je triviální věc,
- bez nich funkce nefunguje. V MIDASu taky nikde není použitá :).
+ PĹed @err: chybĂ­ dvÄ instrukce, xor ax,ax a jmp @@done. To je triviĂĄlnĂ­ vÄc,
+ bez nich funkce nefunguje. V MIDASu taky nikde nenĂ­ pouĹžitĂĄ :).
 
 <H4>dpmi.asm: dpmiRealModeInt</H4>
- Před int 31h chybí xor cx,cx. Tím se DPMI serveru říká, že má vytvořit
- vlastní stack. Pravděpodobným projevem této chyby je autory zdokumentované
- a nevysvětlené hroucení MIDASu při opakovaném setupu v protektu a s kartou
- PAS. Záludnost je v tom, že to, jestli se program zhroutí, záleží na stavu
- registru CX před voláním funkce. V MIDASu to náhodou většinou vychází.
+ PĹed int 31h chybĂ­ xor cx,cx. TĂ­m se DPMI serveru ĹĂ­kĂĄ, Ĺže mĂĄ vytvoĹit
+ vlastnĂ­ stack. PravdÄpodobnĂ˝m projevem tĂŠto chyby je autory zdokumentovanĂŠ
+ a nevysvÄtlenĂŠ hroucenĂ­ MIDASu pĹi opakovanĂŠm setupu v protektu a s kartou
+ PAS. ZĂĄludnost je v tom, Ĺže to, jestli se program zhroutĂ­, zĂĄleĹžĂ­ na stavu
+ registru CX pĹed volĂĄnĂ­m funkce. V MIDASu to nĂĄhodou vÄtĹĄinou vychĂĄzĂ­.
 
 <H4>gus.asm: gusMalloc</H4>
- Za @justalloc: chybí dvě intrukce, mov si,[bestfitofs] a mov es,[bestfitseg].
- Projevem této chyby jsou neopodstatněné hlášky Out of soundcard memory a
- Invalid conventional memory block při hraní přes Gravise. Problém vzniká
- řídce, pouze při fragmentované paměti Gravise, je-li při požadavku na
- naalokování X bajtů nalezena díra velikosti přesně X. Tuto chybu si můžou
- opravit i uživatelé verze 0.60, protože jsem ji odhalil a ohlásil Alfredovi
- až po releasu 0.60.
+ Za @justalloc: chybĂ­ dvÄ intrukce, mov si,[bestfitofs] a mov es,[bestfitseg].
+ Projevem tĂŠto chyby jsou neopodstatnÄnĂŠ hlĂĄĹĄky Out of soundcard memory a
+ Invalid conventional memory block pĹi hranĂ­ pĹes Gravise. ProblĂŠm vznikĂĄ
+ ĹĂ­dce, pouze pĹi fragmentovanĂŠ pamÄti Gravise, je-li pĹi poĹžadavku na
+ naalokovĂĄnĂ­ X bajtĹŻ nalezena dĂ­ra velikosti pĹesnÄ X. Tuto chybu si mĹŻĹžou
+ opravit i uĹživatelĂŠ verze 0.60, protoĹže jsem ji odhalil a ohlĂĄsil Alfredovi
+ aĹž po releasu 0.60.
 
 <H4>gus.asm: ?</H4>
- Dosud nenalezená chyba v gus.asm. Jejím projevem je porušení délek
- instrumentů, takže z přehrávaného efektu je slyšet jen část nebo naopak
- skončí později a je slyšet i kus dat za ním.
+ Dosud nenalezenĂĄ chyba v gus.asm. JejĂ­m projevem je poruĹĄenĂ­ dĂŠlek
+ instrumentĹŻ, takĹže z pĹehrĂĄvanĂŠho efektu je slyĹĄet jen ÄĂĄst nebo naopak
+ skonÄĂ­ pozdÄji a je slyĹĄet i kus dat za nĂ­m.
 
-<H4>Nefatální drobnosti:</H4>
- Inicializace timeru vytuhne pod Windows a na některých grafických kartách
- v některých módech. Jediným řešením je v takových situacích timer nepoužívat.
+<H4>NefatĂĄlnĂ­ drobnosti:</H4>
+ Inicializace timeru vytuhne pod Windows a na nÄkterĂ˝ch grafickĂ˝ch kartĂĄch
+ v nÄkterĂ˝ch mĂłdech. JedinĂ˝m ĹeĹĄenĂ­m je v takovĂ˝ch situacĂ­ch timer nepouĹžĂ­vat.
  <BR>
- Některé problémy se hlásí špatnou hláškou. Unexpected end of file často
- znamená třeba nepovolený typ samplu v modulu. Out of conventional memory
- někdy znamená nedostatek paměti na Gravisovi.
+ NÄkterĂŠ problĂŠmy se hlĂĄsĂ­ ĹĄpatnou hlĂĄĹĄkou. Unexpected end of file Äasto
+ znamenĂĄ tĹeba nepovolenĂ˝ typ samplu v modulu. Out of conventional memory
+ nÄkdy znamenĂĄ nedostatek pamÄti na Gravisovi.
 
 <H4>s3mload.c: ?</H4>
  Prislo postou:

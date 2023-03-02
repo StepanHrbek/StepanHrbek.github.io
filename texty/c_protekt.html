@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<HTML lang="cs">
+<HEAD>
+ <META charset="utf-8">
+ <TITLE>borland pascal: z realu do protektu</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+                       borland pascal:
+
+                         z realu do protektu
+
+   První  věc,  kterou  člověk  většinou zkusí,  je  vzít  nějaký  svůj
+oblíbený  program  psaný  v  realu  a zkompilovat  ho  pro  protekt  (v
+BP.EXE  je volba  real  /  protekt /  windows).  Když nevzniknou  žádné
+syntaktické  chyby (to  by ani  myslím neměly)  a program  se rozběhne,
+obvykle  záhy  skončí  s  hláškou  Runtime  Error  216  neboli  General
+Protection  Fault  (GPF). Zklamaný  programátor  se  vrátí do  realu  a
+žije šťastně až do smrti.
+
+   Jak  to  bylo vlastně  se  mnou...  stalo se  mi  to  taky ?  Drrrr,
+drrrrr.. paměť zvyšuje  obrátky. Ááá, já vlastně uvažoval  jestli s tím
+zapraseným  zdrojákem   Pařeniště  seknu,  budu  pokračovat   v  realu,
+přepíšu ho  do Cčka  nebo do  protektu. První  vypadl real.  Potom jsem
+musel ověřit,  co to  vůbec ten  protekt je  a jestli  v něm  může něco
+jako  Pařeniště fungovat.  Kniha  Mikroprocesory Intel  Pentium a  spol
+od  Grady   podobné  otázky   zodpoví  dost  dobře,   doporučuji.  Poté
+zbývalo  prakticky ověřit,  jak to  s tím  protektem v  Pascalu vlastně
+je. Dneska  mi už přijde  absurdní představa,  že jsem to  nevěděl, ale
+ono to  asi opravdu  nikde není napsané.  Výsledek průzkumu  byl tento:
+16bitový kód,  16bitová data (tj. xor ax,ax vynuluje  ax a db  66h; xor
+ax,ax vynuluje eax, lodsb čte z  [si] a db 67h; lodsb z  [esi], všechno
+přesně  jako  v  realu).  Najednou  to  vypadá,  že  mezi  protektem  a
+realem  v  Borland  Pascalu  není  žádný  rozdíl  (kromě  detailů  jako
+alokace paměti).  Zkusím sepsat  na jaké  hlavní rozdíly  jsem postupně
+narazil.
+
+Nejde zapisovat do CS.
+- Dá se obejít i bez toho. Někdy to vypadá, že ne, ale jde to.
+
+Nejde zapisovat do $A000.
+- Zato jde do SegA000 (dále SegB800, Seg0040, SegB000).
+
+Nejde číst ani zapisovat na adresy, které nejsou tvoje.
+- Interrupty nastavovat slušně.
+- Dávat si pozor na konce polí apod.
+
+Nejde  pracovat s  neplatnými pointery  (kromě nil),  jinak řečeno,  do
+segmentového registru nejde zapsat neplatný selektor.
+- Dávat si pozor.
+-  Když  je  to  nutné,  dá   se  s  neplatným  pointerem  pracovat  po
+přetypování  na  longint  (BP  pak nenahrává  segment  do  segmentového
+registru).
+
+Nejde všechnu paměť alokovat přes INT 21.
+- Zkusit používat pascalský GetMem.
+
+Nejde alokovat souvislých 64KB a víc.
+- Už jsem  o tom psal v  tricích, nejlepší je asi  použít GlobalAlloc z
+unity WinAPI.
+
+Nefungují  VESA  BIOS,  Get  ROM   font,  Event  wait  a  další  služby
+systému (já zatím narazil jen na tyto).
+- Co  se stane když  napíšeš INT  10h ? Nezapomeň  že jsi v  protektu a
+obsluha  INT 10h  je psaná  v  realu. Stačilo  by přepnout  do realu  a
+provést  původní obsluhu  ?  Asi  ne.. :)  Rozdíl  je  mezi segmenty  a
+selektory  (odkazuji  na Mikroprocesory  Intel..).  Když  máš službě  v
+registrech  předat  pointer,  předáš  selektor a  offset.  Ale  realová
+obsluha  chce  segment a  offset.  I  kdybys  znal ke  svému  selektoru
+příslušný  segment, nemohl  bys  ho předat,  protože  ten nejde  zapsat
+do segmentového registru.
+   Od  toho tu  je RTM.EXE.  Ještě  v protektu  zachytává interrupty  a
+tam, kde  je to  třeba, převádí  selektory na  segmenty. Stejně  tak po
+skončení  služby konvertuje  případné  vrácené  segmenty na  selektory.
+A  protože většina  tvých dat  leží nad  1MB, ještě  je musí  kopírovat
+do  konvenční paměti  pod  1MB, případně  zpátky  (realová obsluha  nad
+1MB nedosáhne).
+   Vypadá  to  promakaně (ne  moc  rychlé,  ale  funkční), tak  kde  je
+problém  ?  RTM  musí  mít  přehled  o  všech  funkcích  systému.  Když
+zavoláš  třeba INT  21  s  AX=3d00, RTM  musí  vědět,  že tahle  služba
+pracuje s  pointerem DS:DX  na blok  256(?) bajtů,  aby těch  256 bajtů
+z DS:DX  zkopčil do konvenční paměti  a do DS dal  segment. Jiná služba
+může  mít  v   DS  třeba  offset,  takže   nejde  automaticky  převádět
+všechny segmentové registry.
+   RTM  se  snaží,  ale  všechny  služby  prostě  nemůže  znát,  zvlášť
+když vznikly  později než RTM.  A jsou tu  i jiné záludnosti.  Třeba AT
+služba Event  wait. Té předáš  pointer na boolean a  počet mikrosekund.
+Služba  skončí hned,  ale za  udanou  dobu boolean  nastaví. To  prostě
+nejde.  Když  je  tvůj  boolean  nad 1MB  tak  nejde  zařídit,  aby  ho
+realmódová služba Event wait nastavila.
+   Řešení  těchto problémů  existuje.  Jsou to  DPMI  služby (INT  31).
+Namátkou:  Alloc Dos  Mem,  Free Dos  Mem, SegmentDescriptor,  Simulate
+Realmode  Interrupt  (dále  viz  interrupt  list).  Pomocí  nich  můžeš
+naalokovat  konvenční paměť  tak, že  dostaneš segment  i selektor.  Se
+segmentem  se  budeš  obracet   na  realmódové  služby,  se  selektorem
+budeš pracovat  sám. Alokovat konvenční  paměť jde  i v unitě  WinAPI a
+obyčejným voláním INT 21, ale nejlepší zkušenosti mám s DPMI.
+
+Automaticky se nastavuje {$define dpmi} (v realu define msdos).
+
+Nejde debugovat.
+-  Externí   debugger  TDDPMI  sice   není  tak  cool   jako  'internal
+debugging',  ale dá  se  s ním  překvapivě rychle  sžít.  Dokonce má  i
+některé výhody (oceňuji posmrtné prohlížení lokálních proměnných).
+
+Počítač se méně hroutí.
+-  Konečně nějaká  výhoda.  Tam kde  se v  realu  zhroutil teď  nejspíš
+hodí runtime error.
+
+Offset první proměnné v DS je jiný.
+-  V  realu   je  první  proměnná  v  datasegmentu  na   offsetu  2,  v
+protektu 16.  To pro  případ, že  bys chtěl mít  pole bajtů  takové, že
+index  prvku je  roven  jeho  offsetu (moc  fajn  vlastnost,  mám ji  v
+Pařeništi tak zažranou, že se jí nemůžu zbavit).
+
+Nejde číst/psát word na 0ffff apod (přes hranici segmentu).
+- Dávat pozor.
+- Vlastně by to  nemělo jít ani v realu, ale vzpomínám  si, že zrovna v
+realu (ne ve V86) to nějak prošlo.
+
+Celá paměť je přímo přístupná (žádné handlování s XMS,EMS).
+- Da cool !
+
+
+</PRE>
+<p>
+<a href="../dee">Dee</a>
+</BODY>
+</HTML>

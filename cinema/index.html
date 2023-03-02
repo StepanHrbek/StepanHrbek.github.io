@@ -1,12 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<HTML>
+<!DOCTYPE HTML>
+<HTML lang="cs">
 <HEAD>
+ <META charset="UTF-8">
  <SCRIPT language="javascript" type="text/javascript">
   <!--
   if(parent.document.body) parent.document.body.rows="0,*";
   //-->
  </SCRIPT>
- <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=iso-8859-2">
  <TITLE>Digital reconstruction of cartoon movies</TITLE>
  <LINK rel="stylesheet" type="text/css" href="../default.css">
 </HEAD>
@@ -44,264 +44,264 @@
  <table width="100%" bgcolor=#cccccc><td>Paper on module2, Czech only preview (2002)</td></table>
  <pre>
 
-Vyrovnání globálního kolísání jasu v sekvencích obrázkù
+VyrovnÃ¡nÃ­ globÃ¡lnÃ­ho kolÃ­sÃ¡nÃ­ jasu v sekvencÃ­ch obrÃ¡zkÅ¯
 
-Úvod/Abstrakt
+Ãšvod/Abstrakt
 
-V sekvencích obrázkù se mohou z rùznıch dùvodù objevovat ne¾ádoucí 
-globální fluktuace jasu. Proto¾e informace potøebná k jejich detekci 
-a odstranìní le¾í v srovnání jasù tıch¾ objektù na rùznıch snímcích,
-s vyu¾itím nezávislé komponenty sledování pohybu budeme porovnávat
-histogramy oblastí z obou snímkù, které obsahují stejné objekty.
-Transformaci jasu zkonstruujeme s pomocí genetického algoritmu
-jako splajn nejlépe odpovídající námi zvolenım kritériím.
+V sekvencÃ­ch obrÃ¡zkÅ¯ se mohou z rÅ¯znÃ½ch dÅ¯vodÅ¯ objevovat neÅ¾Ã¡doucÃ­ 
+globÃ¡lnÃ­ fluktuace jasu. ProtoÅ¾e informace potÅ™ebnÃ¡ k jejich detekci 
+a odstranÄ›nÃ­ leÅ¾Ã­ v srovnÃ¡nÃ­ jasÅ¯ tÃ½chÅ¾ objektÅ¯ na rÅ¯znÃ½ch snÃ­mcÃ­ch,
+s vyuÅ¾itÃ­m nezÃ¡vislÃ© komponenty sledovÃ¡nÃ­ pohybu budeme porovnÃ¡vat
+histogramy oblastÃ­ z obou snÃ­mkÅ¯, kterÃ© obsahujÃ­ stejnÃ© objekty.
+Transformaci jasu zkonstruujeme s pomocÃ­ genetickÃ©ho algoritmu
+jako splajn nejlÃ©pe odpovÃ­dajÃ­cÃ­ nÃ¡mi zvolenÃ½m kritÃ©riÃ­m.
 
 
 
-Vyrovnávání jasu
+VyrovnÃ¡vÃ¡nÃ­ jasu
 
-Konstrukce jasové transformace 
+Konstrukce jasovÃ© transformace 
 
-Globální transformaci jasu (kde jas je reálné èíslo 0..1) definujeme jako neklesající 
-funkci tl:R->R procházející body [0,0] a [1,1].
-Jasovou transformací Tl:snímek->snímek pak rozumíme nahrazení v¹ech pixelù 
-s jasem j pixelem odpovídající barvy s jasem tl(j). Barevnou slo¾kou snímkù se 
-dále nezabıváme, pracujeme pouze s jasem.
-Ne¾ádoucí globální transformace jasu se kterımi se mù¾eme v praxi setkat
-jsou velmi rùznorodé, jednoduchá gamma korekce není dostateènım opravnım
-prostøedkem.
-Chceme pou¾ít co nejrobustnìj¹í funkci schopnou postihnout co nejvíce zmìn jasu,
-ke kterım mù¾e napøíklad pøi tvorbì filmu, degradaci filmového matriálu 
-a digitalizaci filmu dojít,
-u které ale pùjde (v pøípadì, ¾e oèekáváme pouze jednoduché transformace)
-snadno regulovat urèitá míra hladkosti a jednoduchosti.
-f tedy budeme reprezentovat jako splajn procházející
-nìkolika body, z nich¾ pouze krajní [0,0] a [1,1] jsou pevné. 
-Zbylé body najde genetickı
-algoritmus tak, aby maximalizoval optimalitu transformace (viz kritéria
-optimality ní¾e).
+GlobÃ¡lnÃ­ transformaci jasu (kde jas je reÃ¡lnÃ© ÄÃ­slo 0..1) definujeme jako neklesajÃ­cÃ­ 
+funkci tl:R->R prochÃ¡zejÃ­cÃ­ body [0,0] a [1,1].
+Jasovou transformacÃ­ Tl:snÃ­mek->snÃ­mek pak rozumÃ­me nahrazenÃ­ vÅ¡ech pixelÅ¯ 
+s jasem j pixelem odpovÃ­dajÃ­cÃ­ barvy s jasem tl(j). Barevnou sloÅ¾kou snÃ­mkÅ¯ se 
+dÃ¡le nezabÃ½vÃ¡me, pracujeme pouze s jasem.
+NeÅ¾Ã¡doucÃ­ globÃ¡lnÃ­ transformace jasu se kterÃ½mi se mÅ¯Å¾eme v praxi setkat
+jsou velmi rÅ¯znorodÃ©, jednoduchÃ¡ gamma korekce nenÃ­ dostateÄnÃ½m opravnÃ½m
+prostÅ™edkem.
+Chceme pouÅ¾Ã­t co nejrobustnÄ›jÅ¡Ã­ funkci schopnou postihnout co nejvÃ­ce zmÄ›n jasu,
+ke kterÃ½m mÅ¯Å¾e napÅ™Ã­klad pÅ™i tvorbÄ› filmu, degradaci filmovÃ©ho matriÃ¡lu 
+a digitalizaci filmu dojÃ­t,
+u kterÃ© ale pÅ¯jde (v pÅ™Ã­padÄ›, Å¾e oÄekÃ¡vÃ¡me pouze jednoduchÃ© transformace)
+snadno regulovat urÄitÃ¡ mÃ­ra hladkosti a jednoduchosti.
+f tedy budeme reprezentovat jako splajn prochÃ¡zejÃ­cÃ­
+nÄ›kolika body, z nichÅ¾ pouze krajnÃ­ [0,0] a [1,1] jsou pevnÃ©. 
+ZbylÃ© body najde genetickÃ½
+algoritmus tak, aby maximalizoval optimalitu transformace (viz kritÃ©ria
+optimality nÃ­Å¾e).
 
-V na¹í implementaci jsme pou¾ili Fritsch-Carlsonùv splajn, nicménì i
-jiné splajny dávaly srovnatelné vısledky.
-Jako optimální poèet bodù, kterımi splajn prochází,
-se v pøípadì animovaného filmu Rumcajs ukázalo èíslo pìt (tj. tøi pohyblivé).
+V naÅ¡Ã­ implementaci jsme pouÅ¾ili Fritsch-CarlsonÅ¯v splajn, nicmÃ©nÄ› i
+jinÃ© splajny dÃ¡valy srovnatelnÃ© vÃ½sledky.
+Jako optimÃ¡lnÃ­ poÄet bodÅ¯, kterÃ½mi splajn prochÃ¡zÃ­,
+se v pÅ™Ã­padÄ› animovanÃ©ho filmu Rumcajs ukÃ¡zalo ÄÃ­slo pÄ›t (tj. tÅ™i pohyblivÃ©).
 
-Kritéria optimality
+KritÃ©ria optimality
 
-Popí¹eme tøi schémata umo¾òující posoudit kvalitu jasové transformace Tl.
+PopÃ­Å¡eme tÅ™i schÃ©mata umoÅ¾ÅˆujÃ­cÃ­ posoudit kvalitu jasovÃ© transformace Tl.
 
--Porovnání histogramù snímkù Fa a Tl(Fb)
+-PorovnÃ¡nÃ­ histogramÅ¯ snÃ­mkÅ¯ Fa a Tl(Fb)
 
-Jako jednoduché kritérium optimality transformace Tl je mo¾né brát podobnost
-histogramù Fa a Tl(Fb). Porovnání vychází z oèekávání, ¾e ve filmovıch sekvencích
-vìt¹inou del¹í dobu zùstávají v zábìru stejné objekty, které mohou v histogramu
-celého snímku produkovat zøetelné lokální extrémy. Pøi vhodnì navr¾eném
-kritériu podobnosti histogramù by pak genetickı algoritmus mohl nacházet
-transformace, které nejlépe mapují jeden histogram do tvarù podobnıch
-druhému histogramu. Bohu¾el v praxi se obsah sousedních snímkù a jejich
-histogramy relativnì èasto mìní takovım zpùsobem
-(do zábìru vstupují nové objekty, jiné mizí), ¾e pouze z histogramù 
-celıch snímkù není mo¾né vhodnou transformaci jasu urèit. 
+Jako jednoduchÃ© kritÃ©rium optimality transformace Tl je moÅ¾nÃ© brÃ¡t podobnost
+histogramÅ¯ Fa a Tl(Fb). PorovnÃ¡nÃ­ vychÃ¡zÃ­ z oÄekÃ¡vÃ¡nÃ­, Å¾e ve filmovÃ½ch sekvencÃ­ch
+vÄ›tÅ¡inou delÅ¡Ã­ dobu zÅ¯stÃ¡vajÃ­ v zÃ¡bÄ›ru stejnÃ© objekty, kterÃ© mohou v histogramu
+celÃ©ho snÃ­mku produkovat zÅ™etelnÃ© lokÃ¡lnÃ­ extrÃ©my. PÅ™i vhodnÄ› navrÅ¾enÃ©m
+kritÃ©riu podobnosti histogramÅ¯ by pak genetickÃ½ algoritmus mohl nachÃ¡zet
+transformace, kterÃ© nejlÃ©pe mapujÃ­ jeden histogram do tvarÅ¯ podobnÃ½ch
+druhÃ©mu histogramu. BohuÅ¾el v praxi se obsah sousednÃ­ch snÃ­mkÅ¯ a jejich
+histogramy relativnÄ› Äasto mÄ›nÃ­ takovÃ½m zpÅ¯sobem
+(do zÃ¡bÄ›ru vstupujÃ­ novÃ© objekty, jinÃ© mizÃ­), Å¾e pouze z histogramÅ¯ 
+celÃ½ch snÃ­mkÅ¯ nenÃ­ moÅ¾nÃ© vhodnou transformaci jasu urÄit. 
 Tuto cestu jsme tedy opustili.
 
--Porovnání histogramù jednotlivıch objektù nalezenıch v Tg(Fa) i Tl(Fb)
+-PorovnÃ¡nÃ­ histogramÅ¯ jednotlivÃ½ch objektÅ¯ nalezenÃ½ch v Tg(Fa) i Tl(Fb)
 
-Problémy pøedchozí metody je mo¾né odstranit nalezením a 
-porovnáním pouze objektù nalezenıch v obou snímcích.
-Pokud se objekty smr¹»ují nebo rozpínají (vzdalují nebo pøibli¾ují),
-je nezbytné provést s nimi takové geometrické transformace Tg, abychom
-porovnávali pixel jednoho objektu proti pixelu druhého objektu.
-Vzhledem k vıpoèetní nároènosti vyhledávání objektù v obou snímcích
-je vhodné nehledat objekty znovu pro ka¾dou novou transformaci jasu, ale pouze
-jednou na zaèátku vıpoètu 
-a do kritéria podobnosti objektù v Tg(Fa) a Fb pøitom zahrnout podobnost
-jejich textur po odeètení jejich prùmìrného jasu (zùstane informce témìø 
-nezávislá na zatím neznámé mo¾né zmìnì jasu).
-Toto kritérium by bylo vhodné pro obecnı filmovı materiál.
+ProblÃ©my pÅ™edchozÃ­ metody je moÅ¾nÃ© odstranit nalezenÃ­m a 
+porovnÃ¡nÃ­m pouze objektÅ¯ nalezenÃ½ch v obou snÃ­mcÃ­ch.
+Pokud se objekty smrÅ¡Å¥ujÃ­ nebo rozpÃ­najÃ­ (vzdalujÃ­ nebo pÅ™ibliÅ¾ujÃ­),
+je nezbytnÃ© provÃ©st s nimi takovÃ© geometrickÃ© transformace Tg, abychom
+porovnÃ¡vali pixel jednoho objektu proti pixelu druhÃ©ho objektu.
+Vzhledem k vÃ½poÄetnÃ­ nÃ¡roÄnosti vyhledÃ¡vÃ¡nÃ­ objektÅ¯ v obou snÃ­mcÃ­ch
+je vhodnÃ© nehledat objekty znovu pro kaÅ¾dou novou transformaci jasu, ale pouze
+jednou na zaÄÃ¡tku vÃ½poÄtu 
+a do kritÃ©ria podobnosti objektÅ¯ v Tg(Fa) a Fb pÅ™itom zahrnout podobnost
+jejich textur po odeÄtenÃ­ jejich prÅ¯mÄ›rnÃ©ho jasu (zÅ¯stane informce tÃ©mÄ›Å™ 
+nezÃ¡vislÃ¡ na zatÃ­m neznÃ¡mÃ© moÅ¾nÃ© zmÄ›nÄ› jasu).
+Toto kritÃ©rium by bylo vhodnÃ© pro obecnÃ½ filmovÃ½ materiÃ¡l.
 
--Porovnání histrogramù prùniku Tg(Fa) a Tl(Fb)
+-PorovnÃ¡nÃ­ histrogramÅ¯ prÅ¯niku Tg(Fa) a Tl(Fb)
 
-Primárním cílem této práce bylo vyøe¹it zadanı problém
-pro konkrétní pøípad animovanıch veèerníèkù Rumcajs.
-Obraz v nich bıvá slo¾en témìø vıhradnì z dvourozmìrného statického pozadí a
-po nìm se pohybujících plochıch postavièek, které vìt¹inou zabírají pouze
-malou èást zábìru.
-To umo¾òuje pou¾ít jednodu¹¹í a efektivnìjí schéma porovnávání vhodné pouze pro 
-podobná zadání.
-Pro celı vıpoèet jasové transformace nejprve jednou s vyu¾itím 
-nezávisle vyvíjené komponenty
-sledování pohybu kamery najdeme geometrickou transformaci Tg snímku Fa,
-po které budeme moci porovnávat pixel snímku Tg(Fa) proti korespondujícímu 
-pixelu snímku Fb.
-Následnì u¾ pracujeme pouze s èástí Tg(Fa) a èástí Fb, které si obsahem
-odpovídají. Kritériem optimality jasové transformace Tl se pak stane
-rozdílnost histogramù Tg(Fa) a Tl(Fb) (genetickı algoritmus se ji
-sna¾í minimalizovat) definovaná jako
+PrimÃ¡rnÃ­m cÃ­lem tÃ©to prÃ¡ce bylo vyÅ™eÅ¡it zadanÃ½ problÃ©m
+pro konkrÃ©tnÃ­ pÅ™Ã­pad animovanÃ½ch veÄernÃ­ÄkÅ¯ Rumcajs.
+Obraz v nich bÃ½vÃ¡ sloÅ¾en tÃ©mÄ›Å™ vÃ½hradnÄ› z dvourozmÄ›rnÃ©ho statickÃ©ho pozadÃ­ a
+po nÄ›m se pohybujÃ­cÃ­ch plochÃ½ch postaviÄek, kterÃ© vÄ›tÅ¡inou zabÃ­rajÃ­ pouze
+malou ÄÃ¡st zÃ¡bÄ›ru.
+To umoÅ¾Åˆuje pouÅ¾Ã­t jednoduÅ¡Å¡Ã­ a efektivnÄ›jÃ­ schÃ©ma porovnÃ¡vÃ¡nÃ­ vhodnÃ© pouze pro 
+podobnÃ¡ zadÃ¡nÃ­.
+Pro celÃ½ vÃ½poÄet jasovÃ© transformace nejprve jednou s vyuÅ¾itÃ­m 
+nezÃ¡visle vyvÃ­jenÃ© komponenty
+sledovÃ¡nÃ­ pohybu kamery najdeme geometrickou transformaci Tg snÃ­mku Fa,
+po kterÃ© budeme moci porovnÃ¡vat pixel snÃ­mku Tg(Fa) proti korespondujÃ­cÃ­mu 
+pixelu snÃ­mku Fb.
+NÃ¡slednÄ› uÅ¾ pracujeme pouze s ÄÃ¡stÃ­ Tg(Fa) a ÄÃ¡stÃ­ Fb, kterÃ© si obsahem
+odpovÃ­dajÃ­. KritÃ©riem optimality jasovÃ© transformace Tl se pak stane
+rozdÃ­lnost histogramÅ¯ Tg(Fa) a Tl(Fb) (genetickÃ½ algoritmus se ji
+snaÅ¾Ã­ minimalizovat) definovanÃ¡ jako
  SUM[i=0..255] abs( Tl(Fb).hist[i]-Tg(Fa).hist[i] )
-(F.hist[i] znaèí poèet pixelù s jasem i ve snímku F) 
-a dále zahrnující následující modifikace.
+(F.hist[i] znaÄÃ­ poÄet pixelÅ¯ s jasem i ve snÃ­mku F) 
+a dÃ¡le zahrnujÃ­cÃ­ nÃ¡sledujÃ­cÃ­ modifikace.
 
-Vyhlazení histogramù
+VyhlazenÃ­ histogramÅ¯
 
-U dostateènì velkıch obrázkù nemá náhodnı ¹um v texturách vliv 
-na podobnost histogramù. Ov¹em
-pøi na¹ich geometrickıch transformacích dochází ke zmìnì charakteristik textur
-a ¹umu, pøi bilineární interpolaci jsou extrémní jasy v textuøe
-interpolovány s jasy sousedních pixelù s neextrémními jasy,
-tak¾e textura transformovaného snímku obsahuje u¾¹í spektrum hodnot jasu.
-Následné mìøení podobnosti histogramù usnadní vyhlazení histogramù
-- taková transformace histogramù, po které budou histogramy pùvodního 
-snímku i transformovaného snímku s redukovanım ¹umem opìt podobné.
-Vyhlazování implementujeme jako iteraèní proces, ve kterém pro ka¾dé j
-malou èást poètu pixelù s jasem j histo[j] pøesuneme do histo[j-1] a histo[j+1].
-Krok opakujeme dokud pomìr SUM histo[j]-(histo[j-1]+histo[j+1])/2 
-k poètu zpracovávanıch pixelù pøekraèuje zadanou míru hrubosti histogramu
-(pro histogram o 256 prvcích nad obrázky v TV rozli¹ení se osvìdèilo 0.01).
+U dostateÄnÄ› velkÃ½ch obrÃ¡zkÅ¯ nemÃ¡ nÃ¡hodnÃ½ Å¡um v texturÃ¡ch vliv 
+na podobnost histogramÅ¯. OvÅ¡em
+pÅ™i naÅ¡ich geometrickÃ½ch transformacÃ­ch dochÃ¡zÃ­ ke zmÄ›nÄ› charakteristik textur
+a Å¡umu, pÅ™i bilineÃ¡rnÃ­ interpolaci jsou extrÃ©mnÃ­ jasy v textuÅ™e
+interpolovÃ¡ny s jasy sousednÃ­ch pixelÅ¯ s neextrÃ©mnÃ­mi jasy,
+takÅ¾e textura transformovanÃ©ho snÃ­mku obsahuje uÅ¾Å¡Ã­ spektrum hodnot jasu.
+NÃ¡slednÃ© mÄ›Å™enÃ­ podobnosti histogramÅ¯ usnadnÃ­ vyhlazenÃ­ histogramÅ¯
+- takovÃ¡ transformace histogramÅ¯, po kterÃ© budou histogramy pÅ¯vodnÃ­ho 
+snÃ­mku i transformovanÃ©ho snÃ­mku s redukovanÃ½m Å¡umem opÄ›t podobnÃ©.
+VyhlazovÃ¡nÃ­ implementujeme jako iteraÄnÃ­ proces, ve kterÃ©m pro kaÅ¾dÃ© j
+malou ÄÃ¡st poÄtu pixelÅ¯ s jasem j histo[j] pÅ™esuneme do histo[j-1] a histo[j+1].
+Krok opakujeme dokud pomÄ›r SUM histo[j]-(histo[j-1]+histo[j+1])/2 
+k poÄtu zpracovÃ¡vanÃ½ch pixelÅ¯ pÅ™ekraÄuje zadanou mÃ­ru hrubosti histogramu
+(pro histogram o 256 prvcÃ­ch nad obrÃ¡zky v TV rozliÅ¡enÃ­ se osvÄ›dÄilo 0.01).
 
-Zvıraznìní minoritních extrémù v histogramu
+ZvÃ½raznÄ›nÃ­ minoritnÃ­ch extrÃ©mÅ¯ v histogramu
 
-V del¹ích pásmech jasù,
-které se ve snímcích Tg(Fa) a Fb témìø nevyskytují (neobydlená pásma),
-by mohly bıt i zcela chybné transformace pova¾ovány za správné
-a ojedinìlé pixely danıch jasù by byly nesprávnì transformovány.
-Proto po vyhlazení transformujeme histogramy tak,
-aby byly nízké lokální extrémy zvıraznìny 
-a vysoké potlaèeny - hist[i] nahradíme vırazem 
+V delÅ¡Ã­ch pÃ¡smech jasÅ¯,
+kterÃ© se ve snÃ­mcÃ­ch Tg(Fa) a Fb tÃ©mÄ›Å™ nevyskytujÃ­ (neobydlenÃ¡ pÃ¡sma),
+by mohly bÃ½t i zcela chybnÃ© transformace povaÅ¾ovÃ¡ny za sprÃ¡vnÃ©
+a ojedinÄ›lÃ© pixely danÃ½ch jasÅ¯ by byly nesprÃ¡vnÄ› transformovÃ¡ny.
+Proto po vyhlazenÃ­ transformujeme histogramy tak,
+aby byly nÃ­zkÃ© lokÃ¡lnÃ­ extrÃ©my zvÃ½raznÄ›ny 
+a vysokÃ© potlaÄeny - hist[i] nahradÃ­me vÃ½razem 
 (log(hist[i]+100)-log(100))*1000.
-Uvedená transformace pomáhá najít takovou transformaci, která i drobnı lokální 
-extrém v neobydleném pásmu namapuje na korespondující extrém v druhém histogramu.
+UvedenÃ¡ transformace pomÃ¡hÃ¡ najÃ­t takovou transformaci, kterÃ¡ i drobnÃ½ lokÃ¡lnÃ­ 
+extrÃ©m v neobydlenÃ©m pÃ¡smu namapuje na korespondujÃ­cÃ­ extrÃ©m v druhÃ©m histogramu.
 
-Preference jednoduché transformace
+Preference jednoduchÃ© transformace
 
-Pokud se v neobydleném pásmu nevyskytují ¾ádné vhodné lokální extrémy,
-kterımi by se optimalizaèní proces øídil, nelze o prùbìhu transformaèní
-funkce rozhodnout. Oprávnìnì v¹ak lze oèekávat, ¾e správná transformace
-je ve vìt¹inì pøípadu spí¹e jednoduchá hladká køivka s minimem inflexních bodù.
-Do kritéria optimality tedy zahrneme penaltu 
+Pokud se v neobydlenÃ©m pÃ¡smu nevyskytujÃ­ Å¾Ã¡dnÃ© vhodnÃ© lokÃ¡lnÃ­ extrÃ©my,
+kterÃ½mi by se optimalizaÄnÃ­ proces Å™Ã­dil, nelze o prÅ¯bÄ›hu transformaÄnÃ­
+funkce rozhodnout. OprÃ¡vnÄ›nÄ› vÅ¡ak lze oÄekÃ¡vat, Å¾e sprÃ¡vnÃ¡ transformace
+je ve vÄ›tÅ¡inÄ› pÅ™Ã­padu spÃ­Å¡e jednoduchÃ¡ hladkÃ¡ kÅ™ivka s minimem inflexnÃ­ch bodÅ¯.
+Do kritÃ©ria optimality tedy zahrneme penaltu 
   abs(tl(i-1)+tl(i+1)-2*tl(i)) / (Tg(Fa).hist[i]+Tl(Fb).hist[i]+10) * 2000000 pro i=0..255 
-penalizující "klikatost" køivky a podporující její "hladkost" v neobydlenıch
-pásmech (èitatel vyjadøuje klikatost, jmenovatel obydlenost).
+penalizujÃ­cÃ­ "klikatost" kÅ™ivky a podporujÃ­cÃ­ jejÃ­ "hladkost" v neobydlenÃ½ch
+pÃ¡smech (Äitatel vyjadÅ™uje klikatost, jmenovatel obydlenost).
 
-Pásmo tolerovaného ¹umu
+PÃ¡smo tolerovanÃ©ho Å¡umu
 
-Pokud se korespondující pixely porovnávanıch snímkù Tg(Fa) a Tl(Fb)
-(Tl je zde dosud nejlep¹í nalezená jasová transformace, na zaèátku vıpoètu identita)
-vıraznì li¹í (abs(p1-p2)>DELTA), témìø jistì le¾í v oblasti, kde se snímky li¹í.
-Takové pixely nezahrnujeme do porovnávání snímkù (do histogramù).
-V pøípadì, ¾e rozdíl není velkı (abs(p1-p2)<=DELTA), mohou pixely le¾et
-v pro nás podstatné oblasti, kde se snímky svım obsahem shodují; odchylka
-pak bıvá zpùsobena pouze drobnımi nepøesnostni Tg a ¹umem v textuøe,
-kterı jsme se rozhodli je¹tì tolerovat.
+Pokud se korespondujÃ­cÃ­ pixely porovnÃ¡vanÃ½ch snÃ­mkÅ¯ Tg(Fa) a Tl(Fb)
+(Tl je zde dosud nejlepÅ¡Ã­ nalezenÃ¡ jasovÃ¡ transformace, na zaÄÃ¡tku vÃ½poÄtu identita)
+vÃ½raznÄ› liÅ¡Ã­ (abs(p1-p2)>DELTA), tÃ©mÄ›Å™ jistÄ› leÅ¾Ã­ v oblasti, kde se snÃ­mky liÅ¡Ã­.
+TakovÃ© pixely nezahrnujeme do porovnÃ¡vÃ¡nÃ­ snÃ­mkÅ¯ (do histogramÅ¯).
+V pÅ™Ã­padÄ›, Å¾e rozdÃ­l nenÃ­ velkÃ½ (abs(p1-p2)<=DELTA), mohou pixely leÅ¾et
+v pro nÃ¡s podstatnÃ© oblasti, kde se snÃ­mky svÃ½m obsahem shodujÃ­; odchylka
+pak bÃ½vÃ¡ zpÅ¯sobena pouze drobnÃ½mi nepÅ™esnostni Tg a Å¡umem v textuÅ™e,
+kterÃ½ jsme se rozhodli jeÅ¡tÄ› tolerovat.
 
-Zu¾ování pásma tolerovaného ¹umu
+ZuÅ¾ovÃ¡nÃ­ pÃ¡sma tolerovanÃ©ho Å¡umu
 
-Pøi stanovení ¹íøky pásma ¹umu (DELTA) hrají roli dva faktory. Chceme aby program dokázal 
-zdetekovat co nejvìt¹í transformace jasu (napø. zmìnu jasu 100/255 na 150/255,
-chceme vysoké DELTA).
-Zároveò chceme, aby program rozeznal oblasti, kde se snímky li¹í,
-a nezahrnul je do vıpoètu místo toho aby vyrovnával jas tak aby se podobaly
-(chceme nízké DELTA).
-Na zaèátku vıpoètu tedy nastavíme vysoké DELTA (50) a po urèitıch poètech 
-generací genetického algoritmu ho sni¾ujeme a¾ na hodnoty kolem 10.
-Zu¾ování pásma postupnì omezuje prostor v kterém se mohou úspì¹nì
-pohybovat alternativní jasové transformace generované genetickım algoritmem,
-pásmo se poka¾dé zú¾í kolem dosud nejlep¹í nalezené jasové transformace.
-Pro zvı¹ení efektivity vıpoètu nepracujeme v¾dy s celımi snímky ale
-pouze s jejich histogramy, které pøi ka¾dé zmìnì DELTA aktualizujeme.
+PÅ™i stanovenÃ­ Å¡Ã­Å™ky pÃ¡sma Å¡umu (DELTA) hrajÃ­ roli dva faktory. Chceme aby program dokÃ¡zal 
+zdetekovat co nejvÄ›tÅ¡Ã­ transformace jasu (napÅ™. zmÄ›nu jasu 100/255 na 150/255,
+chceme vysokÃ© DELTA).
+ZÃ¡roveÅˆ chceme, aby program rozeznal oblasti, kde se snÃ­mky liÅ¡Ã­,
+a nezahrnul je do vÃ½poÄtu mÃ­sto toho aby vyrovnÃ¡val jas tak aby se podobaly
+(chceme nÃ­zkÃ© DELTA).
+Na zaÄÃ¡tku vÃ½poÄtu tedy nastavÃ­me vysokÃ© DELTA (50) a po urÄitÃ½ch poÄtech 
+generacÃ­ genetickÃ©ho algoritmu ho sniÅ¾ujeme aÅ¾ na hodnoty kolem 10.
+ZuÅ¾ovÃ¡nÃ­ pÃ¡sma postupnÄ› omezuje prostor v kterÃ©m se mohou ÃºspÄ›Å¡nÄ›
+pohybovat alternativnÃ­ jasovÃ© transformace generovanÃ© genetickÃ½m algoritmem,
+pÃ¡smo se pokaÅ¾dÃ© zÃºÅ¾Ã­ kolem dosud nejlepÅ¡Ã­ nalezenÃ© jasovÃ© transformace.
+Pro zvÃ½Å¡enÃ­ efektivity vÃ½poÄtu nepracujeme vÅ¾dy s celÃ½mi snÃ­mky ale
+pouze s jejich histogramy, kterÃ© pÅ™i kaÅ¾dÃ© zmÄ›nÄ› DELTA aktualizujeme.
 
-Vyu¾ití pixelù mimo tolerovanı ¹um
+VyuÅ¾itÃ­ pixelÅ¯ mimo tolerovanÃ½ Å¡um
 
-V situaci, kdy zcela ignorujeme pixely Tg(Fa) a Tl(Fb), které spolu
-nekorespondují, tj. do vıpoètu není zahrnut objekt pohybující se nad
-statickım pozadím, napø. jedinı tmavı objekt nad jinak svìtlım pozadím,
-se mù¾e stát, ¾e pro histogramy ztratíme rozhodující oblasti palety,
-¹iroká pásma histogramù zùstanou neobydlená.
-Kritérium optimality transformace by pak vùbec nezahrnovalo jak transformovat
-jas tmavého pohybujícího se objektu. Proto paralelnì s histogramy
-respektujícími pásmo tolerovaného ¹umu pracujeme i s histogramy
-zahrnujícími i pixely pøekraèující toleranci. Vısledky zji¹tìné nad tìmito
-histogramy se stávájí souèástí vısledného kritéria optimality s vahou 0.33
-(vısledky zji¹tìné nad dosud popisovanımi histogramy obsahujícími pouze 
-pixely z pásma tolerovaného ¹umu mají váhu 0.67).
+V situaci, kdy zcela ignorujeme pixely Tg(Fa) a Tl(Fb), kterÃ© spolu
+nekorespondujÃ­, tj. do vÃ½poÄtu nenÃ­ zahrnut objekt pohybujÃ­cÃ­ se nad
+statickÃ½m pozadÃ­m, napÅ™. jedinÃ½ tmavÃ½ objekt nad jinak svÄ›tlÃ½m pozadÃ­m,
+se mÅ¯Å¾e stÃ¡t, Å¾e pro histogramy ztratÃ­me rozhodujÃ­cÃ­ oblasti palety,
+Å¡irokÃ¡ pÃ¡sma histogramÅ¯ zÅ¯stanou neobydlenÃ¡.
+KritÃ©rium optimality transformace by pak vÅ¯bec nezahrnovalo jak transformovat
+jas tmavÃ©ho pohybujÃ­cÃ­ho se objektu. Proto paralelnÄ› s histogramy
+respektujÃ­cÃ­mi pÃ¡smo tolerovanÃ©ho Å¡umu pracujeme i s histogramy
+zahrnujÃ­cÃ­mi i pixely pÅ™ekraÄujÃ­cÃ­ toleranci. VÃ½sledky zjiÅ¡tÄ›nÃ© nad tÄ›mito
+histogramy se stÃ¡vÃ¡jÃ­ souÄÃ¡stÃ­ vÃ½slednÃ©ho kritÃ©ria optimality s vahou 0.33
+(vÃ½sledky zjiÅ¡tÄ›nÃ© nad dosud popisovanÃ½mi histogramy obsahujÃ­cÃ­mi pouze 
+pixely z pÃ¡sma tolerovanÃ©ho Å¡umu majÃ­ vÃ¡hu 0.67).
 
-Zpracování sekvence
+ZpracovÃ¡nÃ­ sekvence
 
-Sekvence je posloupnost snímkù F1 a¾ FN taková, ¾e mezi snímáním Fn
-a Fn+1 nedo¹lo k vıraznému pohybu nebo zoomu kamery a oba snímky
-obsahují podobné objekty v popøedí i podobné pozadí.
-Ná¹ systém postupnì vyrovnává jas snímkù F2 a¾ FN s referenèním snímkem Fref.
-Referenèním snímkem se na zaèátku vıpoètu stává snímek F1.
-V pøípadì, ¾e spoleèná èást snímkù Fref a Fn má pøíli¹ malı prùnik
-(kamera se napø. posunula o polovinu ¹íøky snímku)
-a n>ref+1, novım referenèním snímkem se stane Fn-1, u kterého jsme jas ji¾ vyrovnali.
-V pøípadì, ¾e spoleèná èást snímkù Fref a Fn má pøíli¹ malı prùnik
-a n=ref+1, mezi snímky Fn-1 a Fn jsme nalezli rozhraní sekvencí.
+Sekvence je posloupnost snÃ­mkÅ¯ F1 aÅ¾ FN takovÃ¡, Å¾e mezi snÃ­mÃ¡nÃ­m Fn
+a Fn+1 nedoÅ¡lo k vÃ½raznÃ©mu pohybu nebo zoomu kamery a oba snÃ­mky
+obsahujÃ­ podobnÃ© objekty v popÅ™edÃ­ i podobnÃ© pozadÃ­.
+NÃ¡Å¡ systÃ©m postupnÄ› vyrovnÃ¡vÃ¡ jas snÃ­mkÅ¯ F2 aÅ¾ FN s referenÄnÃ­m snÃ­mkem Fref.
+ReferenÄnÃ­m snÃ­mkem se na zaÄÃ¡tku vÃ½poÄtu stÃ¡vÃ¡ snÃ­mek F1.
+V pÅ™Ã­padÄ›, Å¾e spoleÄnÃ¡ ÄÃ¡st snÃ­mkÅ¯ Fref a Fn mÃ¡ pÅ™Ã­liÅ¡ malÃ½ prÅ¯nik
+(kamera se napÅ™. posunula o polovinu Å¡Ã­Å™ky snÃ­mku)
+a n>ref+1, novÃ½m referenÄnÃ­m snÃ­mkem se stane Fn-1, u kterÃ©ho jsme jas jiÅ¾ vyrovnali.
+V pÅ™Ã­padÄ›, Å¾e spoleÄnÃ¡ ÄÃ¡st snÃ­mkÅ¯ Fref a Fn mÃ¡ pÅ™Ã­liÅ¡ malÃ½ prÅ¯nik
+a n=ref+1, mezi snÃ­mky Fn-1 a Fn jsme nalezli rozhranÃ­ sekvencÃ­.
 
 
 
-Budoucí práce
+BudoucÃ­ prÃ¡ce
 
-Zámìrné pomalé zmìny jasu
+ZÃ¡mÄ›rnÃ© pomalÃ© zmÄ›ny jasu
 
-V situaci kdy objekt náhle zøetelnì zmìní jas nevzniká ¾ádná komplikace,
-vı¹e popsanı optimalizaèní postup nebere náhle zmìnìnı objekt v potaz
-a vygeneruje korektní transformaèní funkci.
-Pokud je ale zámìrná zmìna jasu pomalá, systém zmìnu mù¾e eliminovat jako chybu.
-Pøi hledání transformace jasu snímku F(n+k) vùèi referenènímu snímku Fn
-systém zcela eliminuje zmìnu jasu pro malá k, tj. tøeba pro snímky
-Fn+1 a¾ Fn+15. Snímek Fn+16 a dal¹í u¾ ale obsahují natolik odli¹nı jas,
-¾e je pova¾ován za zámìrnou zmìnu a není korigován vùbec.
-V sekvenci, která je vıstupem programu,
-pak zámìrná plynulá zmìna jasu zaène a¾ o 16 snímkù pozdìji a to skokem.
-V souèasné implementaci není problém o¹etøen.
+V situaci kdy objekt nÃ¡hle zÅ™etelnÄ› zmÄ›nÃ­ jas nevznikÃ¡ Å¾Ã¡dnÃ¡ komplikace,
+vÃ½Å¡e popsanÃ½ optimalizaÄnÃ­ postup nebere nÃ¡hle zmÄ›nÄ›nÃ½ objekt v potaz
+a vygeneruje korektnÃ­ transformaÄnÃ­ funkci.
+Pokud je ale zÃ¡mÄ›rnÃ¡ zmÄ›na jasu pomalÃ¡, systÃ©m zmÄ›nu mÅ¯Å¾e eliminovat jako chybu.
+PÅ™i hledÃ¡nÃ­ transformace jasu snÃ­mku F(n+k) vÅ¯Äi referenÄnÃ­mu snÃ­mku Fn
+systÃ©m zcela eliminuje zmÄ›nu jasu pro malÃ¡ k, tj. tÅ™eba pro snÃ­mky
+Fn+1 aÅ¾ Fn+15. SnÃ­mek Fn+16 a dalÅ¡Ã­ uÅ¾ ale obsahujÃ­ natolik odliÅ¡nÃ½ jas,
+Å¾e je povaÅ¾ovÃ¡n za zÃ¡mÄ›rnou zmÄ›nu a nenÃ­ korigovÃ¡n vÅ¯bec.
+V sekvenci, kterÃ¡ je vÃ½stupem programu,
+pak zÃ¡mÄ›rnÃ¡ plynulÃ¡ zmÄ›na jasu zaÄne aÅ¾ o 16 snÃ­mkÅ¯ pozdÄ›ji a to skokem.
+V souÄasnÃ© implementaci nenÃ­ problÃ©m oÅ¡etÅ™en.
 
-Pohyb nad ¹irokou scénou
+Pohyb nad Å¡irokou scÃ©nou
 
-Pokud kamera v jednom zábìru odjede do strany o n ¹íøek snímku,
-zpracování celé sekvence si vy¾ádá minimálnì 2*n zmìn referenèního snímku.
-Proto¾e jas celé sekvence pøizpùsobujeme jasu prvního snímku,
-vy¾ádá si korekce jasu posledního snímku
-slo¾ení minimálnì 2*n nezávisle detekovanıch jasovıch transformací
-(k poslednímu snímku vzdálenému
-o n*¹íøka_snímku se dostaneme pøes minimálnì 2*n referenèních snímkù vzdálenıch 
-v¾dy nejvı¹e o ¹íøka_snímku/2).
-V¹echny drobné chyby jasovıch transformací se skládáním násobí,
-tak¾e pro rostoucí n bude vısledek divergovat.
-V takovıch situacích by bylo provizorním øe¹ením zpracovat sekvenci 
-nezávisle po men¹ích èástech.
+Pokud kamera v jednom zÃ¡bÄ›ru odjede do strany o n Å¡Ã­Å™ek snÃ­mku,
+zpracovÃ¡nÃ­ celÃ© sekvence si vyÅ¾Ã¡dÃ¡ minimÃ¡lnÄ› 2*n zmÄ›n referenÄnÃ­ho snÃ­mku.
+ProtoÅ¾e jas celÃ© sekvence pÅ™izpÅ¯sobujeme jasu prvnÃ­ho snÃ­mku,
+vyÅ¾Ã¡dÃ¡ si korekce jasu poslednÃ­ho snÃ­mku
+sloÅ¾enÃ­ minimÃ¡lnÄ› 2*n nezÃ¡visle detekovanÃ½ch jasovÃ½ch transformacÃ­
+(k poslednÃ­mu snÃ­mku vzdÃ¡lenÃ©mu
+o n*Å¡Ã­Å™ka_snÃ­mku se dostaneme pÅ™es minimÃ¡lnÄ› 2*n referenÄnÃ­ch snÃ­mkÅ¯ vzdÃ¡lenÃ½ch 
+vÅ¾dy nejvÃ½Å¡e o Å¡Ã­Å™ka_snÃ­mku/2).
+VÅ¡echny drobnÃ© chyby jasovÃ½ch transformacÃ­ se sklÃ¡dÃ¡nÃ­m nÃ¡sobÃ­,
+takÅ¾e pro rostoucÃ­ n bude vÃ½sledek divergovat.
+V takovÃ½ch situacÃ­ch by bylo provizornÃ­m Å™eÅ¡enÃ­m zpracovat sekvenci 
+nezÃ¡visle po menÅ¡Ã­ch ÄÃ¡stech.
                  
-Související komponenty
+SouvisejÃ­cÃ­ komponenty
 
-Celı implementovanı systém nyní zahrnuje tyto komponenty
--subpixelové sledování pohybu kamery (pravo-levo, nahoru-dolù, zoom,
- roz¹iøitelné na obecnìj¹í transformaci)
- optimalizované pro Rumcajse, se spolehlivostí zatím kolem 90-95%,
- vy¾aduje dal¹í vıvoj
--zde popsané vyrovnávání jasu v sekvencích, optimalizované pro Rumcajse
- ale pravdìpodobnì bez zásahù vhodné i pro jiné animované filmy,
- pro obecnı obrazovı materiál pou¾itelné pouze s vyspìlou komponentou 
- sledování pohybu 
--velmi kvalitní eliminace
- kolem 95% ¹krábancù a prachu zalo¾ená na podobnosti sousedních snímkù
- v animovaném Rumcajsovi
--skládání spoleèného pozadí ze sekvencí obrázkù
- eliminující z pozadí kromì zhruba 99% ¹krábancù a prachu i vìt¹í èást popøedí,
- sekání spoleèného pozadí na pozadí jednotlivıch snímkù
-Neinteraktivní systém je mo¾né dále vyvíjet a roz¹íøit o interakci,
-která by umo¾nila ruèní korekce chyb zejména v komponentì sledování pohybu kamery.
+CelÃ½ implementovanÃ½ systÃ©m nynÃ­ zahrnuje tyto komponenty
+-subpixelovÃ© sledovÃ¡nÃ­ pohybu kamery (pravo-levo, nahoru-dolÅ¯, zoom,
+ rozÅ¡iÅ™itelnÃ© na obecnÄ›jÅ¡Ã­ transformaci)
+ optimalizovanÃ© pro Rumcajse, se spolehlivostÃ­ zatÃ­m kolem 90-95%,
+ vyÅ¾aduje dalÅ¡Ã­ vÃ½voj
+-zde popsanÃ© vyrovnÃ¡vÃ¡nÃ­ jasu v sekvencÃ­ch, optimalizovanÃ© pro Rumcajse
+ ale pravdÄ›podobnÄ› bez zÃ¡sahÅ¯ vhodnÃ© i pro jinÃ© animovanÃ© filmy,
+ pro obecnÃ½ obrazovÃ½ materiÃ¡l pouÅ¾itelnÃ© pouze s vyspÄ›lou komponentou 
+ sledovÃ¡nÃ­ pohybu 
+-velmi kvalitnÃ­ eliminace
+ kolem 95% Å¡krÃ¡bancÅ¯ a prachu zaloÅ¾enÃ¡ na podobnosti sousednÃ­ch snÃ­mkÅ¯
+ v animovanÃ©m Rumcajsovi
+-sklÃ¡dÃ¡nÃ­ spoleÄnÃ©ho pozadÃ­ ze sekvencÃ­ obrÃ¡zkÅ¯
+ eliminujÃ­cÃ­ z pozadÃ­ kromÄ› zhruba 99% Å¡krÃ¡bancÅ¯ a prachu i vÄ›tÅ¡Ã­ ÄÃ¡st popÅ™edÃ­,
+ sekÃ¡nÃ­ spoleÄnÃ©ho pozadÃ­ na pozadÃ­ jednotlivÃ½ch snÃ­mkÅ¯
+NeinteraktivnÃ­ systÃ©m je moÅ¾nÃ© dÃ¡le vyvÃ­jet a rozÅ¡Ã­Å™it o interakci,
+kterÃ¡ by umoÅ¾nila ruÄnÃ­ korekce chyb zejmÃ©na v komponentÄ› sledovÃ¡nÃ­ pohybu kamery.
 
 
 
-Závìr
+ZÃ¡vÄ›r
 
-Popsali jsme systém vyrovnávající jas v sekvencích
-obrázkù a implememtovali jeho verzi optimalizovanou pro korekce jasu ve starıch
-animovanıch filmech.
-Systém je plnì automatickı, neinteraktivní, nicménì nezávislá komponenta
-detekce pohybu vy¾aduje pøed nasazením v praxi dal¹í vızkum,
-pøípadnì mo¾nost interaktivního opravování chyb systému.
-Pøechod na obecnı filmovı materiál je mo¾nı
-s dostateènì vyspìlou komponentou sledování pohybu.
+Popsali jsme systÃ©m vyrovnÃ¡vajÃ­cÃ­ jas v sekvencÃ­ch
+obrÃ¡zkÅ¯ a implememtovali jeho verzi optimalizovanou pro korekce jasu ve starÃ½ch
+animovanÃ½ch filmech.
+SystÃ©m je plnÄ› automatickÃ½, neinteraktivnÃ­, nicmÃ©nÄ› nezÃ¡vislÃ¡ komponenta
+detekce pohybu vyÅ¾aduje pÅ™ed nasazenÃ­m v praxi dalÅ¡Ã­ vÃ½zkum,
+pÅ™Ã­padnÄ› moÅ¾nost interaktivnÃ­ho opravovÃ¡nÃ­ chyb systÃ©mu.
+PÅ™echod na obecnÃ½ filmovÃ½ materiÃ¡l je moÅ¾nÃ½
+s dostateÄnÄ› vyspÄ›lou komponentou sledovÃ¡nÃ­ pohybu.
 
  </pre>
 

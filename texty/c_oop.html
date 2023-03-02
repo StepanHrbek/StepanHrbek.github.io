@@ -1,179 +1,179 @@
 <!DOCTYPE HTML>
 <HTML lang="cs">
 <HEAD>
- <META charset="iso-8859-2">
- <TITLE>Objektově Orientované Programování</TITLE>
+ <META charset="utf-8">
+ <TITLE>ObjektovÄ OrientovanĂŠ ProgramovĂĄnĂ­</TITLE>
 </HEAD>
 <BODY>
 <PRE>
-                  Objektově Orientované Programování
+                  ObjektovÄ OrientovanĂŠ ProgramovĂĄnĂ­
 
-   Tenhle  článek je  reakcí na  dotazy, které  jsem dostal  ohledně CiA.
-Pokusím se  objasnit co to  je OOP  a co si  o něm myslím.  Zároveň musím
-předem  upozornit ty,  kteří tomu  trochu  rozumí, že  jsem nikdy  žádnou
-knihu o  OOP nečetl,  v článku  vycházím pouze  z vlastních  zkušeností a
-dalších nedůvěryhodných zdrojů.
+   Tenhle  ÄlĂĄnek je  reakcĂ­ na  dotazy, kterĂŠ  jsem dostal  ohlednÄ CiA.
+PokusĂ­m se  objasnit co to  je OOP  a co si  o nÄm myslĂ­m.  ZĂĄroveĹ musĂ­m
+pĹedem  upozornit ty,  kteĹĂ­ tomu  trochu  rozumĂ­, Ĺže  jsem nikdy  ĹžĂĄdnou
+knihu o  OOP neÄetl,  v ÄlĂĄnku  vychĂĄzĂ­m pouze  z vlastnĂ­ch  zkuĹĄenostĂ­ a
+dalĹĄĂ­ch nedĹŻvÄryhodnĂ˝ch zdrojĹŻ.
 
-Moje (a předpokládám i mnohého z vás) první zkušenost:
-   Pár článků  o OOP jsem  přeci jen viděl a  vy asi také.  Dozvěděl jsem
-se  z nich  co  je  to zapouzdření,  dědičnost  a  polymorfismus. Ale  to
-hlavní, k  čemu mi  to bude,  to mi vždycky  nějak unikalo.  Na přiložené
-příklady  jsem okamžitě  viděl  efektivnější  neobjektovou alternativu  a
-to  mi stačilo  jako důkaz  nepoužitelnosti OOP.  Kromě toho  jsem věděl,
-jak   gigantické   bývají   OO  (objektově   orientované)   programy   ve
-srovnání se  stejně velkými  neobjektovými a  myslel jsem  si, že  jsou i
-pomalejší.
+Moje (a pĹedpoklĂĄdĂĄm i mnohĂŠho z vĂĄs) prvnĂ­ zkuĹĄenost:
+   PĂĄr ÄlĂĄnkĹŻ  o OOP jsem  pĹeci jen vidÄl a  vy asi takĂŠ.  DozvÄdÄl jsem
+se  z nich  co  je  to zapouzdĹenĂ­,  dÄdiÄnost  a  polymorfismus. Ale  to
+hlavnĂ­, k  Äemu mi  to bude,  to mi vĹždycky  nÄjak unikalo.  Na pĹiloĹženĂŠ
+pĹĂ­klady  jsem okamĹžitÄ  vidÄl  efektivnÄjĹĄĂ­  neobjektovou alternativu  a
+to  mi staÄilo  jako dĹŻkaz  nepouĹžitelnosti OOP.  KromÄ toho  jsem vÄdÄl,
+jak   gigantickĂŠ   bĂ˝vajĂ­   OO  (objektovÄ   orientovanĂŠ)   programy   ve
+srovnĂĄnĂ­ se  stejnÄ velkĂ˝mi  neobjektovĂ˝mi a  myslel jsem  si, Ĺže  jsou i
+pomalejĹĄĂ­.
 
-   Po  pár letech  praxe  je to  docela  jasné. S  OOP  lze napsat  velmi
-pěkné  "kusy  kódu",   které  jdou  později  snadno   upotřebit  v  mnoha
-dalších  programech. Předpokladem  opakovaného  používání  je ale  jejich
-univerzálnost. Když se  pak použijí  na jednodušší problémy,  které tolik
-univerzálnosti  a  dalších  schopností nevyžadují,  výsledný  program  je
-větší a  někdy i pomalejší. Zápory  ale vyvažuje  snadnost s jakou  se OO
-programy píší.
+   Po  pĂĄr letech  praxe  je to  docela  jasnĂŠ. S  OOP  lze napsat  velmi
+pÄknĂŠ  "kusy  kĂłdu",   kterĂŠ  jdou  pozdÄji  snadno   upotĹebit  v  mnoha
+dalĹĄĂ­ch  programech. PĹedpokladem  opakovanĂŠho  pouĹžĂ­vĂĄnĂ­  je ale  jejich
+univerzĂĄlnost. KdyĹž se  pak pouĹžijĂ­  na jednoduĹĄĹĄĂ­ problĂŠmy,  kterĂŠ tolik
+univerzĂĄlnosti  a  dalĹĄĂ­ch  schopnostĂ­ nevyĹžadujĂ­,  vĂ˝slednĂ˝  program  je
+vÄtĹĄĂ­ a  nÄkdy i pomalejĹĄĂ­. ZĂĄpory  ale vyvaĹžuje  snadnost s jakou  se OO
+programy pĂ­ĹĄĂ­.
 
-   Pozorný  čtenář může  namítnout,  že  OO programy  se  píší snadno  až
-tehdy,   když   má   programátor  připravenou   zásobu   takových   "kusů
-kódu",  ze  kterých  se  dá výsledný  program  sestavit.  Ano,  nezbytným
-předpokladem  snadného   a  rychlého   programování  je  mít   za  základ
-nějakou knihovnu, ať už vlastní nebo cizí, a dobře se v ní vyznat.
+   PozornĂ˝  ÄtenĂĄĹ mĹŻĹže  namĂ­tnout,  Ĺže  OO programy  se  pĂ­ĹĄĂ­ snadno  aĹž
+tehdy,   kdyĹž   mĂĄ   programĂĄtor  pĹipravenou   zĂĄsobu   takovĂ˝ch   "kusĹŻ
+kĂłdu",  ze  kterĂ˝ch  se  dĂĄ vĂ˝slednĂ˝  program  sestavit.  Ano,  nezbytnĂ˝m
+pĹedpokladem  snadnĂŠho   a  rychlĂŠho   programovĂĄnĂ­  je  mĂ­t   za  zĂĄklad
+nÄjakou knihovnu, aĹĽ uĹž vlastnĂ­ nebo cizĂ­, a dobĹe se v nĂ­ vyznat.
 
-Co to vlastně to OOP je?
-   Je   to  rozšíření   jazyka,   které  umožňuje   psát  přesně   takové
-snadno upotřebitelné  univerzální "kusy  kódu" o jakých  tu byla  řeč. Ty
-jsou  ale,  když  to  přeženu,  napsány normálním  jazykem,  OOP  je  jen
-"obaluje"  a vnáší  do programu  strukturu a  pořádek. Takže  OOP je  jen
-pomůcka, to hlavní se musí napsat postaru.
-   OOP  ale není  žádná kouzelná  hůlka, která  za nás  v programu  udělá
-pořádek.  Syntaxe sice  nutí  k  určitým krokům  správným  směrem, ale  i
-tak  nezabrání  řadě  "ošklivých"  věcí,   které  se  stále  dají  dělat.
-Důležité  je myslet  dopředu a  psát tak,  aby se  dal jednou  hotový kód
-použít i později a jinde.
-   Ale teď  stop. O  OOP píšu  jako o nadstavbě  nad nějakým  jazykem. Ve
-skutečnosti asi nejprve  vznikly čistě OOP jazyky (třeba  SmallTalk) a až
-po  jejich   úspěchu  nadstavby  nad  zavedené   neobjektové  jazyky  (C,
+Co to vlastnÄ to OOP je?
+   Je   to  rozĹĄĂ­ĹenĂ­   jazyka,   kterĂŠ  umoĹžĹuje   psĂĄt  pĹesnÄ   takovĂŠ
+snadno upotĹebitelnĂŠ  univerzĂĄlnĂ­ "kusy  kĂłdu" o jakĂ˝ch  tu byla  ĹeÄ. Ty
+jsou  ale,  kdyĹž  to  pĹeĹženu,  napsĂĄny normĂĄlnĂ­m  jazykem,  OOP  je  jen
+"obaluje"  a vnĂĄĹĄĂ­  do programu  strukturu a  poĹĂĄdek. TakĹže  OOP je  jen
+pomĹŻcka, to hlavnĂ­ se musĂ­ napsat postaru.
+   OOP  ale nenĂ­  ĹžĂĄdnĂĄ kouzelnĂĄ  hĹŻlka, kterĂĄ  za nĂĄs  v programu  udÄlĂĄ
+poĹĂĄdek.  Syntaxe sice  nutĂ­  k  urÄitĂ˝m krokĹŻm  sprĂĄvnĂ˝m  smÄrem, ale  i
+tak  nezabrĂĄnĂ­  ĹadÄ  "oĹĄklivĂ˝ch"  vÄcĂ­,   kterĂŠ  se  stĂĄle  dajĂ­  dÄlat.
+DĹŻleĹžitĂŠ  je myslet  dopĹedu a  psĂĄt tak,  aby se  dal jednou  hotovĂ˝ kĂłd
+pouĹžĂ­t i pozdÄji a jinde.
+   Ale teÄ  stop. O  OOP pĂ­ĹĄu  jako o nadstavbÄ  nad nÄjakĂ˝m  jazykem. Ve
+skuteÄnosti asi nejprve  vznikly ÄistÄ OOP jazyky (tĹeba  SmallTalk) a aĹž
+po  jejich   ĂşspÄchu  nadstavby  nad  zavedenĂŠ   neobjektovĂŠ  jazyky  (C,
 Pascal).
 
                                 PRINCIPY
 
-   To  byly  rysy OOP,  které  považuji  za  nezbytně nutné  k  pochopení
-významu  a k  úspěšnému využití  OOP.  Tady jsem  chtěl skončit,  protože
-zde  začínají  všechny ostatní  články  o  OOP a  já  bych  to tak  dobře
-stejně  napsat   nedokázal.  Ale  pak   mi  přišlo  nefér   teď  skončit,
-následuje  tedy  popis  konkrétních   vlastností,  které  OOP  používá  k
-dosažení výše popsaných cílů.
+   To  byly  rysy OOP,  kterĂŠ  povaĹžuji  za  nezbytnÄ nutnĂŠ  k  pochopenĂ­
+vĂ˝znamu  a k  ĂşspÄĹĄnĂŠmu vyuĹžitĂ­  OOP.  Tady jsem  chtÄl skonÄit,  protoĹže
+zde  zaÄĂ­najĂ­  vĹĄechny ostatnĂ­  ÄlĂĄnky  o  OOP a  jĂĄ  bych  to tak  dobĹe
+stejnÄ  napsat   nedokĂĄzal.  Ale  pak   mi  pĹiĹĄlo  nefĂŠr   teÄ  skonÄit,
+nĂĄsleduje  tedy  popis  konkrĂŠtnĂ­ch   vlastnostĂ­,  kterĂŠ  OOP  pouĹžĂ­vĂĄ  k
+dosaĹženĂ­ vĂ˝ĹĄe popsanĂ˝ch cĂ­lĹŻ.
 
-   Třída  je  typ.  Je  to  datová struktura  plus  funkce  pro  práci  s
-těmito daty. Instance je konkétní proměnná typu třída.
+   TĹĂ­da  je  typ.  Je  to  datovĂĄ struktura  plus  funkce  pro  prĂĄci  s
+tÄmito daty. Instance je konkĂŠtnĂ­ promÄnnĂĄ typu tĹĂ­da.
 
-Zapouzdření je  vlastnost tříd  a jejich instancí.  To jsou  jakési black
-boxy, do  kterých zvenku není  vidět. Řekneš  instanci aby provedla  to a
-to a  ona to udělá.  Nezajímá tě jak to  dokázala. Sice tam  někde uvnitř
-je kód,  který jsi kdysi  musel ty, nebo někdo  jiný, napsat, ale  teď se
-na věc  díváš zvenčí a vidíš  jen povrch black boxu  s několika knoflíky,
-kterými  vydáváš povely.  Praktický význam  je ten,  že až  ti schopnosti
-třídy nebudou  stačit, můžes  její vnitřek  totálně přepsat,  navenek ale
-zůstane stejná, takže ve zbytku programu se nebude muset nic měnit.
+ZapouzdĹenĂ­ je  vlastnost tĹĂ­d  a jejich instancĂ­.  To jsou  jakĂŠsi black
+boxy, do  kterĂ˝ch zvenku nenĂ­  vidÄt. ĹekneĹĄ  instanci aby provedla  to a
+to a  ona to udÄlĂĄ.  NezajĂ­mĂĄ tÄ jak to  dokĂĄzala. Sice tam  nÄkde uvnitĹ
+je kĂłd,  kterĂ˝ jsi kdysi  musel ty, nebo nÄkdo  jinĂ˝, napsat, ale  teÄ se
+na vÄc  dĂ­vĂĄĹĄ zvenÄĂ­ a vidĂ­ĹĄ  jen povrch black boxu  s nÄkolika knoflĂ­ky,
+kterĂ˝mi  vydĂĄvĂĄĹĄ povely.  PraktickĂ˝ vĂ˝znam  je ten,  Ĺže aĹž  ti schopnosti
+tĹĂ­dy nebudou  staÄit, mĹŻĹžes  jejĂ­ vnitĹek  totĂĄlnÄ pĹepsat,  navenek ale
+zĹŻstane stejnĂĄ, takĹže ve zbytku programu se nebude muset nic mÄnit.
 
-Dědičnost  je vlastnost  tříd.  Třída  může být  potomkem  jedné či  více
-jiných  tříd  (v pascalu  jen  jedné).  V  takovém případě  zdědí  datové
-struktury a funkce svých předků. To se samozřejmě náramně hodí.
+DÄdiÄnost  je vlastnost  tĹĂ­d.  TĹĂ­da  mĹŻĹže bĂ˝t  potomkem  jednĂŠ Äi  vĂ­ce
+jinĂ˝ch  tĹĂ­d  (v pascalu  jen  jednĂŠ).  V  takovĂŠm pĹĂ­padÄ  zdÄdĂ­  datovĂŠ
+struktury a funkce svĂ˝ch pĹedkĹŻ. To se samozĹejmÄ nĂĄramnÄ hodĂ­.
 
-Polymorfismus  je   vlastnost  instancí.  Instance  různých   tříd  mohou
-zvenčí  vypadat  úplně  stejně,   uvnitř  ale  pracovat  jinak.  Typickým
-příkladem  je funkce  "zruš se".  Tu mají  skoro všechny  třídy a  tedy i
-jejich  instance. Instance  různých tříd  ale vypadují  jinak a  proto se
-musí  i rušit  jinak.  Polymorfismus  zajistí, že  se  při vydání  povelu
-provede správná akce v závislosti na tom o jakou instanci jde.
+Polymorfismus  je   vlastnost  instancĂ­.  Instance  rĹŻznĂ˝ch   tĹĂ­d  mohou
+zvenÄĂ­  vypadat  ĂşplnÄ  stejnÄ,   uvnitĹ  ale  pracovat  jinak.  TypickĂ˝m
+pĹĂ­kladem  je funkce  "zruĹĄ se".  Tu majĂ­  skoro vĹĄechny  tĹĂ­dy a  tedy i
+jejich  instance. Instance  rĹŻznĂ˝ch tĹĂ­d  ale vypadujĂ­  jinak a  proto se
+musĂ­  i ruĹĄit  jinak.  Polymorfismus  zajistĂ­, Ĺže  se  pĹi vydĂĄnĂ­  povelu
+provede sprĂĄvnĂĄ akce v zĂĄvislosti na tom o jakou instanci jde.
 
                               IMPLEMENTACE
 
-   A už  jsem chtěl  zase skončit, ale  přišlo mi nefér  vůči těm,  co se
-prokousali  až   sem,  neříct   něco  konkrétního  o   implementaci  výše
-uvedených  principů. Kdo  chce programovat  OO, musí  znát principy,  ale
-taky musí  vědět "co  se tam  děje", tedy  jak jsou  implementovány. Budu
-se držet v obecnosti, žádná konkrétní syntaxe.
+   A uĹž  jsem chtÄl  zase skonÄit, ale  pĹiĹĄlo mi nefĂŠr  vĹŻÄi tÄm,  co se
+prokousali  aĹž   sem,  neĹĂ­ct   nÄco  konkrĂŠtnĂ­ho  o   implementaci  vĂ˝ĹĄe
+uvedenĂ˝ch  principĹŻ. Kdo  chce programovat  OO, musĂ­  znĂĄt principy,  ale
+taky musĂ­  vÄdÄt "co  se tam  dÄje", tedy  jak jsou  implementovĂĄny. Budu
+se drĹžet v obecnosti, ĹžĂĄdnĂĄ konkrĂŠtnĂ­ syntaxe.
 
-   Jak už  bylo řečeno  výše, třída se  skládá z dat  a funkcí  pro práci
-s  nimi. Datům  se říká  atributy,  funkcím metody.  Když zavoláš  metodu
-nějaké  instance,  je   to  jako  kdybys  zavolal   obyčejnou  funkci  se
-skrytým parametrem "pointer na instanci".
+   Jak uĹž  bylo ĹeÄeno  vĂ˝ĹĄe, tĹĂ­da se  sklĂĄdĂĄ z dat  a funkcĂ­  pro prĂĄci
+s  nimi. DatĹŻm  se ĹĂ­kĂĄ  atributy,  funkcĂ­m metody.  KdyĹž zavolĂĄĹĄ  metodu
+nÄjakĂŠ  instance,  je   to  jako  kdybys  zavolal   obyÄejnou  funkci  se
+skrytĂ˝m parametrem "pointer na instanci".
 
-   Jak   funguje  zapouzdření?   V  deklaraci   třídy   se  uvádí   které
-atributy  a metody  jsou veřejné  a které  jsou privátní,  případně další
-stupně  veřejnosti/neveřejnosti.  Pouze  s veřejnými  složkami  třídy  se
-pak dá  zvenčí manipulovat. To  ostatní je soukromou záležitostí  třídy a
-nikomu  venku  do  toho  nic  není. V  některých  jazycích  jsou  všechny
-atributy privátní.
+   Jak   funguje  zapouzdĹenĂ­?   V  deklaraci   tĹĂ­dy   se  uvĂĄdĂ­   kterĂŠ
+atributy  a metody  jsou veĹejnĂŠ  a kterĂŠ  jsou privĂĄtnĂ­,  pĹĂ­padnÄ dalĹĄĂ­
+stupnÄ  veĹejnosti/neveĹejnosti.  Pouze  s veĹejnĂ˝mi  sloĹžkami  tĹĂ­dy  se
+pak dĂĄ  zvenÄĂ­ manipulovat. To  ostatnĂ­ je soukromou zĂĄleĹžitostĂ­  tĹĂ­dy a
+nikomu  venku  do  toho  nic  nenĂ­. V  nÄkterĂ˝ch  jazycĂ­ch  jsou  vĹĄechny
+atributy privĂĄtnĂ­.
 
-   Jak  funguje  dědičnost?  Instance  je  složená z  atributů  a  metod.
-Dvě  instance stejné  třídy  mají  v atributech  různá  data, ale  jejich
-metody  jsou  stejné,  takže  když  vytvoříš  instanci,  pouze  se  někde
-naalokuje  kus  paměti  pro  atributy.  Třída,  která  je  potomkem  jiné
-třídy, zdědí  její atributy  a metody.  V praxi to  znamená pouze  to, že
-se  každá  instance zvětší  o  zděděné  atributy.  Děděné metody  jsou  v
-paměti jen jednou, společné pro předka i potomka.
+   Jak  funguje  dÄdiÄnost?  Instance  je  sloĹženĂĄ z  atributĹŻ  a  metod.
+DvÄ  instance stejnĂŠ  tĹĂ­dy  majĂ­  v atributech  rĹŻznĂĄ  data, ale  jejich
+metody  jsou  stejnĂŠ,  takĹže  kdyĹž  vytvoĹĂ­ĹĄ  instanci,  pouze  se  nÄkde
+naalokuje  kus  pamÄti  pro  atributy.  TĹĂ­da,  kterĂĄ  je  potomkem  jinĂŠ
+tĹĂ­dy, zdÄdĂ­  jejĂ­ atributy  a metody.  V praxi to  znamenĂĄ pouze  to, Ĺže
+se  kaĹždĂĄ  instance zvÄtĹĄĂ­  o  zdÄdÄnĂŠ  atributy.  DÄdÄnĂŠ metody  jsou  v
+pamÄti jen jednou, spoleÄnĂŠ pro pĹedka i potomka.
 
-   Jak   funguje   polymorfismus?   Nejprve   je  třeba   vyřídit   jednu
-technickou  záležitost.  Každá proměnná  má  svůj  typ. Proměnná  P  může
-být  třeba pointer  na instanci  třídy T1.  Ale přitom  může ukazovat  na
-instanci  třídy T2,  která  je potomkem  T1. Taková  situace  je běžná  a
-naprosto  legální, všechno  co  lze provést  s  T1 lze  provést  i s  T2,
-takže  můžeme  být  bez  obav.   Přijdeme  pouze  o  možnost  pracovat  s
-atributy  a  metodami,   které  má  T2  navíc  oproti   T1.  Ale  vlastně
-nepřijdeme!  Skoro   každá  instance  totiž  má   skrytý  atribut,  který
-udává její  SKUTEČNÝ typ, její  třídu. Metody se  pak dělí na  statické a
-virtuální,  přičemž  o  tom  co  se zavolá  při  volání  statické  metody
-rozhoduje  typ  proměnné, u  virtuálních  metod  rozhoduje typ  instance.
-Až  budeme   chtít  zrušit  instanci,   na  kterou  ukazuje   pointer  P,
-zavoláme  její metodu  "zruš se".  Pokud  by byla  statická, zavolala  by
-"zruš se"  třídy T1 a zrušila  pouze část instance. Jelikož  je to metoda
-virtuální,  podívá  se  na  skutečný  typ instance  a  zavolá  "zruš  se"
-třídy T2.  Pomocí virtuálních  metod tak můžeme  využít i  vlastnosti T2,
-kterými se liší od T1.
+   Jak   funguje   polymorfismus?   Nejprve   je  tĹeba   vyĹĂ­dit   jednu
+technickou  zĂĄleĹžitost.  KaĹždĂĄ promÄnnĂĄ  mĂĄ  svĹŻj  typ. PromÄnnĂĄ  P  mĹŻĹže
+bĂ˝t  tĹeba pointer  na instanci  tĹĂ­dy T1.  Ale pĹitom  mĹŻĹže ukazovat  na
+instanci  tĹĂ­dy T2,  kterĂĄ  je potomkem  T1. TakovĂĄ  situace  je bÄĹžnĂĄ  a
+naprosto  legĂĄlnĂ­, vĹĄechno  co  lze provĂŠst  s  T1 lze  provĂŠst  i s  T2,
+takĹže  mĹŻĹžeme  bĂ˝t  bez  obav.   PĹijdeme  pouze  o  moĹžnost  pracovat  s
+atributy  a  metodami,   kterĂŠ  mĂĄ  T2  navĂ­c  oproti   T1.  Ale  vlastnÄ
+nepĹijdeme!  Skoro   kaĹždĂĄ  instance  totiĹž  mĂĄ   skrytĂ˝  atribut,  kterĂ˝
+udĂĄvĂĄ jejĂ­  SKUTEÄNĂ typ, jejĂ­  tĹĂ­du. Metody se  pak dÄlĂ­ na  statickĂŠ a
+virtuĂĄlnĂ­,  pĹiÄemĹž  o  tom  co  se zavolĂĄ  pĹi  volĂĄnĂ­  statickĂŠ  metody
+rozhoduje  typ  promÄnnĂŠ, u  virtuĂĄlnĂ­ch  metod  rozhoduje typ  instance.
+AĹž  budeme   chtĂ­t  zruĹĄit  instanci,   na  kterou  ukazuje   pointer  P,
+zavolĂĄme  jejĂ­ metodu  "zruĹĄ se".  Pokud  by byla  statickĂĄ, zavolala  by
+"zruĹĄ se"  tĹĂ­dy T1 a zruĹĄila  pouze ÄĂĄst instance. JelikoĹž  je to metoda
+virtuĂĄlnĂ­,  podĂ­vĂĄ  se  na  skuteÄnĂ˝  typ instance  a  zavolĂĄ  "zruĹĄ  se"
+tĹĂ­dy T2.  PomocĂ­ virtuĂĄlnĂ­ch  metod tak mĹŻĹžeme  vyuĹžĂ­t i  vlastnosti T2,
+kterĂ˝mi se liĹĄĂ­ od T1.
 
-Slovníček s dalšími pojmy:
-   Constructor   a   destructor   jsou   speciální  metody   volané   při
-vytváření  a rušení  instance.  V  C++ se  volají  automaticky, v  Object
-Pascalu ručně.
-   Late  binding  je  rozhodování se  jakou  metodu  zavolat až  za  běhu
-programu. Tedy zjištění typu instance a zavolání metody toho typu.
-   VMT  aneb Tabulka  virtuálních metod  obsahuje  pointery na  virtuální
-metody  dané třídy.  Pointery  se tedy  neskladují  uvnitř instance,  tam
-je  pouze  odkaz  na  tabulku   virtuálních  metod  společnou  pro  celou
-třídu.  Tento odkaz  je  zároveň oním  skrytým  atributem typu  instance.
-Samozřejmě  to  může být  implementováno  i  jinak,  ale nevím  o  žádném
-jazyce, který by tak činil.
+SlovnĂ­Äek s dalĹĄĂ­mi pojmy:
+   Constructor   a   destructor   jsou   speciĂĄlnĂ­  metody   volanĂŠ   pĹi
+vytvĂĄĹenĂ­  a ruĹĄenĂ­  instance.  V  C++ se  volajĂ­  automaticky, v  Object
+Pascalu ruÄnÄ.
+   Late  binding  je  rozhodovĂĄnĂ­ se  jakou  metodu  zavolat aĹž  za  bÄhu
+programu. Tedy zjiĹĄtÄnĂ­ typu instance a zavolĂĄnĂ­ metody toho typu.
+   VMT  aneb Tabulka  virtuĂĄlnĂ­ch metod  obsahuje  pointery na  virtuĂĄlnĂ­
+metody  danĂŠ tĹĂ­dy.  Pointery  se tedy  neskladujĂ­  uvnitĹ instance,  tam
+je  pouze  odkaz  na  tabulku   virtuĂĄlnĂ­ch  metod  spoleÄnou  pro  celou
+tĹĂ­du.  Tento odkaz  je  zĂĄroveĹ onĂ­m  skrytĂ˝m  atributem typu  instance.
+SamozĹejmÄ  to  mĹŻĹže bĂ˝t  implementovĂĄno  i  jinak,  ale nevĂ­m  o  ĹžĂĄdnĂŠm
+jazyce, kterĂ˝ by tak Äinil.
 
                                  SYNTAXE
 
-   Na  konec by  to  chtělo  vysvětlit syntaxi.  Ale  to  by bylo  trochu
-delší povídání.  Já vím, je to  nefér takhle skončit, ale  popisů syntaxe
-najdete spoustu v příslušných knihách a manuálech.
+   Na  konec by  to  chtÄlo  vysvÄtlit syntaxi.  Ale  to  by bylo  trochu
+delĹĄĂ­ povĂ­dĂĄnĂ­.  JĂĄ vĂ­m, je to  nefĂŠr takhle skonÄit, ale  popisĹŻ syntaxe
+najdete spoustu v pĹĂ­sluĹĄnĂ˝ch knihĂĄch a manuĂĄlech.
 
-                                ZÁVĚREM
+                                ZĂVÄREM
 
-   Před  pár  lety  bylo  všechno   ještě  v  plenkách,  člověk  se  mohl
-podívat na  jakýkoliv program a  říct si,  udělám lepší. To  byla panečku
-motivace.  Za  tu  dobu  se  ale  úroveň  dost  zvedla,  už  není  snadné
-trumfnout   profesionální   programy   nebo   finská   dema.   Začínající
-programátoři  tak přišli  o jeden  důvod proč  programovat, dostat  se na
-špičku trvá roky  a dá to spoustu práce.  Ale zas to stojí za  to... :) A
-beztak je to skvělá zábava, ať už nahoře nebo dole. No nic.
-   Kdo teď  chce začít, asi pošilhává  po OOP (pokud dočetl  až sem). Ok,
-ale OOP je jen pomůcka. Co vlastně musí dobrý programátor umět?
+   PĹed  pĂĄr  lety  bylo  vĹĄechno   jeĹĄtÄ  v  plenkĂĄch,  ÄlovÄk  se  mohl
+podĂ­vat na  jakĂ˝koliv program a  ĹĂ­ct si,  udÄlĂĄm lepĹĄĂ­. To  byla paneÄku
+motivace.  Za  tu  dobu  se  ale  ĂşroveĹ  dost  zvedla,  uĹž  nenĂ­  snadnĂŠ
+trumfnout   profesionĂĄlnĂ­   programy   nebo   finskĂĄ   dema.   ZaÄĂ­najĂ­cĂ­
+programĂĄtoĹi  tak pĹiĹĄli  o jeden  dĹŻvod proÄ  programovat, dostat  se na
+ĹĄpiÄku trvĂĄ roky  a dĂĄ to spoustu prĂĄce.  Ale zas to stojĂ­ za  to... :) A
+beztak je to skvÄlĂĄ zĂĄbava, aĹĽ uĹž nahoĹe nebo dole. No nic.
+   Kdo teÄ  chce zaÄĂ­t, asi poĹĄilhĂĄvĂĄ  po OOP (pokud doÄetl  aĹž sem). Ok,
+ale OOP je jen pomĹŻcka. Co vlastnÄ musĂ­ dobrĂ˝ programĂĄtor umÄt?
 
- - schopnost nacházet efektivní řešení problemů
- - přístup k technickým informacím
- - základní syntaxe jazyka
+ - schopnost nachĂĄzet efektivnĂ­ ĹeĹĄenĂ­ problemĹŻ
+ - pĹĂ­stup k technickĂ˝m informacĂ­m
+ - zĂĄkladnĂ­ syntaxe jazyka
 
- - přidaná OOP syntaxe (pokud nejde o čistě OOP jazyk)
- - principy OOP (které jsem se snažil dostat do tohoto článku)
+ - pĹidanĂĄ OOP syntaxe (pokud nejde o ÄistÄ OOP jazyk)
+ - principy OOP (kterĂŠ jsem se snaĹžil dostat do tohoto ÄlĂĄnku)
 
 
-Poznámka k terminologii:
-   Třídám  se někdy  říká objekty.  Instancím  se někdy  říká objekty.  A
-tak dál, záleží na okolnostech.
+PoznĂĄmka k terminologii:
+   TĹĂ­dĂĄm  se nÄkdy  ĹĂ­kĂĄ objekty.  InstancĂ­m  se nÄkdy  ĹĂ­kĂĄ objekty.  A
+tak dĂĄl, zĂĄleĹžĂ­ na okolnostech.
 
 </PRE>
 <p>

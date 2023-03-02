@@ -1,103 +1,103 @@
 <!DOCTYPE HTML>
 <HTML lang="cs">
 <HEAD>
- <META charset="iso-8859-2">
- <TITLE>Umělá inteligence srovnatelná s mozkem a další otázky</TITLE>
+ <META charset="utf-8">
+ <TITLE>UmÄlĂĄ inteligence srovnatelnĂĄ s mozkem a dalĹĄĂ­ otĂĄzky</TITLE>
  <LINK rel="stylesheet" type="text/css" href="../default.css">
 </HEAD>
 <BODY background="../teal.jpg" style="margin-left:140px">
 
-<h3>Jde na Von Neumannovském počítači napsat umělá inteligence plně
- srovnatelná s lidským mozkem nebo mezi nimi vždy zůstane jistý rozdíl?
- a další otázky.</h3>
+<h3>Jde na Von NeumannovskĂŠm poÄĂ­taÄi napsat umÄlĂĄ inteligence plnÄ
+ srovnatelnĂĄ s lidskĂ˝m mozkem nebo mezi nimi vĹždy zĹŻstane jistĂ˝ rozdĂ­l?
+ a dalĹĄĂ­ otĂĄzky.</h3>
 <p>
- Mozek je v nějakém stavu, který se v čase spojitě mění.
- (Mění se dokonce Lipschitzovsky = ne příliš rychle, rychlost změn
-  je omezena konstantou L. To se týká i změn na vstupech, třeba při
-  náhlém rozsvícení budeme předpokládat, že naše analogové smysly
-  náraz zmírní do "plynulého" rozsvícení.)
- Chceme napsat program, který by vyjadřoval stav mozku měnící se v čase,
- ale musíme přitom dvakrát kvantizovat (něco spojité s nekonečně
- mnoha stavy zredukovat na diskrétní s konečně mnoha stavy).
- Za prvé jde o stavy mozku, kterých je nekonečně mnoho, ale
- paměť počítače jich umí vyjádřit jen konečné množství.
- Za druhé jde o čas, počítač nemění svůj stav plynule, ale
- skokově, po taktech procesoru.
+ Mozek je v nÄjakĂŠm stavu, kterĂ˝ se v Äase spojitÄ mÄnĂ­.
+ (MÄnĂ­ se dokonce Lipschitzovsky = ne pĹĂ­liĹĄ rychle, rychlost zmÄn
+  je omezena konstantou L. To se tĂ˝kĂĄ i zmÄn na vstupech, tĹeba pĹi
+  nĂĄhlĂŠm rozsvĂ­cenĂ­ budeme pĹedpoklĂĄdat, Ĺže naĹĄe analogovĂŠ smysly
+  nĂĄraz zmĂ­rnĂ­ do "plynulĂŠho" rozsvĂ­cenĂ­.)
+ Chceme napsat program, kterĂ˝ by vyjadĹoval stav mozku mÄnĂ­cĂ­ se v Äase,
+ ale musĂ­me pĹitom dvakrĂĄt kvantizovat (nÄco spojitĂŠ s nekoneÄnÄ
+ mnoha stavy zredukovat na diskrĂŠtnĂ­ s koneÄnÄ mnoha stavy).
+ Za prvĂŠ jde o stavy mozku, kterĂ˝ch je nekoneÄnÄ mnoho, ale
+ pamÄĹĽ poÄĂ­taÄe jich umĂ­ vyjĂĄdĹit jen koneÄnĂŠ mnoĹžstvĂ­.
+ Za druhĂŠ jde o Äas, poÄĂ­taÄ nemÄnĂ­ svĹŻj stav plynule, ale
+ skokovÄ, po taktech procesoru.
 <p>
- Naším cílem zřejmě bude aspoň dostatečné přiblížení.
- Jinak řečeno, abychom pro danou maximální "odchylku" dokázali
- napsat konečný program, který se do ní vejde.
- Snažíme se jednodušším systémem přiblížit systému na kvalitativně
- vyšší úrovni.
+ NaĹĄĂ­m cĂ­lem zĹejmÄ bude aspoĹ dostateÄnĂŠ pĹiblĂ­ĹženĂ­.
+ Jinak ĹeÄeno, abychom pro danou maximĂĄlnĂ­ "odchylku" dokĂĄzali
+ napsat koneÄnĂ˝ program, kterĂ˝ se do nĂ­ vejde.
+ SnaĹžĂ­me se jednoduĹĄĹĄĂ­m systĂŠmem pĹiblĂ­Ĺžit systĂŠmu na kvalitativnÄ
+ vyĹĄĹĄĂ­ Ăşrovni.
 <p>
- Program s konečným počtem diskrétních stavů vyjadřuje stav mozku
- s malými odchylkami danými právě tím konečným počtem.
- Bez újmy na obecnosti budeme předpokládat, že se program
- po 1 taktu dostane do nejbližšího diskrétního stavu k tomu stavu,
- do kterého by se dostal mozek.
- Tímto zaokrouhlováním vzniká chyba, která se časem kumuluje,
- program se vyvíjí jiným směrem než mozek.
+ Program s koneÄnĂ˝m poÄtem diskrĂŠtnĂ­ch stavĹŻ vyjadĹuje stav mozku
+ s malĂ˝mi odchylkami danĂ˝mi prĂĄvÄ tĂ­m koneÄnĂ˝m poÄtem.
+ Bez Ăşjmy na obecnosti budeme pĹedpoklĂĄdat, Ĺže se program
+ po 1 taktu dostane do nejbliĹžĹĄĂ­ho diskrĂŠtnĂ­ho stavu k tomu stavu,
+ do kterĂŠho by se dostal mozek.
+ TĂ­mto zaokrouhlovĂĄnĂ­m vznikĂĄ chyba, kterĂĄ se Äasem kumuluje,
+ program se vyvĂ­jĂ­ jinĂ˝m smÄrem neĹž mozek.
 <p>
  Jsme schopni konstantou K shora omezit odchylku po jednom taktu?
- Díky Lipschitzovskosti změn stavu mozku ano, K=L.
- Navíc zjemňováním dělení kontinua stavů mozku
- na diskrétní stavy programu můžeme konstantu K libovolne snížit.
+ DĂ­ky Lipschitzovskosti zmÄn stavu mozku ano, K=L.
+ NavĂ­c zjemĹovĂĄnĂ­m dÄlenĂ­ kontinua stavĹŻ mozku
+ na diskrĂŠtnĂ­ stavy programu mĹŻĹžeme konstantu K libovolne snĂ­Ĺžit.
 <p>
- Jsme schopni nějakou funkcí F(n) shora omezit odchylku po n taktech?
- Ano, F(n)=(2*L+K)*n&lt=3*L*n, mozek a program se mohou rozjet úplně
- jiným směrem, ale v každém taktu ujedou díky Lipschitzovskosti
- maximálne 2*L + zaokrouhlovací chyba K.
- To není moc hezký výsledek. Konstantu K můžeme libovolně snížit
- přidáním nových stavů, ale L je dána přírodou.
- Pouze pro malá n - dokud se program výrazně neodchýlí od mozku -
- by mělo být F(n) zhruba K*n, tedy pro dané n libovolně nízké.
+ Jsme schopni nÄjakou funkcĂ­ F(n) shora omezit odchylku po n taktech?
+ Ano, F(n)=(2*L+K)*n&lt=3*L*n, mozek a program se mohou rozjet ĂşplnÄ
+ jinĂ˝m smÄrem, ale v kaĹždĂŠm taktu ujedou dĂ­ky Lipschitzovskosti
+ maximĂĄlne 2*L + zaokrouhlovacĂ­ chyba K.
+ To nenĂ­ moc hezkĂ˝ vĂ˝sledek. Konstantu K mĹŻĹžeme libovolnÄ snĂ­Ĺžit
+ pĹidĂĄnĂ­m novĂ˝ch stavĹŻ, ale L je dĂĄna pĹĂ­rodou.
+ Pouze pro malĂĄ n - dokud se program vĂ˝raznÄ neodchĂ˝lĂ­ od mozku -
+ by mÄlo bĂ˝t F(n) zhruba K*n, tedy pro danĂŠ n libovolnÄ nĂ­zkĂŠ.
 <p>
- Můžeme být s takovým výsledkem spokojeni, zaručuje dostatečně věrnou
- simulaci mozku? To je věc interpretace. Že se počítač po daném čase
- neodchýlí od mozku o více než danou mez víme jen s určitou pravděpodobností.
- Jsme tedy vzdáleni od dokonalosti ve třech směrech (omezená délka simulace,
- povolená odchylka na konci simulace, pravděpodobnost překročení odchylky),
- ale všechny vzdálenosti můžeme libovolně zmenšovat upgradováním počítače.
+ MĹŻĹžeme bĂ˝t s takovĂ˝m vĂ˝sledkem spokojeni, zaruÄuje dostateÄnÄ vÄrnou
+ simulaci mozku? To je vÄc interpretace. Ĺ˝e se poÄĂ­taÄ po danĂŠm Äase
+ neodchĂ˝lĂ­ od mozku o vĂ­ce neĹž danou mez vĂ­me jen s urÄitou pravdÄpodobnostĂ­.
+ Jsme tedy vzdĂĄleni od dokonalosti ve tĹech smÄrech (omezenĂĄ dĂŠlka simulace,
+ povolenĂĄ odchylka na konci simulace, pravdÄpodobnost pĹekroÄenĂ­ odchylky),
+ ale vĹĄechny vzdĂĄlenosti mĹŻĹžeme libovolnÄ zmenĹĄovat upgradovĂĄnĂ­m poÄĂ­taÄe.
 <p>
- Nějaký závěr? Na VN počítači jde napsat program projevující se jako
- myslící člověk nebo i mnohem dokonaleji.
- Jediný kvalitativní rozdíl je v použitém hardwaru, počítačový
- je primitivnější.
- Kdyby k tomu byl důvod, byl by tento rozdíl setřen
- - na analogových počítačích.
- Ale k tomu asi nedojde, protože pro naši společnost jsou rozhodující
- jiné aspekty, např. inteligence programu,
- a tady lze snáze dosáhnout výsledků s VN počítačem.
+ NÄjakĂ˝ zĂĄvÄr? Na VN poÄĂ­taÄi jde napsat program projevujĂ­cĂ­ se jako
+ myslĂ­cĂ­ ÄlovÄk nebo i mnohem dokonaleji.
+ JedinĂ˝ kvalitativnĂ­ rozdĂ­l je v pouĹžitĂŠm hardwaru, poÄĂ­taÄovĂ˝
+ je primitivnÄjĹĄĂ­.
+ Kdyby k tomu byl dĹŻvod, byl by tento rozdĂ­l setĹen
+ - na analogovĂ˝ch poÄĂ­taÄĂ­ch.
+ Ale k tomu asi nedojde, protoĹže pro naĹĄi spoleÄnost jsou rozhodujĂ­cĂ­
+ jinĂŠ aspekty, napĹ. inteligence programu,
+ a tady lze snĂĄze dosĂĄhnout vĂ˝sledkĹŻ s VN poÄĂ­taÄem.
 <p>
- A co etika? Mnozí z nás dělají tlustou čáru mezi lidmi
- a vším ostatním. Správně bychom si měli uvědomit, že tu vedle
- sebe stojí dvě spojité linie, analogová (od nejjednodušších organismů
- až po člověka) a digitální (od nejjednodušších kalkulaček až po
- budoucí hyperinteligentní počítače). Určitě nelze hledat ostrou
- hranici uvnitř linie, v čem je člověk lepší než opice?
- Jaký je ale vzájemný vztah obou linií? Jediné co si k tomu troufám
- říct je, že analogová je obecnější a přirozeným vývojem dosáhla
- slušných výsledků, zatímco digitální je vlastně speciálním případem
- analogové, její vývoj začal teprve nedávno a je strmější.
- Jako tvůrci digitální linie ji budeme zpočátku otročit, bez zábran
- zabíjet programy evidentně nám intelektuálně nadřazené apod.
- Ale věřím, že lidé budou tak rozumní, že jednou práva programů dobrovolně
- uznají.
+ A co etika? MnozĂ­ z nĂĄs dÄlajĂ­ tlustou ÄĂĄru mezi lidmi
+ a vĹĄĂ­m ostatnĂ­m. SprĂĄvnÄ bychom si mÄli uvÄdomit, Ĺže tu vedle
+ sebe stojĂ­ dvÄ spojitĂŠ linie, analogovĂĄ (od nejjednoduĹĄĹĄĂ­ch organismĹŻ
+ aĹž po ÄlovÄka) a digitĂĄlnĂ­ (od nejjednoduĹĄĹĄĂ­ch kalkulaÄek aĹž po
+ budoucĂ­ hyperinteligentnĂ­ poÄĂ­taÄe). UrÄitÄ nelze hledat ostrou
+ hranici uvnitĹ linie, v Äem je ÄlovÄk lepĹĄĂ­ neĹž opice?
+ JakĂ˝ je ale vzĂĄjemnĂ˝ vztah obou liniĂ­? JedinĂŠ co si k tomu troufĂĄm
+ ĹĂ­ct je, Ĺže analogovĂĄ je obecnÄjĹĄĂ­ a pĹirozenĂ˝m vĂ˝vojem dosĂĄhla
+ sluĹĄnĂ˝ch vĂ˝sledkĹŻ, zatĂ­mco digitĂĄlnĂ­ je vlastnÄ speciĂĄlnĂ­m pĹĂ­padem
+ analogovĂŠ, jejĂ­ vĂ˝voj zaÄal teprve nedĂĄvno a je strmÄjĹĄĂ­.
+ Jako tvĹŻrci digitĂĄlnĂ­ linie ji budeme zpoÄĂĄtku otroÄit, bez zĂĄbran
+ zabĂ­jet programy evidentnÄ nĂĄm intelektuĂĄlnÄ nadĹazenĂŠ apod.
+ Ale vÄĹĂ­m, Ĺže lidĂŠ budou tak rozumnĂ­, Ĺže jednou prĂĄva programĹŻ dobrovolnÄ
+ uznajĂ­.
 <p>
- Může si program uvědomit nespojitost svého běhu v kontrastu se spojitostí
- běhu světa? Spojitost běhu světa vůbec nemůže zachytit, protože vstupy
- zpracovává pouze v dikrétních časových okamžicích. Ale může ji teoreticky
- odvodit. Případné pokusy o nespojitou teorii spojitého světa by nutně
- selhávaly ze stejného důvodu, z jakého nejde na VN počítači věrně simulovat
- lidský mozek (pouze přiblížit, viz. předchozí analýza). Zdá se tedy, že
- program by měl být schopen uvědomit si na základě svých vstupů z vnějšího
- světa své postavení v něm a jakými zákony se ten svět řídí. (Pomocí
- Occamovy břitvy vybere nejjednodušší teorii přesně vysvětlující
- všechny vstupy, které zvenčí dostává. Pokud nebude mít tolik vstupů co my,
- možná vytvoří z našeho pohledu nesprávnou teorii.)
- A teď se vás zeptám vás, kteří se zajímáte o fyziku hlouběji než já:
- Nepodobá se snaha fyziků o popis naší reality marnému nikdy nekončícímu
- přibližování? Funguje náš svět opravdu spojitě? (Co o tom říká kvantová
+ MĹŻĹže si program uvÄdomit nespojitost svĂŠho bÄhu v kontrastu se spojitostĂ­
+ bÄhu svÄta? Spojitost bÄhu svÄta vĹŻbec nemĹŻĹže zachytit, protoĹže vstupy
+ zpracovĂĄvĂĄ pouze v dikrĂŠtnĂ­ch ÄasovĂ˝ch okamĹžicĂ­ch. Ale mĹŻĹže ji teoreticky
+ odvodit. PĹĂ­padnĂŠ pokusy o nespojitou teorii spojitĂŠho svÄta by nutnÄ
+ selhĂĄvaly ze stejnĂŠho dĹŻvodu, z jakĂŠho nejde na VN poÄĂ­taÄi vÄrnÄ simulovat
+ lidskĂ˝ mozek (pouze pĹiblĂ­Ĺžit, viz. pĹedchozĂ­ analĂ˝za). ZdĂĄ se tedy, Ĺže
+ program by mÄl bĂ˝t schopen uvÄdomit si na zĂĄkladÄ svĂ˝ch vstupĹŻ z vnÄjĹĄĂ­ho
+ svÄta svĂŠ postavenĂ­ v nÄm a jakĂ˝mi zĂĄkony se ten svÄt ĹĂ­dĂ­. (PomocĂ­
+ Occamovy bĹitvy vybere nejjednoduĹĄĹĄĂ­ teorii pĹesnÄ vysvÄtlujĂ­cĂ­
+ vĹĄechny vstupy, kterĂŠ zvenÄĂ­ dostĂĄvĂĄ. Pokud nebude mĂ­t tolik vstupĹŻ co my,
+ moĹžnĂĄ vytvoĹĂ­ z naĹĄeho pohledu nesprĂĄvnou teorii.)
+ A teÄ se vĂĄs zeptĂĄm vĂĄs, kteĹĂ­ se zajĂ­mĂĄte o fyziku hloubÄji neĹž jĂĄ:
+ NepodobĂĄ se snaha fyzikĹŻ o popis naĹĄĂ­ reality marnĂŠmu nikdy nekonÄĂ­cĂ­mu
+ pĹibliĹžovĂĄnĂ­? Funguje nĂĄĹĄ svÄt opravdu spojitÄ? (Co o tom ĹĂ­kĂĄ kvantovĂĄ
  fyzika?)
 </blockquote>
 </a>
