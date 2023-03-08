@@ -1,8 +1,19 @@
 
   BODY {BACKGROUND-COLOR: #ffffff; BACKGROUND-POSITION: left top;
 	BACKGROUND-REPEAT: repeat-y; COLOR: #000000; FONT-FAMILY: "Arial";
-	FONT-SIZE: 12pt; FONT-WEIGHT: normal; MARGIN-BOTTOM: 1em; 
+	FONT-SIZE: 100%; FONT-WEIGHT: normal; MARGIN-BOTTOM: 1em; 
 	MARGIN-RIGHT: 2em; MARGIN-TOP: 1em}
+
+@media screen and (min-width: 600px){
+
+  BODY {background-image: url(bricks.jpg); margin-left: 120px; max-width: 1050px;}
+
+  BODY.article {background-image: url(teal.jpg); margin-left:140px;>
+
+  BODY.kino {background-image: url(texty/bamboo.jpg); margin-left: 100px;}
+
+}
+
   A:link { color: blue }
   A:visited { color: maroon }
   A:active { color: red }
