@@ -30,4 +30,4 @@ Usage:
 
 Autor:
  Dee
- http://dee.cz
+ https://dee.cz
