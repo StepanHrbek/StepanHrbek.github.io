@@ -7,7 +7,7 @@ type index.html | head -n +28 > index.head
 for %%f in (*.html) do IF /i NOT "%%f"=="index.html" (
 	echo %%f
 	type %%f | tail -n +29 > %%~nf.tail
-	copy index.head + %%~nf.tail %%~nf.html
+	copy /b index.head + %%~nf.tail %%~nf.html
 	del %%~nf.tail
 )
 
