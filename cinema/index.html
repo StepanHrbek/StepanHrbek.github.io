@@ -21,9 +21,9 @@
 </tr></table>
 <p>
 
- <h2>Digital reconstruction of cartoon movies based on genetic algorithms</h2>
+ <h2>Digital reconstruction of cartoon movies based on genetic algorithms (unfinished, 2002)</h2>
 
- <img src="0000.png"><p>
+ <img src="0000.png" width="95%"><p>
 
  <table width="100%" bgcolor=#cccccc><td>What is done</td></table>
  <ul>
@@ -40,14 +40,14 @@
  <li>dee at dee.cz
  </ul>
 
- <img src="0014.png"><p>
+ <img src="0014.png" width="95%"><p>
 
- <table width="100%" bgcolor=#cccccc><td>Paper on module2, Czech only preview (2002)</td></table>
- <pre>
+ <table width="100%" bgcolor=#cccccc><td>started writing about module2 in Czech, unfinished</td></table>
 
-Vyrovnání globálního kolísání jasu v sekvencích obrázků
 
-Úvod/Abstrakt
+<h1>Vyrovnání globálního kolísání jasu v sekvencích obrázků<h1>
+
+<h2>Úvod/Abstrakt</h2>
 
 V sekvencích obrázků se mohou z různých důvodů objevovat nežádoucí 
 globální fluktuace jasu. Protože informace potřebná k jejich detekci 
@@ -59,9 +59,9 @@ jako splajn nejlépe odpovídající námi zvoleným kritériím.
 
 
 
-Vyrovnávání jasu
+<h2>Vyrovnávání jasu</h>
 
-Konstrukce jasové transformace 
+<h3>Konstrukce jasové transformace</h3>
 
 Globální transformaci jasu (kde jas je reálné číslo 0..1) definujeme jako neklesající 
 funkci tl:R->R procházející body [0,0] a [1,1].
@@ -87,11 +87,11 @@ jiné splajny dávaly srovnatelné výsledky.
 Jako optimální počet bodů, kterými splajn prochází,
 se v případě animovaného filmu Rumcajs ukázalo číslo pět (tj. tři pohyblivé).
 
-Kritéria optimality
+<h3>Kritéria optimality</h3>
 
 Popíšeme tři schémata umožňující posoudit kvalitu jasové transformace Tl.
 
--Porovnání histogramů snímků Fa a Tl(Fb)
+<ul><li><h5>Porovnání histogramů snímků Fa a Tl(Fb)</h5>
 
 Jako jednoduché kritérium optimality transformace Tl je možné brát podobnost
 histogramů Fa a Tl(Fb). Porovnání vychází z očekávání, že ve filmových sekvencích
@@ -105,7 +105,7 @@ histogramy relativně často mění takovým způsobem
 celých snímků není možné vhodnou transformaci jasu určit. 
 Tuto cestu jsme tedy opustili.
 
--Porovnání histogramů jednotlivých objektů nalezených v Tg(Fa) i Tl(Fb)
+</li><li><h5>Porovnání histogramů jednotlivých objektů nalezených v Tg(Fa) i Tl(Fb)</h5>
 
 Problémy předchozí metody je možné odstranit nalezením a 
 porovnáním pouze objektů nalezených v obou snímcích.
@@ -120,7 +120,7 @@ jejich textur po odečtení jejich průměrného jasu (zůstane informce témě�
 nezávislá na zatím neznámé možné změně jasu).
 Toto kritérium by bylo vhodné pro obecný filmový materiál.
 
--Porovnání histrogramů průniku Tg(Fa) a Tl(Fb)
+</li><li><h5>Porovnání histrogramů průniku Tg(Fa) a Tl(Fb)</h5>
 
 Primárním cílem této práce bylo vyřešit zadaný problém
 pro konkrétní případ animovaných večerníčků Rumcajs.
@@ -141,8 +141,9 @@ snaží minimalizovat) definovaná jako
  SUM[i=0..255] abs( Tl(Fb).hist[i]-Tg(Fa).hist[i] )
 (F.hist[i] značí počet pixelů s jasem i ve snímku F) 
 a dále zahrnující následující modifikace.
+</ul>
 
-Vyhlazení histogramů
+<h3>Vyhlazení histogramů</h3>
 
 U dostatečně velkých obrázků nemá náhodný šum v texturách vliv 
 na podobnost histogramů. Ovšem
@@ -159,7 +160,7 @@ Krok opakujeme dokud poměr SUM histo[j]-(histo[j-1]+histo[j+1])/2
 k počtu zpracovávaných pixelů překračuje zadanou míru hrubosti histogramu
 (pro histogram o 256 prvcích nad obrázky v TV rozlišení se osvědčilo 0.01).
 
-Zvýraznění minoritních extrémů v histogramu
+<h3>Zvýraznění minoritních extrémů v histogramu</h3>
 
 V delších pásmech jasů,
 které se ve snímcích Tg(Fa) a Fb téměř nevyskytují (neobydlená pásma),
@@ -172,7 +173,7 @@ a vysoké potlačeny - hist[i] nahradíme výrazem
 Uvedená transformace pomáhá najít takovou transformaci, která i drobný lokální 
 extrém v neobydleném pásmu namapuje na korespondující extrém v druhém histogramu.
 
-Preference jednoduché transformace
+<h3>Preference jednoduché transformace</h3>
 
 Pokud se v neobydleném pásmu nevyskytují žádné vhodné lokální extrémy,
 kterými by se optimalizační proces řídil, nelze o průběhu transformační
@@ -183,7 +184,7 @@ Do kritéria optimality tedy zahrneme penaltu
 penalizující "klikatost" křivky a podporující její "hladkost" v neobydlených
 pásmech (čitatel vyjadřuje klikatost, jmenovatel obydlenost).
 
-Pásmo tolerovaného šumu
+<h3>Pásmo tolerovaného šumu</h3>
 
 Pokud se korespondující pixely porovnávaných snímků Tg(Fa) a Tl(Fb)
 (Tl je zde dosud nejlepší nalezená jasová transformace, na začátku výpočtu identita)
@@ -194,7 +195,7 @@ v pro nás podstatné oblasti, kde se snímky svým obsahem shodují; odchylka
 pak bývá způsobena pouze drobnými nepřesnostni Tg a šumem v textuře,
 který jsme se rozhodli ještě tolerovat.
 
-Zužování pásma tolerovaného šumu
+<h3>Zužování pásma tolerovaného šumu</h3>
 
 Při stanovení šířky pásma šumu (DELTA) hrají roli dva faktory. Chceme aby program dokázal 
 zdetekovat co největší transformace jasu (např. změnu jasu 100/255 na 150/255,
@@ -210,7 +211,7 @@ pásmo se pokaždé zúží kolem dosud nejlepší nalezené jasové transformac
 Pro zvýšení efektivity výpočtu nepracujeme vždy s celými snímky ale
 pouze s jejich histogramy, které při každé změně DELTA aktualizujeme.
 
-Využití pixelů mimo tolerovaný šum
+<h3>Využití pixelů mimo tolerovaný šum</h3>
 
 V situaci, kdy zcela ignorujeme pixely Tg(Fa) a Tl(Fb), které spolu
 nekorespondují, tj. do výpočtu není zahrnut objekt pohybující se nad
@@ -225,7 +226,7 @@ histogramy se stávájí součástí výsledného kritéria optimality s vahou 0
 (výsledky zjištěné nad dosud popisovanými histogramy obsahujícími pouze 
 pixely z pásma tolerovaného šumu mají váhu 0.67).
 
-Zpracování sekvence
+<h3>Zpracování sekvence</h3>
 
 Sekvence je posloupnost snímků F1 až FN taková, že mezi snímáním Fn
 a Fn+1 nedošlo k výraznému pohybu nebo zoomu kamery a oba snímky
@@ -240,9 +241,9 @@ a n=ref+1, mezi snímky Fn-1 a Fn jsme nalezli rozhraní sekvencí.
 
 
 
-Budoucí práce
+<h2>Budoucí práce</h2>
 
-Záměrné pomalé změny jasu
+<h3>Záměrné pomalé změny jasu</h3>
 
 V situaci kdy objekt náhle zřetelně změní jas nevzniká žádná komplikace,
 výše popsaný optimalizační postup nebere náhle změněný objekt v potaz
@@ -256,7 +257,7 @@ V sekvenci, která je výstupem programu,
 pak záměrná plynulá změna jasu začne až o 16 snímků později a to skokem.
 V současné implementaci není problém ošetřen.
 
-Pohyb nad širokou scénou
+<h3>Pohyb nad širokou scénou</h3>
 
 Pokud kamera v jednom záběru odjede do strany o n šířek snímku,
 zpracování celé sekvence si vyžádá minimálně 2*n změn referenčního snímku.
@@ -270,30 +271,35 @@ Všechny drobné chyby jasových transformací se skládáním násobí,
 takže pro rostoucí n bude výsledek divergovat.
 V takových situacích by bylo provizorním řešením zpracovat sekvenci 
 nezávisle po menších částech.
-                 
-Související komponenty
+
+<h3>Související komponenty</h3>
 
 Celý implementovaný systém nyní zahrnuje tyto komponenty
--subpixelové sledování pohybu kamery (pravo-levo, nahoru-dolů, zoom,
+<ul><li>
+ subpixelové sledování pohybu kamery (pravo-levo, nahoru-dolů, zoom,
  rozšiřitelné na obecnější transformaci)
  optimalizované pro Rumcajse, se spolehlivostí zatím kolem 90-95%,
  vyžaduje další vývoj
--zde popsané vyrovnávání jasu v sekvencích, optimalizované pro Rumcajse
+</li><li>
+ zde popsané vyrovnávání jasu v sekvencích, optimalizované pro Rumcajse
  ale pravděpodobně bez zásahů vhodné i pro jiné animované filmy,
  pro obecný obrazový materiál použitelné pouze s vyspělou komponentou 
  sledování pohybu 
--velmi kvalitní eliminace
+</li><li>
+ velmi kvalitní eliminace
  kolem 95% škrábanců a prachu založená na podobnosti sousedních snímků
  v animovaném Rumcajsovi
--skládání společného pozadí ze sekvencí obrázků
+</li><li>
+ skládání společného pozadí ze sekvencí obrázků
  eliminující z pozadí kromě zhruba 99% škrábanců a prachu i větší část popředí,
  sekání společného pozadí na pozadí jednotlivých snímků
+</li></ul>
 Neinteraktivní systém je možné dále vyvíjet a rozšířit o interakci,
 která by umožnila ruční korekce chyb zejména v komponentě sledování pohybu kamery.
 
 
 
-Závěr
+<h2>Závěr</h2>
 
 Popsali jsme systém vyrovnávající jas v sekvencích
 obrázků a implememtovali jeho verzi optimalizovanou pro korekce jasu ve starých
@@ -304,7 +310,6 @@ případně možnost interaktivního opravování chyb systému.
 Přechod na obecný filmový materiál je možný
 s dostatečně vyspělou komponentou sledování pohybu.
 
- </pre>
 
 </BODY>
 </HTML>
