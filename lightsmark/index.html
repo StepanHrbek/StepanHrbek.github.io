@@ -4,6 +4,15 @@
  <META charset="UTF-8">
  <META name="viewport" content="width=device-width, initial-scale=1">
  <title>LIGHTSMARK - next generation lighting benchmark</title>
+ <style>
+@media screen and (min-width: 800px)
+{
+  .direction {
+	display:flex;
+	flex-direction:row;
+  }
+}
+ </style>
 </head>
 <body style="max-width: 1050px; margin-left: auto; margin-right: auto;">
 
@@ -83,18 +92,24 @@ Realtime global illumination
 What's new in 2008
 </td></tr></tbody></table>
 
-<table border="0" cellpadding="2" cellspacing="0"><tr><td>
-<img src="whatsnew2008.jpg">
-</td><td>&nbsp;</td><td>
-<li>faster engine (up to 3x higher fps, so scores are different)
-<li>increased realism (per-pixel indirect shadows and color bleeding)
-<li>Linux support (was Windows only)
-<li>native 64bit support (was 32bit only)
-<li>all GPUs use the same render path (in 2007 they didn't due to driver bug)
-<li>minor rendering fixes (sun's shadow, robot's back faces)
-</td><td>&nbsp;</td><td>
-<img src="whatsnew2008fix.jpg">
-</td></tr></table>
+<div class="direction">
+<div>
+ <img src="whatsnew2008.jpg">
+</div>
+<div>
+ <ul>
+ <li>faster engine (up to 3x higher fps, so scores are different)
+ <li>increased realism (per-pixel indirect shadows and color bleeding)
+ <li>Linux support (was Windows only)
+ <li>native 64bit support (was 32bit only)
+ <li>all GPUs use the same render path (in 2007 they didn't due to driver bug)
+ <li>minor rendering fixes (sun's shadow, robot's back faces)
+ </ul>
+</div>
+<div>
+ <img src="whatsnew2008fix.jpg">
+</div>
+</div>
 
 <br><table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
 Frequently asked questions
@@ -144,6 +159,7 @@ Troubleshooting
 Requirements (quite small)
 </td></tr></tbody></table>
 
+ <ul>
  <li>Windows XP/Vista (32bit, 64bit) or Linux (32bit, 64bit) <small>[not included but working: Playstation 3/Linux]</small></li>
  <li><a href="https://opengl.org">OpenGL</a> 2.0 compliant GPU with at least 32 MB RAM
    <small>
@@ -156,6 +172,7 @@ Requirements (quite small)
  <li>100 MB free disk space</li>
  <li>x86/x64 CPU with SSE</li>
  <li>installer requires .NET framework, multiplatform archive doesn't</li>
+ </ul>
 
 <br><table style="width: 100%; font-weight: bold;" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td style="background-color: rgb(204, 204, 204);">
 License
