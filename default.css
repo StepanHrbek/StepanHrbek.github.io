@@ -20,3 +20,4 @@
   H1 { color: red }
   SPAN { color: blue }
   DIV.kino { color: blue }
+  PRE {	white-space: pre-wrap }
